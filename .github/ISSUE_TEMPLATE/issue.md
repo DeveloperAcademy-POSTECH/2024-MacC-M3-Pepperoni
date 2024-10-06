@@ -1,6 +1,6 @@
 ---
 name: Issue
-about: 구현 기능에 대한 목표와 작업(Task)을 적어주세요.
+about: 진행할 작업에 대한 목적과 해야할 일을 적어주세요.
 title: "[Feat/Fix/Bug] title"
 labels: Feat, Fix, Bug, 
 assignees: ''
