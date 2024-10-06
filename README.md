@@ -33,5 +33,5 @@ ex) `feat/#24-DataModeling`
 
 | Won 강우원 | Junyo 변준섭 | Jen 현재연 |
 |:-:|:-:|:-:|
-|<img src="https://avatars.githubusercontent.com/u/54755633?v=4" width=120>|<img src="https://avatars.githubusercontent.com/u/130440930?v=4" width=120>|<img src="https://avatars.githubusercontent.com/u/64794813?v=4" width=120>|
+|<img src="https://avatars.githubusercontent.com/u/82072195?v=4" width=120>|<img src="https://avatars.githubusercontent.com/u/130440930?v=4" width=120>|<img src="https://avatars.githubusercontent.com/u/64794813?v=4" width=120>|
 |[@mosiccan](https://github.com/mosiccan)|[@SSub-jun](https://github.com/SSub-jun)|[@HyunJaeyeon](https://github.com/HyunJaeyeon)|
