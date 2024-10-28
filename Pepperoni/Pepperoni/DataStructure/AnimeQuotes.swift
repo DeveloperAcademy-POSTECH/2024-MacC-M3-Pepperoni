@@ -51,16 +51,20 @@ class AnimeQuote {
     var pronunciation: [String] // 사용자가 수정 가능한 발음 배열
     var korean: [String] // 한국어 번역 배열
     var evaluation: Evaluation // 사용자가 수정 가능한 평가 데이터
+    var timemark: [Double] // 각 대사의 타임마크
+    var audiofile: String // 오디오 파일 이름
 
     // AnimeQuote가 속한 Character를 나타내기 위한 관계
     @Relationship(deleteRule: .nullify, inverse: \Character.quotes) var character: Character?
 
-    init(id: UUID = UUID(), japanese: [String], pronunciation: [String], korean: [String], evaluation: Evaluation, character: Character? = nil) {
+    init(id: UUID = UUID(), japanese: [String], pronunciation: [String], korean: [String], evaluation: Evaluation, timemark: [Double], audiofile: String, character: Character? = nil) {
         self.id = id
         self.japanese = japanese
         self.pronunciation = pronunciation
         self.korean = korean
         self.evaluation = evaluation
+        self.timemark = timemark
+        self.audiofile = audiofile
         self.character = character
     }
 }
