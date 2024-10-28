@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90D8793D2CCF60BD0053424D /* AnimeQuotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D8793C2CCF60BD0053424D /* AnimeQuotes.swift */; };
 		BD737E402CC7468C0096CDEC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD737E3F2CC746840096CDEC /* .gitignore */; };
 		BDE03C4F2CCF2634000DACB8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE03C4C2CCF2634000DACB8 /* ContentView.swift */; };
 		BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		90D8793C2CCF60BD0053424D /* AnimeQuotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeQuotes.swift; sourceTree = "<group>"; };
 		BD737E2E2CC746710096CDEC /* Pepperoni.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pepperoni.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD737E3F2CC746840096CDEC /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BDE03C482CCF2634000DACB8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -34,6 +36,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		90D8793B2CCF60970053424D /* DataStructure */ = {
+			isa = PBXGroup;
+			children = (
+				90D8793C2CCF60BD0053424D /* AnimeQuotes.swift */,
+			);
+			path = DataStructure;
+			sourceTree = "<group>";
+		};
 		BD737E252CC746710096CDEC = {
 			isa = PBXGroup;
 			children = (
@@ -59,21 +69,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		BDE03C4A2CCF2634000DACB8 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		BDE03C4E2CCF2634000DACB8 /* Pepperoni */ = {
 			isa = PBXGroup;
 			children = (
+				90D8793B2CCF60970053424D /* DataStructure */,
 				BDE03C492CCF2634000DACB8 /* Preview Content */,
-				BDE03C4A2CCF2634000DACB8 /* View */,
 				BDE03C4B2CCF2634000DACB8 /* Assets.xcassets */,
-				BDE03C4C2CCF2634000DACB8 /* ContentView.swift */,
 				BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */,
+				BDE03C4C2CCF2634000DACB8 /* ContentView.swift */,
 			);
 			path = Pepperoni;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90D8793D2CCF60BD0053424D /* AnimeQuotes.swift in Sources */,
 				BDE03C4F2CCF2634000DACB8 /* ContentView.swift in Sources */,
 				BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */,
 			);
