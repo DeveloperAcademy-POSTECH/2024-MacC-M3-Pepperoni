@@ -10,9 +10,8 @@ import SwiftUI
 struct VideoView: View {
     var body: some View {
         VStack {
-            VideoWrapper(videoID: "E-FHHWeYhAg")
+            VideoWrapper(videoID: "E-FHHWeYhAg", startTime: 20)
                 .frame(height: 300)
-                .cornerRadius(10)
                 .padding()
         }
     }
