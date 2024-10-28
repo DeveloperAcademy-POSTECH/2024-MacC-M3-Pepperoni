@@ -8,20 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		BD737E402CC7468C0096CDEC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD737E3F2CC746840096CDEC /* .gitignore */; };
+		BDE03C4F2CCF2634000DACB8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE03C4C2CCF2634000DACB8 /* ContentView.swift */; };
+		BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */; };
+		BDE03C512CCF2634000DACB8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDE03C482CCF2634000DACB8 /* Preview Assets.xcassets */; };
+		BDE03C522CCF2634000DACB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDE03C4B2CCF2634000DACB8 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BD737E2E2CC746710096CDEC /* Pepperoni.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pepperoni.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD737E3F2CC746840096CDEC /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		BDE03C482CCF2634000DACB8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BDE03C4B2CCF2634000DACB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BDE03C4C2CCF2634000DACB8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PepperoniApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		BD737E302CC746710096CDEC /* Pepperoni */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Pepperoni;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		BD737E2B2CC746710096CDEC /* Frameworks */ = {
@@ -38,7 +38,7 @@
 			isa = PBXGroup;
 			children = (
 				BD737E3F2CC746840096CDEC /* .gitignore */,
-				BD737E302CC746710096CDEC /* Pepperoni */,
+				BDE03C4E2CCF2634000DACB8 /* Pepperoni */,
 				BD737E2F2CC746710096CDEC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +49,33 @@
 				BD737E2E2CC746710096CDEC /* Pepperoni.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		BDE03C492CCF2634000DACB8 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				BDE03C482CCF2634000DACB8 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BDE03C4A2CCF2634000DACB8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BDE03C4E2CCF2634000DACB8 /* Pepperoni */ = {
+			isa = PBXGroup;
+			children = (
+				BDE03C492CCF2634000DACB8 /* Preview Content */,
+				BDE03C4A2CCF2634000DACB8 /* View */,
+				BDE03C4B2CCF2634000DACB8 /* Assets.xcassets */,
+				BDE03C4C2CCF2634000DACB8 /* ContentView.swift */,
+				BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */,
+			);
+			path = Pepperoni;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,9 +92,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				BD737E302CC746710096CDEC /* Pepperoni */,
 			);
 			name = Pepperoni;
 			packageProductDependencies = (
@@ -115,6 +139,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDE03C512CCF2634000DACB8 /* Preview Assets.xcassets in Resources */,
+				BDE03C522CCF2634000DACB8 /* Assets.xcassets in Resources */,
 				BD737E402CC7468C0096CDEC /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,6 +152,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDE03C4F2CCF2634000DACB8 /* ContentView.swift in Sources */,
+				BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
