@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BD26F3622CCFF03000F6007F /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3612CCFF03000F6007F /* VideoView.swift */; };
-		BD26F3642CCFF05100F6007F /* VideoWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3632CCFF04C00F6007F /* VideoWrapper.swift */; };
+		BD26F3622CCFF03000F6007F /* VideoTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3612CCFF03000F6007F /* VideoTestView.swift */; };
+		BD54BC3A2CD1225000366076 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = BD54BC392CD1225000366076 /* YouTubeiOSPlayerHelper */; };
+		BD54BC3C2CD122A300366076 /* YouTubePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */; };
 		BD737E402CC7468C0096CDEC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD737E3F2CC746840096CDEC /* .gitignore */; };
 		BDE03C4F2CCF2634000DACB8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE03C4C2CCF2634000DACB8 /* ContentView.swift */; };
 		BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */; };
@@ -17,8 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BD26F3612CCFF03000F6007F /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoView.swift; path = Pepperoni/VideoView.swift; sourceTree = SOURCE_ROOT; };
-		BD26F3632CCFF04C00F6007F /* VideoWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWrapper.swift; sourceTree = "<group>"; };
+		BD26F3612CCFF03000F6007F /* VideoTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoTestView.swift; path = Pepperoni/VideoTestView.swift; sourceTree = SOURCE_ROOT; };
+		BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YouTubePlayerView.swift; path = Pepperoni/YouTubePlayerView.swift; sourceTree = SOURCE_ROOT; };
 		BD737E2E2CC746710096CDEC /* Pepperoni.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pepperoni.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD737E3F2CC746840096CDEC /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BDE03C482CCF2634000DACB8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -59,7 +60,6 @@
 		BDE03C492CCF2634000DACB8 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				BD26F3632CCFF04C00F6007F /* VideoWrapper.swift */,
 				BDE03C482CCF2634000DACB8 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -68,7 +68,8 @@
 		BDE03C4A2CCF2634000DACB8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BD26F3612CCFF03000F6007F /* VideoView.swift */,
+				BD26F3612CCFF03000F6007F /* VideoTestView.swift */,
+				BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -163,10 +164,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD26F3622CCFF03000F6007F /* VideoView.swift in Sources */,
-				BD26F3642CCFF05100F6007F /* VideoWrapper.swift in Sources */,
+				BD26F3622CCFF03000F6007F /* VideoTestView.swift in Sources */,
 				BDE03C4F2CCF2634000DACB8 /* ContentView.swift in Sources */,
 				BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */,
+				BD54BC3C2CD122A300366076 /* YouTubePlayerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

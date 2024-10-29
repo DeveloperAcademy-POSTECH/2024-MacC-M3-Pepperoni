@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct VideoView: View {
+struct VideoTestView: View {
     var body: some View {
         VStack {
-            VideoWrapper(videoID: "E-FHHWeYhAg", startTime: 20)
+            YouTubePlayerView(videoID: "CGREMa2xFBk", startTime: 20)
                 .frame(height: 300)
                 .padding()
         }
@@ -18,5 +18,5 @@ struct VideoView: View {
 }
 
 #Preview {
-    VideoView()
+    VideoTestView()
 }
