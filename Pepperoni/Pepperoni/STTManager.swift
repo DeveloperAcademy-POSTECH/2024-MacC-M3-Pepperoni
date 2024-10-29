@@ -5,10 +5,7 @@
 //  Created by Woowon Kang on 10/28/24.
 //
 
-import Foundation
 import Speech
-import AVFoundation
-import Combine
 
 class STTManager: ObservableObject {
     @Published var isRecording = false
