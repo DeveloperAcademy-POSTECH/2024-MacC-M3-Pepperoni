@@ -13,7 +13,7 @@ class Anime {
     @Attribute(.unique) var id: UUID
     var title: String // 애니메이션 제목
     @Relationship(deleteRule: .cascade) var characters: [Character] // Character와 1:N 관계
-    var favorite: Bool
+    var favorite: Bool // 즐겨찾기(핀) 여부
 
     init(id: UUID = UUID(), title: String, characters: [Character] = [], favorite: Bool = false) {
         self.id = id
@@ -47,11 +47,11 @@ class Character {
 @Model
 class AnimeQuote {
     @Attribute(.unique) var id: UUID
-    var japanese: [String] // 명대사 일본어 배열
-    var pronunciation: [String] // 사용자가 수정 가능한 발음 배열
-    var korean: [String] // 한국어 번역 배열
-    var evaluation: Evaluation // 사용자가 수정 가능한 평가 데이터
-    var timemark: [Double] // 각 대사의 타임마크
+    var japanese: [String] // 대사 일본어 배열
+    var pronunciation: [String] // 대사 발음 배열
+    var korean: [String] // 대사 한국어 번역 배열
+    var evaluation: Evaluation // 각 요소별 점수 및 통과 여부
+    var timemark: [Double] // 각 단어(구)가 시작되는 타임마크
     var audiofile: String // 오디오 파일 이름
 
     // AnimeQuote가 속한 Character를 나타내기 위한 관계
