@@ -32,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD54BC3A2CD1225000366076 /* YouTubeiOSPlayerHelper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +102,7 @@
 			);
 			name = Pepperoni;
 			packageProductDependencies = (
+				BD54BC392CD1225000366076 /* YouTubeiOSPlayerHelper */,
 			);
 			productName = Pepperoni;
 			productReference = BD737E2E2CC746710096CDEC /* Pepperoni.app */;
@@ -130,6 +132,9 @@
 			);
 			mainGroup = BD737E252CC746710096CDEC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				BD54BC382CD1225000366076 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BD737E2F2CC746710096CDEC /* Products */;
 			projectDirPath = "";
@@ -367,6 +372,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BD54BC382CD1225000366076 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/youtube/youtube-ios-player-helper.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BD54BC392CD1225000366076 /* YouTubeiOSPlayerHelper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD54BC382CD1225000366076 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */;
+			productName = YouTubeiOSPlayerHelper;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BD737E262CC746710096CDEC /* Project object */;
 }
