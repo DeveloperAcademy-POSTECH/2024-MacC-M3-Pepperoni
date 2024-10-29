@@ -8,14 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var router = Router.shared
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack(path: $router.navPath) {
+            HomeView()
+                .navigationDestination(for: Destination.self) { destination in
+                    switch destination {
+                    case .home:
+                        HomeView()
+                    case .search:
+                        SearchView()
+                    case .learning(let id):
+                        LearningView(animeId: id)
+                    case .result(let score):
+                        ResultView(score: score)
+                    }
+                }
         }
-        .padding()
     }
 }
 
