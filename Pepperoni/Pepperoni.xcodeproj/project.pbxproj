@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD26F35B2CCFD63F00F6007F /* LearningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3582CCFD63F00F6007F /* LearningView.swift */; };
+		BD26F35C2CCFD63F00F6007F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F35A2CCFD63F00F6007F /* SearchView.swift */; };
+		BD26F35D2CCFD63F00F6007F /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3592CCFD63F00F6007F /* ResultView.swift */; };
+		BD26F35E2CCFD63F00F6007F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3572CCFD63F00F6007F /* HomeView.swift */; };
+		BD26F3602CCFD66500F6007F /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F35F2CCFD66500F6007F /* Router.swift */; };
 		BD737E402CC7468C0096CDEC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD737E3F2CC746840096CDEC /* .gitignore */; };
 		BDE03C4F2CCF2634000DACB8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE03C4C2CCF2634000DACB8 /* ContentView.swift */; };
 		BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */; };
@@ -15,6 +20,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD26F3572CCFD63F00F6007F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		BD26F3582CCFD63F00F6007F /* LearningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningView.swift; sourceTree = "<group>"; };
+		BD26F3592CCFD63F00F6007F /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		BD26F35A2CCFD63F00F6007F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		BD26F35F2CCFD66500F6007F /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		BD737E2E2CC746710096CDEC /* Pepperoni.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pepperoni.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD737E3F2CC746840096CDEC /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BDE03C482CCF2634000DACB8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -62,6 +72,10 @@
 		BDE03C4A2CCF2634000DACB8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BD26F3572CCFD63F00F6007F /* HomeView.swift */,
+				BD26F3582CCFD63F00F6007F /* LearningView.swift */,
+				BD26F3592CCFD63F00F6007F /* ResultView.swift */,
+				BD26F35A2CCFD63F00F6007F /* SearchView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -74,6 +88,7 @@
 				BDE03C4B2CCF2634000DACB8 /* Assets.xcassets */,
 				BDE03C4C2CCF2634000DACB8 /* ContentView.swift */,
 				BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */,
+				BD26F35F2CCFD66500F6007F /* Router.swift */,
 			);
 			path = Pepperoni;
 			sourceTree = "<group>";
@@ -154,6 +169,11 @@
 			files = (
 				BDE03C4F2CCF2634000DACB8 /* ContentView.swift in Sources */,
 				BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */,
+				BD26F35B2CCFD63F00F6007F /* LearningView.swift in Sources */,
+				BD26F3602CCFD66500F6007F /* Router.swift in Sources */,
+				BD26F35C2CCFD63F00F6007F /* SearchView.swift in Sources */,
+				BD26F35D2CCFD63F00F6007F /* ResultView.swift in Sources */,
+				BD26F35E2CCFD63F00F6007F /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
