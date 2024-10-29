@@ -25,6 +25,7 @@ struct DataLoadingView: View{
                 }
             }
     }
+    
     private func isFirstLaunch() -> Bool {
         let key = "isFirstLaunch"
         let isFirst = !UserDefaults.standard.bool(forKey: key)
