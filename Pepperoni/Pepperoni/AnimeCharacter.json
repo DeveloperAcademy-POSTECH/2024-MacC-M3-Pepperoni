@@ -1,0 +1,34 @@
+[
+    {
+        "anime": "하이큐",
+        "characters": [
+            {
+                "name": "오이카와 토오루"
+            }
+        ]
+    },
+    {
+        "anime": "원피스",
+        "characters": [
+            {
+                "name": "빈스모크 상디"
+            }
+        ]
+    },
+    {
+        "anime": "최애의 아이",
+        "characters": [
+            {
+                "name": "호시노 아이"
+            }
+        ]
+    },
+    {
+        "anime": "주술회전",
+        "characters": [
+            {
+                "name": "고죠 사토루"
+            }
+        ]
+    }
+]
