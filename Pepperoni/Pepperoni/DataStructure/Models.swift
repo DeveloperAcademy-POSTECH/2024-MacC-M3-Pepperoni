@@ -12,14 +12,14 @@ import Foundation
 class Anime {
     @Attribute(.unique) var id: UUID
     var title: String // 애니메이션 제목
-    var season: String // 시즌명
     @Relationship(deleteRule: .cascade) var characters: [Character] // Character와 1:N 관계
+    var favorite: Bool
 
-    init(id: UUID = UUID(), title: String, season: String, characters: [Character] = []) {
+    init(id: UUID = UUID(), title: String, characters: [Character] = [], favorite: Bool = false) {
         self.id = id
         self.title = title
-        self.season = season
         self.characters = characters
+        self.favorite = favorite
     }
 }
 

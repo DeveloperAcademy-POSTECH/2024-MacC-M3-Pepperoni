@@ -22,11 +22,10 @@ struct JSONUtils {
             if let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]] {
                 for jsonItem in jsonArray {
                     let animeTitle = jsonItem["anime"] as? String ?? ""
-                    let season = jsonItem["season"] as? String ?? ""
                     let charactersArray = jsonItem["characters"] as? [[String: Any]] ?? []
                     
                     // Anime 객체 생성
-                    let anime = Anime(title: animeTitle, season: season)
+                    let anime = Anime(title: animeTitle)
                     modelContext.insert(anime)
                     
                     for charItem in charactersArray {
@@ -75,7 +74,7 @@ struct JSONUtils {
 
                     // Anime와 Character 조회
                     let animeFetchDescriptor = FetchDescriptor<Anime>(
-                        predicate: #Predicate { $0.title == animeTitle && $0.season == season }
+                        predicate: #Predicate { $0.title == animeTitle }
                     )
                     
                     if let anime = try? modelContext.fetch(animeFetchDescriptor).first,
