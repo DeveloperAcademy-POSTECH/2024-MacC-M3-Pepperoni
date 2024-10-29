@@ -103,6 +103,7 @@
 			children = (
 				90D8793B2CCF60970053424D /* DataStructure */,
 				BDE03C492CCF2634000DACB8 /* Preview Content */,
+				BDE03C4A2CCF2634000DACB8 /* View */,
 				BDE03C4B2CCF2634000DACB8 /* Assets.xcassets */,
 				BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */,
 				BDE03C4C2CCF2634000DACB8 /* ContentView.swift */,
