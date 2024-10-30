@@ -7,11 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-<<<<<<< HEAD
 		5164DDD92CCF7DB7001FC7D9 /* STTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164DDD82CCF7DB7001FC7D9 /* STTManager.swift */; };
 		5164DDDB2CCF7DF3001FC7D9 /* STTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164DDDA2CCF7DF3001FC7D9 /* STTView.swift */; };
-=======
->>>>>>> parent of 35ba4d7 (chore: #15-파일 구조 정리)
 		BD26F3622CCFF03000F6007F /* VideoTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3612CCFF03000F6007F /* VideoTestView.swift */; };
 		BD54BC3A2CD1225000366076 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = BD54BC392CD1225000366076 /* YouTubeiOSPlayerHelper */; };
 		BD54BC3C2CD122A300366076 /* YouTubePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */; };
@@ -33,12 +30,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-<<<<<<< HEAD
 		5164DDD82CCF7DB7001FC7D9 /* STTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTManager.swift; sourceTree = "<group>"; };
 		5164DDDA2CCF7DF3001FC7D9 /* STTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTView.swift; sourceTree = "<group>"; };
 		5164DDDC2CCF8EA7001FC7D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-=======
->>>>>>> parent of 35ba4d7 (chore: #15-파일 구조 정리)
 		BD26F3612CCFF03000F6007F /* VideoTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoTestView.swift; path = Pepperoni/VideoTestView.swift; sourceTree = SOURCE_ROOT; };
 		BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YouTubePlayerView.swift; path = Pepperoni/YouTubePlayerView.swift; sourceTree = SOURCE_ROOT; };
 		900F633A2CD0789200DE5220 /* DataLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingView.swift; sourceTree = "<group>"; };
@@ -120,20 +114,14 @@
 		BDE03C4E2CCF2634000DACB8 /* Pepperoni */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				5164DDDC2CCF8EA7001FC7D9 /* Info.plist */,
-=======
->>>>>>> parent of 35ba4d7 (chore: #15-파일 구조 정리)
 				90D8793B2CCF60970053424D /* DataStructure */,
 				BDE03C492CCF2634000DACB8 /* Preview Content */,
 				BDE03C4A2CCF2634000DACB8 /* View */,
 				BDE03C4B2CCF2634000DACB8 /* Assets.xcassets */,
 				BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */,
-<<<<<<< HEAD
 				5164DDD82CCF7DB7001FC7D9 /* STTManager.swift */,
 				5164DDDA2CCF7DF3001FC7D9 /* STTView.swift */,
-=======
->>>>>>> parent of 35ba4d7 (chore: #15-파일 구조 정리)
 				BDE03C4C2CCF2634000DACB8 /* ContentView.swift */,
 				900F633A2CD0789200DE5220 /* DataLoadingView.swift */,
 				90D8793E2CCF73F50053424D /* Quotes.json */,

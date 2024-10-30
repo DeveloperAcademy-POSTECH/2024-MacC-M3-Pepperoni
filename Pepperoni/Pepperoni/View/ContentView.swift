@@ -17,8 +17,10 @@ struct ContentView: View {
                     switch destination {
                     case .home:
                         HomeView()
-                    case .search:
-                        SearchView()
+                    case .animeList:
+                        AnimeListView()
+                    case .animeDetail(let anime):
+                        AnimeDetailView(anime: anime)
                     case .learning(let id):
                         LearningView(animeId: id)
                     case .result(let score):
