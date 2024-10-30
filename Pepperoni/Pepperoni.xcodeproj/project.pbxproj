@@ -14,13 +14,15 @@
 		BD54BC3A2CD1225000366076 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = BD54BC392CD1225000366076 /* YouTubeiOSPlayerHelper */; };
 		BD54BC3C2CD122A300366076 /* YouTubePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */; };
 		BD737E402CC7468C0096CDEC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD737E3F2CC746840096CDEC /* .gitignore */; };
+		BD7D58A52CD2618200EAD175 /* AnimeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7D58A42CD2618200EAD175 /* AnimeListView.swift */; };
+		BD7D58A72CD2679200EAD175 /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7D58A62CD2679200EAD175 /* CharacterDetailView.swift */; };
 		BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */; };
 		BDE03C512CCF2634000DACB8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDE03C482CCF2634000DACB8 /* Preview Assets.xcassets */; };
 		BDF007312CD24DD500A386A1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF0072F2CD24DD500A386A1 /* Models.swift */; };
 		BDF007362CD24E2900A386A1 /* DataLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF007352CD24E2900A386A1 /* DataLoadingView.swift */; };
 		BDF007372CD24E2900A386A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF007342CD24E2900A386A1 /* ContentView.swift */; };
-		BDF007382CD24E2900A386A1 /* AnimeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF007332CD24E2900A386A1 /* AnimeListView.swift */; };
-		BDF007392CD24E2900A386A1 /* AnimeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF007322CD24E2900A386A1 /* AnimeDetailView.swift */; };
+		BDF007382CD24E2900A386A1 /* AnimeSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF007332CD24E2900A386A1 /* AnimeSearchView.swift */; };
+		BDF007392CD24E2900A386A1 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF007322CD24E2900A386A1 /* CharacterListView.swift */; };
 		BDF0073D2CD24E3100A386A1 /* LearningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF0073A2CD24E3100A386A1 /* LearningView.swift */; };
 		BDF0073E2CD24E3100A386A1 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF0073B2CD24E3100A386A1 /* ResultView.swift */; };
 		BDF007412CD24E4C00A386A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDF0073F2CD24E4C00A386A1 /* Assets.xcassets */; };
@@ -39,11 +41,13 @@
 		BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YouTubePlayerView.swift; path = Pepperoni/YouTubePlayerView.swift; sourceTree = SOURCE_ROOT; };
 		BD737E2E2CC746710096CDEC /* Pepperoni.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pepperoni.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD737E3F2CC746840096CDEC /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		BD7D58A42CD2618200EAD175 /* AnimeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeListView.swift; sourceTree = "<group>"; };
+		BD7D58A62CD2679200EAD175 /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
 		BDE03C482CCF2634000DACB8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PepperoniApp.swift; sourceTree = "<group>"; };
 		BDF0072F2CD24DD500A386A1 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		BDF007322CD24E2900A386A1 /* AnimeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDetailView.swift; sourceTree = "<group>"; };
-		BDF007332CD24E2900A386A1 /* AnimeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeListView.swift; sourceTree = "<group>"; };
+		BDF007322CD24E2900A386A1 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
+		BDF007332CD24E2900A386A1 /* AnimeSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeSearchView.swift; sourceTree = "<group>"; };
 		BDF007342CD24E2900A386A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BDF007352CD24E2900A386A1 /* DataLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingView.swift; sourceTree = "<group>"; };
 		BDF0073A2CD24E3100A386A1 /* LearningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningView.swift; sourceTree = "<group>"; };
@@ -96,8 +100,10 @@
 			isa = PBXGroup;
 			children = (
 				BD26F3572CCFD63F00F6007F /* HomeView.swift */,
-				BDF007322CD24E2900A386A1 /* AnimeDetailView.swift */,
-				BDF007332CD24E2900A386A1 /* AnimeListView.swift */,
+				BD7D58A42CD2618200EAD175 /* AnimeListView.swift */,
+				BDF007332CD24E2900A386A1 /* AnimeSearchView.swift */,
+				BDF007322CD24E2900A386A1 /* CharacterListView.swift */,
+				BD7D58A62CD2679200EAD175 /* CharacterDetailView.swift */,
 				BDF007342CD24E2900A386A1 /* ContentView.swift */,
 				BDF007352CD24E2900A386A1 /* DataLoadingView.swift */,
 				BDF0073C2CD24E3100A386A1 /* Learning */,
@@ -257,12 +263,14 @@
 				BDF007362CD24E2900A386A1 /* DataLoadingView.swift in Sources */,
 				BDF007492CD24E7100A386A1 /* JSONUtils.swift in Sources */,
 				BDF007372CD24E2900A386A1 /* ContentView.swift in Sources */,
-				BDF007382CD24E2900A386A1 /* AnimeListView.swift in Sources */,
+				BDF007382CD24E2900A386A1 /* AnimeSearchView.swift in Sources */,
 				BDF007442CD24E5D00A386A1 /* Router.swift in Sources */,
-				BDF007392CD24E2900A386A1 /* AnimeDetailView.swift in Sources */,
+				BD7D58A72CD2679200EAD175 /* CharacterDetailView.swift in Sources */,
+				BDF007392CD24E2900A386A1 /* CharacterListView.swift in Sources */,
 				BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */,
 				5164DDDB2CCF7DF3001FC7D9 /* STTView.swift in Sources */,
 				5164DDD92CCF7DB7001FC7D9 /* STTManager.swift in Sources */,
+				BD7D58A52CD2618200EAD175 /* AnimeListView.swift in Sources */,
 				BD26F35E2CCFD63F00F6007F /* HomeView.swift in Sources */,
 				BDF0073D2CD24E3100A386A1 /* LearningView.swift in Sources */,
 				BDF0073E2CD24E3100A386A1 /* ResultView.swift in Sources */,

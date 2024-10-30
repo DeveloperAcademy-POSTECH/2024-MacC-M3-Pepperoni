@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AnimeDetailView: View {
+struct CharacterListView: View {
     let anime: Anime
 
     var body: some View {
@@ -15,6 +15,14 @@ struct AnimeDetailView: View {
             Text(anime.title)
                 .font(.largeTitle)
                 .padding()
+            
+            List(anime.characters, id: \.id) { character in
+                Button {
+                    Router.shared.navigate(to: .characterDetail(character: character))
+                } label: {
+                    Text(character.name)
+                }
+            }
 
             if anime.favorite {
                 Text("⭐️")
@@ -27,5 +35,5 @@ struct AnimeDetailView: View {
 }
 
 #Preview {
-    AnimeDetailView(anime: Anime(title: "hihi"))
+    CharacterListView(anime: Anime(title: "hihi"))
 }

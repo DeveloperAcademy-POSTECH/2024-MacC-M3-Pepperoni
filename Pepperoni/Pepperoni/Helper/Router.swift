@@ -13,8 +13,10 @@ import SwiftUI
 enum Destination: Hashable {
     case home
     case animeList
-    case animeDetail(anime: Anime)
-    case learning(id: String)
+    case animeSearch
+    case characterList(anime: Anime)
+    case characterDetail(character: Character)
+    case learning(quote: AnimeQuote)
     case result(score: Int)
 }
 

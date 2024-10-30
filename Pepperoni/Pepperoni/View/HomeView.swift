@@ -11,6 +11,7 @@ import SwiftData
 struct HomeView: View {
     
     var body: some View {
+        DataLoadingView()
         VStack {
             HStack {
                 Text("anisentence")
@@ -39,13 +40,13 @@ struct HomeView: View {
                     .cornerRadius(16)
                     .foregroundStyle(.ppBlue)
                 
-                Button("최애의 아이") {
-                    Router.shared.navigate(to: .learning(id: "21"))
-                }
-                .frame(width: 180, height: 60)
-                .foregroundStyle(.white)
-                .background(.ppBlue)
-                .cornerRadius(16)
+//                Button("최애의 아이") {
+//                    Router.shared.navigate(to: .learning(character: Character))
+//                }
+//                .frame(width: 180, height: 60)
+//                .foregroundStyle(.white)
+//                .background(.ppBlue)
+//                .cornerRadius(16)
             }
         }
         .padding()
