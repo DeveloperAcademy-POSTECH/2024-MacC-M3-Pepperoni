@@ -23,7 +23,7 @@ struct PepperoniApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TempScoreView()
         }
         .modelContainer(modelContainer)
     }

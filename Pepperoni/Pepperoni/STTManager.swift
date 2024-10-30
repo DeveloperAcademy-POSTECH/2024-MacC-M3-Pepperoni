@@ -9,9 +9,8 @@ import Speech
 import Combine
 
 class STTManager: ObservableObject {
-    @Published var isRecording = false
+    var isRecording = false
     @Published var recognizedText = ""
-    @Published var finalText = ""
     
     private var audioEngine = AVAudioEngine()
     private var speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
@@ -25,7 +24,6 @@ class STTManager: ObservableObject {
         }
         
         isRecording = true
-        recognizedText = "" // 녹음 시작 시 초기화
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
         guard let recognitionRequest = recognitionRequest else { return }
         recognitionRequest.shouldReportPartialResults = true
@@ -53,8 +51,7 @@ class STTManager: ObservableObject {
     }
     
     func stopRecording() {
-        isRecording = false
-        finalText = recognizedText // 녹음 종료 시 finalText에 저장
+        recognitionTask?.finish()
         cleanup()
     }
     
@@ -64,9 +61,8 @@ class STTManager: ObservableObject {
             audioEngine.inputNode.removeTap(onBus: 0)
         }
         recognitionRequest?.endAudio()
-        recognitionTask?.cancel()
         recognitionRequest = nil
         recognitionTask = nil
+        isRecording = false
     }
-    
 }

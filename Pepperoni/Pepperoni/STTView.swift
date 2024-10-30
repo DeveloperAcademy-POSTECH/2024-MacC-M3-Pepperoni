@@ -64,7 +64,7 @@ struct STTView: View {
             }
             
             // 녹음 텍스트 표시 (녹음 종료 후 표시되는 finalText)
-            TextEditor(text: sttManager.isRecording ? $sttManager.recognizedText : $sttManager.finalText)
+            TextEditor(text: $sttManager.recognizedText)
                 .padding()
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(10)
