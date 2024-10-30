@@ -30,17 +30,19 @@ class Character {
     var favorite: Bool // 즐겨찾기 여부
     @Relationship(deleteRule: .cascade) var quotes: [AnimeQuote] // AnimeQuote와 1:N 관계
     var image: Data? // 사용자가 수정 가능한 캐릭터 이미지
+    var completedQuotes: Int // 별3개를 달성한 대사의 개수
 
     // Character가 속한 Anime을 나타내기 위한 관계
     @Relationship(deleteRule: .nullify, inverse: \Anime.characters) var anime: Anime?
 
-    init(id: UUID = UUID(), name: String, favorite: Bool, quotes: [AnimeQuote] = [], image: Data? = nil, anime: Anime? = nil) {
+    init(id: UUID = UUID(), name: String, favorite: Bool, quotes: [AnimeQuote] = [], image: Data? = nil, anime: Anime? = nil, completedQuotes: Int = 0) {
         self.id = id
         self.name = name
         self.favorite = favorite
         self.quotes = quotes
         self.image = image
         self.anime = anime
+        self.completedQuotes = completedQuotes
     }
 }
 
@@ -53,11 +55,12 @@ class AnimeQuote {
     var evaluation: Evaluation // 각 요소별 점수 및 통과 여부
     var timemark: [Double] // 각 단어(구)가 시작되는 타임마크
     var audiofile: String // 오디오 파일 이름
+    var isCompleted: Bool // 별 3개가 달성되었는지
 
     // AnimeQuote가 속한 Character를 나타내기 위한 관계
     @Relationship(deleteRule: .nullify, inverse: \Character.quotes) var character: Character?
 
-    init(id: UUID = UUID(), japanese: [String], pronunciation: [String], korean: [String], evaluation: Evaluation, timemark: [Double], audiofile: String, character: Character? = nil) {
+    init(id: UUID = UUID(), japanese: [String], pronunciation: [String], korean: [String], evaluation: Evaluation, timemark: [Double], audiofile: String, character: Character? = nil, isCompleted: Bool = false) {
         self.id = id
         self.japanese = japanese
         self.pronunciation = pronunciation
@@ -66,6 +69,7 @@ class AnimeQuote {
         self.timemark = timemark
         self.audiofile = audiofile
         self.character = character
+        self.isCompleted = isCompleted
     }
 }
 
