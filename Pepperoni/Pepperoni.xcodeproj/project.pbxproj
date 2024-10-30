@@ -13,6 +13,7 @@
 		51ECA4F22CD26A19001AB4E0 /* Onepiece.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA4F12CD26A19001AB4E0 /* Onepiece.mp3 */; };
 		51ECA4F62CD26AD1001AB4E0 /* Jusul.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA4F52CD26AD1001AB4E0 /* Jusul.mp3 */; };
 		51ECA4F82CD26C21001AB4E0 /* SpeechGrader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51ECA4F72CD26C21001AB4E0 /* SpeechGrader.swift */; };
+		51ECA4FA2CD2A372001AB4E0 /* Haikyuu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51ECA4F92CD2A372001AB4E0 /* Haikyuu.mp3 */; };
 		BD26F35E2CCFD63F00F6007F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3572CCFD63F00F6007F /* HomeView.swift */; };
 		BD26F3622CCFF03000F6007F /* VideoTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3612CCFF03000F6007F /* VideoTestView.swift */; };
 		BD54BC3A2CD1225000366076 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = BD54BC392CD1225000366076 /* YouTubeiOSPlayerHelper */; };
@@ -42,6 +43,7 @@
 		51ECA4F12CD26A19001AB4E0 /* Onepiece.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Onepiece.mp3; sourceTree = "<group>"; };
 		51ECA4F52CD26AD1001AB4E0 /* Jusul.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Jusul.mp3; sourceTree = "<group>"; };
 		51ECA4F72CD26C21001AB4E0 /* SpeechGrader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechGrader.swift; sourceTree = "<group>"; };
+		51ECA4F92CD2A372001AB4E0 /* Haikyuu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Haikyuu.mp3; sourceTree = "<group>"; };
 		BD26F3572CCFD63F00F6007F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BD26F3612CCFF03000F6007F /* VideoTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoTestView.swift; path = Pepperoni/VideoTestView.swift; sourceTree = SOURCE_ROOT; };
 		BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YouTubePlayerView.swift; path = Pepperoni/YouTubePlayerView.swift; sourceTree = SOURCE_ROOT; };
@@ -128,6 +130,7 @@
 				51ECA4EF2CD2594F001AB4E0 /* TempScoreView.swift */,
 				51ECA4F72CD26C21001AB4E0 /* SpeechGrader.swift */,
 				51ECA4F12CD26A19001AB4E0 /* Onepiece.mp3 */,
+				51ECA4F92CD2A372001AB4E0 /* Haikyuu.mp3 */,
 				51ECA4F52CD26AD1001AB4E0 /* Jusul.mp3 */,
 				BDF007432CD24E5D00A386A1 /* Helper */,
 				BDF007402CD24E4C00A386A1 /* Assets */,
@@ -248,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDE03C512CCF2634000DACB8 /* Preview Assets.xcassets in Resources */,
+				51ECA4FA2CD2A372001AB4E0 /* Haikyuu.mp3 in Resources */,
 				BDF007412CD24E4C00A386A1 /* Assets.xcassets in Resources */,
 				51ECA4F22CD26A19001AB4E0 /* Onepiece.mp3 in Resources */,
 				BDF0074A2CD24E7100A386A1 /* Quotes.json in Resources */,

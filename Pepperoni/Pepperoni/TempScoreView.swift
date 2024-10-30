@@ -18,15 +18,20 @@ struct TempScoreView: View {
     var audiofile = "tempAudio.m4a"
     @State var isCompleted = false // 별 3개가 달성되었는지
     
+    // 하이큐 AnimeQuote 임시 변수
     var japanese2 = ["才能は", "開花させる", "もの", "センスは", "磨く", "もの"]
     var pronunciation2 = ["사이노우와", "카이카사세루", "모노", "센스와", "미가쿠", "모노"]
     var korean2 = ["재능은", "발휘하는", "것", "센스는", "연마하는", "것"]
+    var timemark2 = [2.0, 2.5, 3.3, 5.0, 5.4, 6.0]
+    let timeLength2: Double = 7.0 // 하이큐 음원 길이
     
     // Model의 Evaluation 임시 변수
     @State private var pronunciationScore = 0.0
     var pronunciationPass = false
-    var speedScore = 0.0
+    @State private var speedScore = 0.0
     var speedPass = false
+    
+    @State private var voicingTime: Double = 0.0
     
     @StateObject private var sttManager = STTManager()
     
@@ -68,6 +73,15 @@ struct TempScoreView: View {
                 .disabled(true)
                 .lineLimit(2)
             
+            if let startTime = sttManager.startTime, let endTime = sttManager.endTime {
+                Text("음성 시작 시간: \(String(format: "%.2f", startTime))초")
+                Text("음성 끝 시간: \(String(format: "%.2f", endTime))초")
+                Text("총 길이: \(String(format: "%.2f", endTime - startTime))초")
+            } else {
+                Text("음성을 녹음하고 분석하세요.")
+                    .foregroundColor(.gray)
+            }
+            
             // 녹음 버튼
             Button(action: {
                 if sttManager.isRecording {
@@ -84,9 +98,14 @@ struct TempScoreView: View {
                     .cornerRadius(10)
             }
             
-            // 발음 채점 버튼
+            // 채점 버튼
             Button(action: {
                 pronunciationScore = calculatePronunciation(original: japanese2, sttText: sttManager.recognizedText)
+                
+                voicingTime = sttManager.voicingTime!
+                print("길이 출력: \(voicingTime)")
+                speedScore = calculateSpeededPronunciation(originalLength: timeLength2, sttVoicingTime: voicingTime)
+                
             }) {
                 Text("채점하기")
                     .foregroundColor(.white)
