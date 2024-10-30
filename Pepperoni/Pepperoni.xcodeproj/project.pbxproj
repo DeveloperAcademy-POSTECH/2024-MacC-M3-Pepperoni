@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		5164DDD92CCF7DB7001FC7D9 /* STTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164DDD82CCF7DB7001FC7D9 /* STTManager.swift */; };
 		5164DDDB2CCF7DF3001FC7D9 /* STTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164DDDA2CCF7DF3001FC7D9 /* STTView.swift */; };
+		BD26F3622CCFF03000F6007F /* VideoTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3612CCFF03000F6007F /* VideoTestView.swift */; };
+		BD54BC3A2CD1225000366076 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = BD54BC392CD1225000366076 /* YouTubeiOSPlayerHelper */; };
+		BD54BC3C2CD122A300366076 /* YouTubePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */; };
+		900F633B2CD0789200DE5220 /* DataLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900F633A2CD0789200DE5220 /* DataLoadingView.swift */; };
+		90D8793D2CCF60BD0053424D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D8793C2CCF60BD0053424D /* Models.swift */; };
+		90D8793F2CCF73F50053424D /* Quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = 90D8793E2CCF73F50053424D /* Quotes.json */; };
+		90D879412CCF74120053424D /* AnimeCharacter.json in Resources */ = {isa = PBXBuildFile; fileRef = 90D879402CCF74120053424D /* AnimeCharacter.json */; };
+		90D879432CCF74630053424D /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D879422CCF74630053424D /* JSONUtils.swift */; };
 		BD26F35B2CCFD63F00F6007F /* LearningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3582CCFD63F00F6007F /* LearningView.swift */; };
 		BD26F35C2CCFD63F00F6007F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F35A2CCFD63F00F6007F /* SearchView.swift */; };
 		BD26F35D2CCFD63F00F6007F /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3592CCFD63F00F6007F /* ResultView.swift */; };
@@ -25,6 +33,13 @@
 		5164DDD82CCF7DB7001FC7D9 /* STTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTManager.swift; sourceTree = "<group>"; };
 		5164DDDA2CCF7DF3001FC7D9 /* STTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTView.swift; sourceTree = "<group>"; };
 		5164DDDC2CCF8EA7001FC7D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		BD26F3612CCFF03000F6007F /* VideoTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoTestView.swift; path = Pepperoni/VideoTestView.swift; sourceTree = SOURCE_ROOT; };
+		BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YouTubePlayerView.swift; path = Pepperoni/YouTubePlayerView.swift; sourceTree = SOURCE_ROOT; };
+		900F633A2CD0789200DE5220 /* DataLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingView.swift; sourceTree = "<group>"; };
+		90D8793C2CCF60BD0053424D /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		90D8793E2CCF73F50053424D /* Quotes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Quotes.json; sourceTree = "<group>"; };
+		90D879402CCF74120053424D /* AnimeCharacter.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AnimeCharacter.json; sourceTree = "<group>"; };
+		90D879422CCF74630053424D /* JSONUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
 		BD26F3572CCFD63F00F6007F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BD26F3582CCFD63F00F6007F /* LearningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningView.swift; sourceTree = "<group>"; };
 		BD26F3592CCFD63F00F6007F /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
@@ -43,12 +58,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD54BC3A2CD1225000366076 /* YouTubeiOSPlayerHelper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		90D8793B2CCF60970053424D /* DataStructure */ = {
+			isa = PBXGroup;
+			children = (
+				90D8793C2CCF60BD0053424D /* Models.swift */,
+			);
+			path = DataStructure;
+			sourceTree = "<group>";
+		};
 		BD737E252CC746710096CDEC = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +101,8 @@
 		BDE03C4A2CCF2634000DACB8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BD26F3612CCFF03000F6007F /* VideoTestView.swift */,
+				BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */,
 				BD26F3572CCFD63F00F6007F /* HomeView.swift */,
 				BD26F3582CCFD63F00F6007F /* LearningView.swift */,
 				BD26F3592CCFD63F00F6007F /* ResultView.swift */,
@@ -89,13 +115,18 @@
 			isa = PBXGroup;
 			children = (
 				5164DDDC2CCF8EA7001FC7D9 /* Info.plist */,
+				90D8793B2CCF60970053424D /* DataStructure */,
 				BDE03C492CCF2634000DACB8 /* Preview Content */,
 				BDE03C4A2CCF2634000DACB8 /* View */,
 				BDE03C4B2CCF2634000DACB8 /* Assets.xcassets */,
-				BDE03C4C2CCF2634000DACB8 /* ContentView.swift */,
 				BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */,
 				5164DDD82CCF7DB7001FC7D9 /* STTManager.swift */,
 				5164DDDA2CCF7DF3001FC7D9 /* STTView.swift */,
+				BDE03C4C2CCF2634000DACB8 /* ContentView.swift */,
+				900F633A2CD0789200DE5220 /* DataLoadingView.swift */,
+				90D8793E2CCF73F50053424D /* Quotes.json */,
+				90D879402CCF74120053424D /* AnimeCharacter.json */,
+				90D879422CCF74630053424D /* JSONUtils.swift */,
 				BD26F35F2CCFD66500F6007F /* Router.swift */,
 			);
 			path = Pepperoni;
@@ -118,6 +149,7 @@
 			);
 			name = Pepperoni;
 			packageProductDependencies = (
+				BD54BC392CD1225000366076 /* YouTubeiOSPlayerHelper */,
 			);
 			productName = Pepperoni;
 			productReference = BD737E2E2CC746710096CDEC /* Pepperoni.app */;
@@ -147,6 +179,9 @@
 			);
 			mainGroup = BD737E252CC746710096CDEC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				BD54BC382CD1225000366076 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BD737E2F2CC746710096CDEC /* Products */;
 			projectDirPath = "";
@@ -162,7 +197,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90D8793F2CCF73F50053424D /* Quotes.json in Resources */,
 				BDE03C512CCF2634000DACB8 /* Preview Assets.xcassets in Resources */,
+				90D879412CCF74120053424D /* AnimeCharacter.json in Resources */,
 				BDE03C522CCF2634000DACB8 /* Assets.xcassets in Resources */,
 				BD737E402CC7468C0096CDEC /* .gitignore in Resources */,
 			);
@@ -175,10 +212,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD26F3622CCFF03000F6007F /* VideoTestView.swift in Sources */,
+				BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */,
+				BD54BC3C2CD122A300366076 /* YouTubePlayerView.swift in Sources */,
+				90D8793D2CCF60BD0053424D /* Models.swift in Sources */,
+				90D879432CCF74630053424D /* JSONUtils.swift in Sources */,
 				BDE03C4F2CCF2634000DACB8 /* ContentView.swift in Sources */,
 				BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */,
 				5164DDDB2CCF7DF3001FC7D9 /* STTView.swift in Sources */,
 				5164DDD92CCF7DB7001FC7D9 /* STTManager.swift in Sources */,
+				900F633B2CD0789200DE5220 /* DataLoadingView.swift in Sources */,
 				BD26F35B2CCFD63F00F6007F /* LearningView.swift in Sources */,
 				BD26F3602CCFD66500F6007F /* Router.swift in Sources */,
 				BD26F35C2CCFD63F00F6007F /* SearchView.swift in Sources */,
@@ -317,7 +360,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pepperoni/Preview Content\"";
-				DEVELOPMENT_TEAM = 2U3B7G3F2A;
+				DEVELOPMENT_TEAM = 5Z2TRCRXZZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pepperoni/Info.plist;
@@ -326,6 +369,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -347,7 +391,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pepperoni/Preview Content\"";
-				DEVELOPMENT_TEAM = 2U3B7G3F2A;
+				DEVELOPMENT_TEAM = 5Z2TRCRXZZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pepperoni/Info.plist;
@@ -356,6 +400,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -391,6 +436,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BD54BC382CD1225000366076 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/youtube/youtube-ios-player-helper.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BD54BC392CD1225000366076 /* YouTubeiOSPlayerHelper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD54BC382CD1225000366076 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */;
+			productName = YouTubeiOSPlayerHelper;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BD737E262CC746710096CDEC /* Project object */;
 }
