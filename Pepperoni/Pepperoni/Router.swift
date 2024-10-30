@@ -12,8 +12,7 @@ import SwiftUI
 // MARK: - Route Enum
 enum Destination: Hashable {
     case home
-    case animeList
-    case animeDetail(anime: Anime)
+    case search
     case learning(id: String)
     case result(score: Int)
 }
