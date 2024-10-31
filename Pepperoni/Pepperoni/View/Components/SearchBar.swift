@@ -15,14 +15,14 @@ struct SearchBar: View {
         HStack {
             HStack {
                 Image(systemName: "magnifyingglass")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.lightGray2)
                 
                 TextField("애니 검색", text: $searchText)
                     .foregroundColor(.blue)
                     .padding(.vertical, 10)
             }
             .padding(.horizontal)
-            .background(Color(UIColor.systemGray6))
+            .background(.lightGray1)
             .cornerRadius(10)
             
             Button("Cancel") {

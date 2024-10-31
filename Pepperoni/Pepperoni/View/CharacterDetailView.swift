@@ -19,6 +19,7 @@ struct CharacterDetailView: View {
         VStack{
             ZStack{
                 Rectangle()
+                    .background(.gray1)
                     .frame(height: 584)
                     .cornerRadius(60)
                 
@@ -52,35 +53,39 @@ struct CharacterDetailView: View {
                         HStack{
                             Text("총점수")
                                 .padding(.bottom, 2)
+                                .foregroundStyle(.gray1)
                             
                             Spacer()
                             
                             Rectangle()
                                 .frame(width: 151, height: 1)
+                                .foregroundStyle(.lightGray2)
                             
                             Spacer()
                             
                             Text("\(calculateScoresAndPasses(for: character).totalScore)")
                                 .padding(.bottom, 2)
                                 .fontWeight(.medium)
-                                .foregroundStyle(.ppBlue)
+                                .foregroundStyle(.pointBlue)
                         }
                         
                         HStack{
                             Text("별")
                                 .padding(.bottom, 2)
+                                .foregroundStyle(.gray1)
                             
                             Spacer()
                             
                             Rectangle()
                                 .frame(width: 151, height: 1)
+                                .foregroundStyle(.lightGray2)
                             
                             Spacer()
                             
                             Text("\(calculateScoresAndPasses(for: character).totalPasses)")
                                 .padding(.bottom, 2)
                                 .fontWeight(.medium)
-                                .foregroundStyle(.ppBlue)
+                                .foregroundStyle(.pointBlue)
                         }
                         
                         HStack {
@@ -102,11 +107,11 @@ struct CharacterDetailView: View {
                             
                             Text("\(character.completedQuotes)/\(character.quotes.count)")
                                 .fontWeight(.medium)
-                                .foregroundStyle(.ppBlue)
+                                .foregroundStyle(.pointBlue)
                         }
                     }
                     .padding()
-                    .background(Color.white) // 통계 배경색
+                    .background(Color.white)
                     .cornerRadius(10)
                     .padding()
                     
@@ -115,7 +120,7 @@ struct CharacterDetailView: View {
                     // -MARK: 대사 리스트
                     ScrollView(.vertical) {
                         LazyVStack(spacing: 0) {
-                            Spacer().frame(height: itemHeight * 2.5) // 스크롤 여유 공간
+//                            Spacer().frame(height: itemHeight * 2.5) // 스크롤 여유 공간
                             
                             ForEach(0..<character.quotes.count, id: \.self) { index in
                                 let quote = character.quotes[index]
@@ -149,11 +154,11 @@ struct CharacterDetailView: View {
                                 .padding()
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
-                                        .fill(index == selectedIndex ? Color.blue : Color.ppBlue)
+                                        .fill(index == selectedIndex ? Color.pointBlue : Color.blue)
                                 )
                                 .id(index)
                                 .frame(height: itemHeight)
-                                .padding(.vertical, index == selectedIndex ? 36 : 16)
+                                .padding(.bottom, index == selectedIndex ? 36 : 16)
                                 .onTapGesture {
                                     Router.shared.navigate(to: .learningStart(quote: character.quotes[index]))
                                 }
@@ -175,7 +180,7 @@ struct CharacterDetailView: View {
             }
         }
         .padding()
-        .background(.gray)
+        .background(.darkGray)
     }
     
     // 별, 총점수 계산 함수
@@ -212,7 +217,7 @@ struct AchievementBar: View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 Rectangle()
-                    .fill(Color.gray)
+                    .fill(Color.darkGray)
                 
                 Rectangle()
                     .fill(Color.blue)

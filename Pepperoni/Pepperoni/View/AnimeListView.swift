@@ -11,9 +11,14 @@ import SwiftData
 struct AnimeListView: View {
     @Query var allAnimes: [Anime]
     
-    var favoriteAnimes: [Anime] {
+    private var favoriteAnimes: [Anime] {
           // favorite이 true인 애니메이션만 필터링
           return allAnimes.filter { $0.favorite }
+      }
+    
+    // top: 일단 첫번째 애니메이션으로 설정
+    private var topAnime: Anime {
+        return allAnimes.first ?? Anime(title: " ")
       }
     
     @State private var text = ""
@@ -32,14 +37,14 @@ struct AnimeListView: View {
             } label: {
                 HStack {
                     Image(systemName: "magnifyingglass")
-                        .foregroundColor(.gray)
+                        .foregroundColor(.lightGray2)
                     
                     TextField("애니 검색", text: $text)
                         .foregroundColor(.blue)
                         .padding(.vertical, 10)
                 }
                 .padding(.horizontal)
-                .background(Color(UIColor.systemGray6))
+                .background(.lightGray1)
                 .cornerRadius(10)
                 .disabled(true)
             }
@@ -53,7 +58,7 @@ struct AnimeListView: View {
                 HStack {
                     Spacer()
                     
-                    Text("주술회전")
+                    Text("\(topAnime.title)")
                         .font(.title)
                         .fontWeight(.black)
                         .foregroundStyle(.white)
@@ -62,6 +67,9 @@ struct AnimeListView: View {
                 }
             }
             .padding()
+            .onTapGesture{
+                Router.shared.navigate(to: .characterList(anime: topAnime))
+            }
             
             // -MARK: 핀한 애니
             VStack(spacing: 0){
@@ -70,7 +78,7 @@ struct AnimeListView: View {
                         .foregroundStyle(.white)
                     
                     Text(Image(systemName: "pin.fill"))
-                        .foregroundStyle(.blue)
+                        .foregroundStyle(.skyBlue1)
                         .rotationEffect(.degrees(48))
                     
                     Spacer()
@@ -78,7 +86,7 @@ struct AnimeListView: View {
                 .padding(.leading, 20)
                 .fontWeight(.bold)
                 .frame(height: 38)
-                .background(.black)
+                .background(.gray1)
                 
                 ScrollView(.horizontal) {
                     HStack {
@@ -93,10 +101,10 @@ struct AnimeListView: View {
                                         .font(.title3)
                                     
                                     Text(anime.title)
-                                        .foregroundStyle(.black)
+                                        .foregroundStyle(.darkGray)
                                 }
                                 .padding(8)
-                                .background(Color.blue.opacity(0.1))
+                                .background(.skyBlue1)
                                 .cornerRadius(6)
                             }
                         }
@@ -115,7 +123,7 @@ struct AnimeListView: View {
                 }
                 .padding(.leading, 20)
                 .frame(height: 38)
-                .background(.black)
+                .background(.gray1)
                 .fontWeight(.bold)
                 
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -127,12 +135,12 @@ struct AnimeListView: View {
                                 Text(genre)
                                     .padding(.vertical, 8)
                                     .padding(.horizontal, 16)
-                                    .background(selectedGenre == genre ? Color.ppBlue : Color.white)
-                                    .foregroundColor(selectedGenre == genre ? .white : .gray)
+                                    .background(selectedGenre == genre ? Color.blue : Color.white)
+                                    .foregroundColor(selectedGenre == genre ? .white : .lightGray2)
                                     .clipShape(Capsule())
                                     .overlay(
                                         Capsule()
-                                            .stroke(selectedGenre == genre ? Color.ppBlue : Color.gray, lineWidth: 1)
+                                            .stroke(selectedGenre == genre ? Color.blue : Color.lightGray2, lineWidth: 1)
                                     )
                             }
                         }
@@ -146,19 +154,21 @@ struct AnimeListView: View {
                         Router.shared.navigate(to: .characterList(anime: anime))
                     } label: {
                         Text(anime.title)
+                            .fontWeight(.medium)
+                            .foregroundStyle(.darkGray)
                     }
                     .listRowSeparator(.hidden)
                     .frame(maxWidth: .infinity)
                     .frame(height: 44)
                     .background(.white)
                     .cornerRadius(8)
-                    .listRowBackground(Color.gray)
+                    .listRowBackground(Color.lightGray1)
                     .padding(-2)
                 }
                 .listStyle(PlainListStyle())
                 .scrollContentBackground(.hidden)
             }
-            .background(.gray)
+            .background(.lightGray1)
         }
     }
 }
