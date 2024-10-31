@@ -122,14 +122,6 @@
 				90429A922CD36D5800A23D0B /* JUJ005.m4a */,
 			);
 			path = QuoteVoices;
-=========
-		BD2BAAF62CD37D7C00873607 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				BD2BAAF72CD37D8500873607 /* SearchBar.swift */,
-			);
-			path = Components;
->>>>>>>>> Temporary merge branch 2
 			sourceTree = "<group>";
 		};
 		BD737E252CC746710096CDEC = {
