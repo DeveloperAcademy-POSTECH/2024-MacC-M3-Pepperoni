@@ -11,6 +11,7 @@ import YouTubeiOSPlayerHelper
 struct YouTubePlayerView: UIViewRepresentable {
     var videoID: String
     var startTime: Int // 특정 초부터 재생
+    var endTime: Int
 
     func makeUIView(context: Context) -> YTPlayerView {
         let playerView = YTPlayerView()
@@ -19,7 +20,8 @@ struct YouTubePlayerView: UIViewRepresentable {
             "playsinline": 1,
             "autoplay": 1,
             "rel": 0,
-            "start": startTime // 재생 시작 시간
+            "start": startTime, // 재생 시작 시간
+            "end": endTime
         ]
 
         playerView.load(withVideoId: videoID, playerVars: playerVars)
