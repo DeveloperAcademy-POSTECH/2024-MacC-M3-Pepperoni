@@ -278,7 +278,7 @@
 				BDF007492CD24E7100A386A1 /* JSONUtils.swift in Sources */,
 				BDF007372CD24E2900A386A1 /* ContentView.swift in Sources */,
 				90429A872CD25FD800A23D0B /* LearningStartView.swift in Sources */,
-				BDF007382CD24E2900A386A1 /* AnimeListView.swift in Sources */,
+				BDF007382CD24E2900A386A1 /* AnimeSearchView.swift in Sources */,
 				BDF007442CD24E5D00A386A1 /* Router.swift in Sources */,
 				BD7D58A72CD2679200EAD175 /* CharacterDetailView.swift in Sources */,
 				BDF007392CD24E2900A386A1 /* CharacterListView.swift in Sources */,
