@@ -69,7 +69,7 @@ struct LearningView: View {
                         }
                         
                         HStack {
-                            ForEach(halfIndex..<dummieQuote.japanese.count, id: \.self) { index in
+                            ForEach(halfIndex..<quote.japanese.count, id: \.self) { index in
                                 VStack(spacing:13) {
                                     Text(quote.korean[index])
                                         .font(.system(size:18))

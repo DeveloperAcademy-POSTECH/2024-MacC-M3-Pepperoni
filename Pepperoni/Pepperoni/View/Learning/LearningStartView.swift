@@ -28,9 +28,8 @@ struct LearningStartView: View {
                     .padding(.horizontal, 47.5)
                     .overlay{
                         VStack {
-                            // TODO: dummieQuote -> quote로 변경
                             if quote.pronunciation.count >= 5 {
-                                let halfIndex = dummieQuote.pronunciation.count / 2
+                                let halfIndex = quote.pronunciation.count / 2
                                 
                                 // 페이지 내용
                                 VStack {
@@ -118,7 +117,7 @@ struct LearningStartView: View {
                 
                 Button(action:{
                     // 오디오파일 재생이 들어감
-                    audioPlayerManager.playAudio(from: dummieQuote.audiofile)
+                    audioPlayerManager.playAudio(from: quote.audiofile)
                 }, label:{
                     RoundedRectangle(cornerRadius: 6)
                         .frame(height:50)
