@@ -322,7 +322,7 @@
 				BDF007492CD24E7100A386A1 /* JSONUtils.swift in Sources */,
 				BDF007372CD24E2900A386A1 /* ContentView.swift in Sources */,
 				51ECA4F82CD26C21001AB4E0 /* SpeechGrader.swift in Sources */,
-				BDF007382CD24E2900A386A1 /* AnimeListView.swift in Sources */,
+				BDF007382CD24E2900A386A1 /* AnimeSearchView.swift in Sources */,
 				90429A872CD25FD800A23D0B /* LearningStartView.swift in Sources */,
 				BDF007382CD24E2900A386A1 /* AnimeSearchView.swift in Sources */,
 				BDF007442CD24E5D00A386A1 /* Router.swift in Sources */,
@@ -468,7 +468,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pepperoni/Preview Content\"";
-				DEVELOPMENT_TEAM = 2U3B7G3F2A;
+				DEVELOPMENT_TEAM = 5Z2TRCRXZZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pepperoni/Info.plist;
@@ -499,7 +499,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pepperoni/Preview Content\"";
-				DEVELOPMENT_TEAM = 2U3B7G3F2A;
+				DEVELOPMENT_TEAM = 5Z2TRCRXZZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pepperoni/Info.plist;

@@ -10,6 +10,10 @@ import SwiftData
 
 struct HomeView: View {
     
+    @State private var isDataLoaded = false
+    @Environment(\.modelContext) private var modelContext
+
+    
     @Query private var characters: [Character]
     
     var body: some View {
@@ -111,7 +115,7 @@ struct HomeView: View {
                                         CharacterRowInHome(character: character, ratio: ratio)
                                             .frame(height:26)
                                             .padding(.bottom, 12)
-
+                                        
                                     }
                                 }.padding(.horizontal, 13)
                                     .padding(.vertical, 14.5)
@@ -129,6 +133,24 @@ struct HomeView: View {
             }
             .padding()
         }
+        .onAppear {
+            if isFirstLaunch() {
+                JSONUtils.saveAnimeCharacterData(modelContext: modelContext)
+                JSONUtils.saveAnimeQuotesData(modelContext: modelContext)
+                isDataLoaded = true
+            } else {
+                isDataLoaded = true
+            }
+        }
+    }
+    
+    private func isFirstLaunch() -> Bool {
+        let key = "isFirstLaunch"
+        let isFirst = !UserDefaults.standard.bool(forKey: key)
+        if isFirst {
+            UserDefaults.standard.set(true, forKey: key)
+        }
+        return isFirst
     }
 }
 
