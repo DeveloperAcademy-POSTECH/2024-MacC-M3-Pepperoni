@@ -28,12 +28,12 @@ struct AnimeSearchView: View {
                     } label: {
                         HStack {
                             Text(anime.title)
-                                .foregroundColor(.primary)
+                                .foregroundColor(.gray1)
                             
                             Spacer()
                             
                             Image(systemName: "chevron.right")
-                                .foregroundColor(.gray)
+                                .foregroundColor(.gray2)
                         }
                     }
                     .listRowSeparator(.hidden)
