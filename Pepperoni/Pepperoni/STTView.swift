@@ -62,10 +62,9 @@ struct STTView: View {
                 }
             }
             
-            // STT 결과 텍스트 표시
-            Text(sttManager.recognizedText)
+            // 녹음 텍스트 표시 (녹음 종료 후 표시되는 finalText)
+            TextEditor(text: $sttManager.recognizedText)
                 .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(10)
             
@@ -83,7 +82,6 @@ struct STTView: View {
                     .background(sttManager.isRecording ? Color.red : Color.blue)
                     .cornerRadius(10)
             }
-            
         }
         .padding()
     }

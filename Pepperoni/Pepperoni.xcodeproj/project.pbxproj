@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5164DDD92CCF7DB7001FC7D9 /* STTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164DDD82CCF7DB7001FC7D9 /* STTManager.swift */; };
 		5164DDDB2CCF7DF3001FC7D9 /* STTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164DDDA2CCF7DF3001FC7D9 /* STTView.swift */; };
+		51ECA4F02CD2594F001AB4E0 /* TempScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51ECA4EF2CD2594F001AB4E0 /* TempScoreView.swift */; };
+		51ECA4F82CD26C21001AB4E0 /* SpeechGrader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51ECA4F72CD26C21001AB4E0 /* SpeechGrader.swift */; };
 		90429A872CD25FD800A23D0B /* LearningStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90429A862CD25FD800A23D0B /* LearningStartView.swift */; };
 		90429A932CD36D5800A23D0B /* JUJ004.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 90429A912CD36D5800A23D0B /* JUJ004.m4a */; };
 		90429A942CD36D5800A23D0B /* BTR001.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 90429A892CD36D5800A23D0B /* BTR001.m4a */; };
@@ -47,6 +49,8 @@
 		5164DDD82CCF7DB7001FC7D9 /* STTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTManager.swift; sourceTree = "<group>"; };
 		5164DDDA2CCF7DF3001FC7D9 /* STTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTView.swift; sourceTree = "<group>"; };
 		5164DDDC2CCF8EA7001FC7D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		51ECA4EF2CD2594F001AB4E0 /* TempScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempScoreView.swift; sourceTree = "<group>"; };
+		51ECA4F72CD26C21001AB4E0 /* SpeechGrader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechGrader.swift; sourceTree = "<group>"; };
 		90429A862CD25FD800A23D0B /* LearningStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningStartView.swift; sourceTree = "<group>"; };
 		90429A892CD36D5800A23D0B /* BTR001.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = BTR001.m4a; sourceTree = "<group>"; };
 		90429A8A2CD36D5800A23D0B /* BTR002.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = BTR002.m4a; sourceTree = "<group>"; };
@@ -162,6 +166,8 @@
 				BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */,
 				5164DDD82CCF7DB7001FC7D9 /* STTManager.swift */,
 				5164DDDA2CCF7DF3001FC7D9 /* STTView.swift */,
+				51ECA4EF2CD2594F001AB4E0 /* TempScoreView.swift */,
+				51ECA4F72CD26C21001AB4E0 /* SpeechGrader.swift */,
 				BDF007432CD24E5D00A386A1 /* Helper */,
 				BDF007402CD24E4C00A386A1 /* Assets */,
 				BDF007482CD24E7100A386A1 /* Resource */,
@@ -308,12 +314,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD26F3622CCFF03000F6007F /* VideoTestView.swift in Sources */,
+				51ECA4F02CD2594F001AB4E0 /* TempScoreView.swift in Sources */,
 				BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */,
 				BD54BC3C2CD122A300366076 /* YouTubePlayerView.swift in Sources */,
 				BDF007312CD24DD500A386A1 /* Models.swift in Sources */,
 				BDF007362CD24E2900A386A1 /* DataLoadingView.swift in Sources */,
 				BDF007492CD24E7100A386A1 /* JSONUtils.swift in Sources */,
 				BDF007372CD24E2900A386A1 /* ContentView.swift in Sources */,
+				51ECA4F82CD26C21001AB4E0 /* SpeechGrader.swift in Sources */,
+				BDF007382CD24E2900A386A1 /* AnimeListView.swift in Sources */,
 				90429A872CD25FD800A23D0B /* LearningStartView.swift in Sources */,
 				BDF007382CD24E2900A386A1 /* AnimeSearchView.swift in Sources */,
 				BDF007442CD24E5D00A386A1 /* Router.swift in Sources */,
@@ -459,7 +468,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pepperoni/Preview Content\"";
-				DEVELOPMENT_TEAM = 5Z2TRCRXZZ;
+				DEVELOPMENT_TEAM = 2U3B7G3F2A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pepperoni/Info.plist;
@@ -490,7 +499,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pepperoni/Preview Content\"";
-				DEVELOPMENT_TEAM = 5Z2TRCRXZZ;
+				DEVELOPMENT_TEAM = 2U3B7G3F2A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pepperoni/Info.plist;
