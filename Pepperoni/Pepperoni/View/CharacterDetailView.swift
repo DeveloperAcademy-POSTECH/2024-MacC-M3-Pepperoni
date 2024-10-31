@@ -262,6 +262,7 @@ struct CharacterDetailView: View {
     // 즐겨찾기 상태 토글 함수
     private func toggleFavorite() {
         character.favorite.toggle() // favorite 상태를 토글
+        print("favorite")
     }
 }
 
