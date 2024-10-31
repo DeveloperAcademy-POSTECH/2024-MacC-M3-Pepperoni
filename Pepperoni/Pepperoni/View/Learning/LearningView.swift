@@ -11,7 +11,7 @@ struct LearningView: View {
     
     let quote: AnimeQuote
     
-    var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["才能は", "開花させる", "もの", "センスは", "磨く", "もの"], pronunciation: ["사이노우와", "카이카사세루", "모노", "센스와", "미가쿠", "모노"], korean: ["재능은", "발휘하는", "것", "센스는", "연마하는", "것"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [2.0, 2.5, 3.3, 5.0, 5.4, 6.0], audiofile: "HIQ001.m4a")
+    var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["才能は", "開花させる", "もの", "センスは", "磨く", "もの"], pronunciation: ["사이노우와", "카이카사세루", "모노", "센스와", "미가쿠", "모노"], korean: ["재능은", "발휘하는", "것", "센스는", "연마하는", "것"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [2.0, 2.5, 3.3, 5.0, 5.4, 6.0], voicingTime: 0.0, audiofile: "HIQ001.m4a", youtubeID: "", youtubeStartTime: 0, youtubeEndTime: 10)
     
     @State var isCounting: Bool = true
     @State var countdown = 4 // 초기 카운트 설정
@@ -192,6 +192,6 @@ struct LearningView: View {
 
 }
 
-#Preview {
-    LearningView(quote: AnimeQuote(japanese: ["長い間", "くそ", "お世話に", "なりました"], pronunciation: ["나가이아이다", "쿠소", "오세와니", "나리마시타"], korean: ["오랜시간", "빌어먹게", "신세를", "졌습니다"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [1.9, 3.0, 3.9, 4.6], audiofile: "ONP001.m4a"))
-}
+//#Preview {
+//    LearningView(quote: AnimeQuote(japanese: ["長い間", "くそ", "お世話に", "なりました"], pronunciation: ["나가이아이다", "쿠소", "오세와니", "나리마시타"], korean: ["오랜시간", "빌어먹게", "신세를", "졌습니다"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [1.9, 3.0, 3.9, 4.6], audiofile: "ONP001.m4a"))
+//}

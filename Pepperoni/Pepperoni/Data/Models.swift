@@ -54,22 +54,30 @@ class AnimeQuote {
     var korean: [String] // 대사 한국어 번역 배열
     var evaluation: Evaluation // 각 요소별 점수 및 통과 여부
     var timemark: [Double] // 각 단어(구)가 시작되는 타임마크
+    var voicingTime: Double // 말하기 Spped 채점을 위한 기준
     var audiofile: String // 오디오 파일 이름
     var isCompleted: Bool // 별 3개가 달성되었는지
+    var youtubeID: String // 유튜브 아이디
+    var youtubeStartTime: Int // 유튜브 시작 시간
+    var youtubeEndTime: Int // 유튜브 끝 시간
 
     // AnimeQuote가 속한 Character를 나타내기 위한 관계
     @Relationship(deleteRule: .nullify, inverse: \Character.quotes) var character: Character?
 
-    init(id: UUID = UUID(), japanese: [String], pronunciation: [String], korean: [String], evaluation: Evaluation, timemark: [Double], audiofile: String, character: Character? = nil, isCompleted: Bool = false) {
+    init(id: UUID = UUID(), japanese: [String], pronunciation: [String], korean: [String], evaluation: Evaluation, timemark: [Double], voicingTime: Double, audiofile: String, character: Character? = nil, isCompleted: Bool = false, youtubeID: String, youtubeStartTime: Int, youtubeEndTime: Int) {
         self.id = id
         self.japanese = japanese
         self.pronunciation = pronunciation
         self.korean = korean
         self.evaluation = evaluation
         self.timemark = timemark
+        self.voicingTime = voicingTime
         self.audiofile = audiofile
         self.character = character
         self.isCompleted = isCompleted
+        self.youtubeID = youtubeID
+        self.youtubeStartTime = youtubeStartTime
+        self.youtubeEndTime = youtubeEndTime
     }
 }
 
