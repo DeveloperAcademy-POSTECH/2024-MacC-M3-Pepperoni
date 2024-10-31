@@ -105,6 +105,8 @@
 				BD2BAAF72CD37D8500873607 /* SearchBar.swift */,
 			);
 			path = Components;
+            sourceTree = "<group>";
+        };
 		90429A882CD36D1800A23D0B /* QuoteVoices */ = {
 			isa = PBXGroup;
 			children = (
