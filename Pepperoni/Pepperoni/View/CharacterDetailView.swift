@@ -10,70 +10,6 @@ import SwiftUI
 struct CharacterDetailView: View {
     let character: Character
     
-    var dummieCharacter: Character = Character(
-        name: "몽키 디 루피",
-        favorite: true,
-        quotes: [
-            AnimeQuote(
-                japanese: ["才能は", "開花させる", "もの", "センスは", "磨く", "もの"],
-                pronunciation: ["사이노우와", "카이카사세루", "모노", "센스와", "미가쿠", "모노"],
-                korean: ["재능은", "발휘하는", "것", "센스는", "연마하는", "것"],
-                evaluation: Evaluation(pronunciationScore: 100, pronunciationPass: true, intonationScore: 100, intonationPass: true, speedScore: 100, speedPass: true),
-                timemark: [2.0, 2.5, 3.3, 5.0, 5.4, 6.0],
-                audiofile: "HIQ001.m4a"
-            ),
-            AnimeQuote(
-                japanese: ["長い間", "くそ", "お世話に", "なりました"],
-                pronunciation: ["나가이아이다", "쿠소", "오세와니", "나리마시타"],
-                korean: ["오랜시간", "빌어먹게", "신세를", "졌습니다"],
-                evaluation: Evaluation(pronunciationScore: 100, pronunciationPass: true, intonationScore: 100, intonationPass: true, speedScore: 100, speedPass: true),
-                timemark: [1.9, 3.0, 3.9, 4.6],
-                audiofile: "ONP001.m4a"
-            ),
-            AnimeQuote(
-                japanese: ["長い間", "くそ", "お世話に", "なりました"],
-                pronunciation: ["나가이아이다", "쿠소", "오세와니", "나리마시타"],
-                korean: ["오랜시간", "빌어먹게", "신세를", "졌습니다"],
-                evaluation: Evaluation(pronunciationScore: 100, pronunciationPass: true, intonationScore: 100, intonationPass: true, speedScore: 100, speedPass: true),
-                timemark: [1.9, 3.0, 3.9, 4.6],
-                audiofile: "ONP001.m4a"
-            ),
-            AnimeQuote(
-                japanese: ["長い間", "くそ", "お世話に", "なりました"],
-                pronunciation: ["나가이아이다", "쿠소", "오세와니", "나리마시타"],
-                korean: ["오랜시간", "빌어먹게", "신세를", "졌습니다"],
-                evaluation: Evaluation(pronunciationScore: 100, pronunciationPass: true, intonationScore: 100, intonationPass: true, speedScore: 100, speedPass: true),
-                timemark: [1.9, 3.0, 3.9, 4.6],
-                audiofile: "ONP001.m4a"
-            ),
-            AnimeQuote(
-                japanese: ["長い間", "くそ", "お世話に", "なりました"],
-                pronunciation: ["나가이아이다", "쿠소", "오세와니", "나리마시타"],
-                korean: ["오랜시간", "빌어먹게", "신세를", "졌습니다"],
-                evaluation: Evaluation(pronunciationScore: 100, pronunciationPass: true, intonationScore: 100, intonationPass: true, speedScore: 100, speedPass: true),
-                timemark: [1.9, 3.0, 3.9, 4.6],
-                audiofile: "ONP001.m4a"
-            ),
-            AnimeQuote(
-                japanese: ["長い間", "くそ", "お世話に", "なりました"],
-                pronunciation: ["나가이아이다", "쿠소", "오세와니", "나리마시타"],
-                korean: ["오랜시간", "빌어먹게", "신세를", "졌습니다"],
-                evaluation: Evaluation(pronunciationScore: 100, pronunciationPass: true, intonationScore: 100, intonationPass: true, speedScore: 100, speedPass: true),
-                timemark: [1.9, 3.0, 3.9, 4.6],
-                audiofile: "ONP001.m4a"
-            ),
-            AnimeQuote(
-                japanese: ["長い間", "くそ", "お世話に"],
-                pronunciation: ["나가이아이다", "쿠소", "오세와니"],
-                korean: ["내가", "해적왕이", "될테야!"],
-                evaluation: Evaluation(pronunciationScore: 100, pronunciationPass: true, intonationScore: 100, intonationPass: true, speedScore: 100, speedPass: true),
-                timemark: [1.9, 3.0, 3.9],
-                audiofile: "ONP001.m4a"
-            )
-        ],
-        completedQuotes: 2
-    )
-    
     @State private var selectedIndex: Int? = 0
     
     let itemHeight: CGFloat = 58.0
@@ -107,7 +43,7 @@ struct CharacterDetailView: View {
                         .cornerRadius(16)
                         .border(.white, width: 3)
                     
-                    Text("\(dummieCharacter.name)")
+                    Text("\(character.name)")
                         .font(.title)
                         .fontWeight(.medium)
                         .foregroundStyle(.white)
@@ -124,7 +60,7 @@ struct CharacterDetailView: View {
                             
                             Spacer()
                             
-                            Text("\(calculateScoresAndPasses(for: dummieCharacter).totalScore)")
+                            Text("\(calculateScoresAndPasses(for: character).totalScore)")
                                 .padding(.bottom, 2)
                                 .fontWeight(.medium)
                                 .foregroundStyle(.ppBlue)
@@ -141,7 +77,7 @@ struct CharacterDetailView: View {
                             
                             Spacer()
                             
-                            Text("\(calculateScoresAndPasses(for: dummieCharacter).totalPasses)")
+                            Text("\(calculateScoresAndPasses(for: character).totalPasses)")
                                 .padding(.bottom, 2)
                                 .fontWeight(.medium)
                                 .foregroundStyle(.ppBlue)
@@ -154,8 +90,8 @@ struct CharacterDetailView: View {
                             
                             // 달성률을 나타내는 바
                             GeometryReader { geometry in
-                                let totalQuotes = dummieCharacter.quotes.count
-                                let completedQuotes = dummieCharacter.completedQuotes
+                                let totalQuotes = character.quotes.count
+                                let completedQuotes = character.completedQuotes
                                 let ratio = totalQuotes > 0 ? CGFloat(completedQuotes) / CGFloat(totalQuotes) : 0
                                 
                                 AchievementBar(ratio: ratio)
@@ -164,7 +100,7 @@ struct CharacterDetailView: View {
                             
                             Spacer()
                             
-                            Text("\(dummieCharacter.completedQuotes)/\(dummieCharacter.quotes.count)")
+                            Text("\(character.completedQuotes)/\(character.quotes.count)")
                                 .fontWeight(.medium)
                                 .foregroundStyle(.ppBlue)
                         }
@@ -181,8 +117,8 @@ struct CharacterDetailView: View {
                         LazyVStack(spacing: 0) {
                             Spacer().frame(height: itemHeight * 2.5) // 스크롤 여유 공간
                             
-                            ForEach(0..<dummieCharacter.quotes.count, id: \.self) { index in
-                                let quote = dummieCharacter.quotes[index]
+                            ForEach(0..<character.quotes.count, id: \.self) { index in
+                                let quote = character.quotes[index]
                                 
                                 VStack(alignment: .leading) {
                                     HStack{
@@ -218,6 +154,9 @@ struct CharacterDetailView: View {
                                 .id(index)
                                 .frame(height: itemHeight)
                                 .padding(.vertical, index == selectedIndex ? 36 : 16)
+                                .onTapGesture {
+                                    Router.shared.navigate(to: LearningStartView(quote: character.quotes[index]))
+                                        }
                             }
                             
                             Spacer().frame(height: itemHeight * 2.5) // 스크롤 여유 공간

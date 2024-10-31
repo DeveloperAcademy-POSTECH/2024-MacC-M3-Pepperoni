@@ -11,40 +11,9 @@ import SwiftData
 struct AnimeListView: View {
     @Query var allAnimes: [Anime]
     
-    let animeArray: [Anime] = [
-        Anime(
-            title: "하이큐",
-            characters: [
-                Character(name: "오이카와 토오루", favorite: false)
-            ],
-            favorite: true
-        ),
-        Anime(
-            title: "원피스",
-            characters: [
-                Character(name: "빈스모크 상디", favorite: false)
-            ],
-            favorite: true
-        ),
-        Anime(
-            title: "최애의 아이",
-            characters: [
-                Character(name: "호시노 아이", favorite: false)
-            ],
-            favorite: false
-        ),
-        Anime(
-            title: "주술회전",
-            characters: [
-                Character(name: "고죠 사토루", favorite: false)
-            ],
-            favorite: false
-        )
-    ]
-    
     var favoriteAnimes: [Anime] {
           // favorite이 true인 애니메이션만 필터링
-          return animeArray.filter { $0.favorite }
+          return allAnimes.filter { $0.favorite }
       }
     
     @State private var text = ""
@@ -172,7 +141,7 @@ struct AnimeListView: View {
                     .padding(.vertical, 6)
                 }
                 
-                List(animeArray, id: \.id) { anime in
+                List(allAnimes, id: \.id) { anime in
                     Button {
                         Router.shared.navigate(to: .characterList(anime: anime))
                     } label: {
