@@ -25,10 +25,12 @@ struct ContentView: View {
                         CharacterListView(anime: anime)
                     case .characterDetail(let character):
                         CharacterDetailView(character: character)
+                    case .learningStart(let quote):
+                        LearningStartView(quote: quote)
                     case .learning(let quote):
                         LearningView(quote: quote)
-                    case .result(let score):
-                        ResultView(score: score)
+                    case .result(let quote):
+                        ResultView(quote: quote)
                     }
                 }
         }

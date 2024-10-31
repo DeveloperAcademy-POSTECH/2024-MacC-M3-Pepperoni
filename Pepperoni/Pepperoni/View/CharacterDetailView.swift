@@ -13,7 +13,7 @@ struct CharacterDetailView: View {
     var body: some View {
         List(character.quotes, id: \.id) { quote  in
             Button {
-                Router.shared.navigate(to: .learning(quote: quote))
+                Router.shared.navigate(to: .learningStart(quote: quote))
             } label: {
                 Text("\(quote.korean)")
             }
@@ -24,3 +24,4 @@ struct CharacterDetailView: View {
 #Preview {
     CharacterDetailView(character: Character(name: "고죠", favorite: false))
 }
+
