@@ -17,7 +17,6 @@ struct STTView: View {
     let meanings = ["오랜시간", "빌어먹게", "신세를", "졌습니다"]
     let words = ["長い間", "くそ", "お世話に", "なりました"]
     let pronunciations = ["나가이아이다", "쿠소", "오세와니", "나리마시타"]
-    @State var isCorrect = [false, false, false, false]
     
     var body: some View {
         VStack(spacing: 20) {
