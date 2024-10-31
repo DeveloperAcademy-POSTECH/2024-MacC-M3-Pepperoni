@@ -60,7 +60,11 @@ struct JSONUtils {
                     let pronunciation = jsonItem["pronunciation"] as? [String] ?? []
                     let korean = jsonItem["korean"] as? [String] ?? []
                     let timemark = jsonItem["timemark"] as? [Double] ?? []
+                    let voicingtime = jsonItem["voicingtime"] as? Double ?? 0.0
                     let audiofile = jsonItem["audiofile"] as? String ?? ""
+                    let youtubeId = jsonItem["youtubeid"] as? String ?? ""
+                    let youtubeStartTime = jsonItem["start"] as? Int ?? 0
+                    let youtubeEndTime = jsonItem["end"] as? Int ?? 0
                     
                     // 평가 초기화
                     let evaluation = Evaluation(
@@ -80,7 +84,7 @@ struct JSONUtils {
                     if let anime = try? modelContext.fetch(animeFetchDescriptor).first,
                        let character = anime.characters.first(where: { $0.name == characterName }) {
                         
-                        let newQuote = AnimeQuote(japanese: japanese, pronunciation: pronunciation, korean: korean, evaluation: evaluation, timemark: timemark, audiofile: audiofile)
+                        let newQuote = AnimeQuote(japanese: japanese, pronunciation: pronunciation, korean: korean, evaluation: evaluation, timemark: timemark, voicingTime: voicingtime, audiofile: audiofile, youtubeID: youtubeId, youtubeStartTime: youtubeStartTime, youtubeEndTime: youtubeEndTime)
                         
                         modelContext.insert(newQuote)
                         character.quotes.append(newQuote)
