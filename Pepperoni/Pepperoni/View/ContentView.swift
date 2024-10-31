@@ -19,12 +19,18 @@ struct ContentView: View {
                         HomeView()
                     case .animeList:
                         AnimeListView()
-                    case .animeDetail(let anime):
-                        AnimeDetailView(anime: anime)
-                    case .learning(let id):
-                        LearningView(animeId: id)
-                    case .result(let score):
-                        ResultView(score: score)
+                    case .animeSearch:
+                        AnimeSearchView()
+                    case .characterList(let anime):
+                        CharacterListView(anime: anime)
+                    case .characterDetail(let character):
+                        CharacterDetailView(character: character)
+                    case .learningStart(let quote):
+                        LearningStartView(quote: quote)
+                    case .learning(let quote):
+                        LearningView(quote: quote)
+                    case .result(let quote):
+                        ResultView(quote: quote)
                     }
                 }
         }
