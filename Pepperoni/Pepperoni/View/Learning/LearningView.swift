@@ -23,7 +23,7 @@ struct LearningView: View {
     @StateObject private var sttManager = STTManager()
     
     var body: some View {
-        ZStack{
+        ZStack {
             VStack {
                 Spacer()
                 
