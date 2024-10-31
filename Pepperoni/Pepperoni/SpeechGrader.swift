@@ -7,9 +7,9 @@
 
 import Foundation
 
-/// Levenshtein Distance를 통해 발음 정확도를 측정합니다.
+/// 발음 정확도를 측정합니다.
 func calculatePronunciation(original: [String], sttText: String) -> Double {
-    // 원본 배열을 하나의 문자열로 합침
+    // 일본어 단어 배열을 하나의 문자열로 합침
     let originalText = original.joined()
     
     // Levenshtein Distance 계산
@@ -20,13 +20,15 @@ func calculatePronunciation(original: [String], sttText: String) -> Double {
     return max(accuracy, 0) // 정확도는 최소 0으로 반환
 }
 
-func calculateSpeededPronunciation(originalLength: Double, sttVoicingTime: Double) -> Double {
+/// 사용자 음성 시작지점 - 종료시점을 계산 합니다.
+/// 편집 거리 알고리즘(Levenshtein Distance)
+func calculateVoiceSpeed(originalLength: Double, sttVoicingTime: Double) -> Double {
     // 음성 시간이 0 이하인 경우 처리
     guard sttVoicingTime > 0 else {
         return 0.0 // 음성이 측정되지 않음
     }
     
-    // 허용되는 범위 설정 (±0.5초)
+    // 100% 점수 기준 시간 (±0.5초)
     let acceptableRange: Double = 0.5
     
     // 원래 음원 길이에 따라 점수 계산
@@ -63,5 +65,6 @@ private func levenshteinDistance(_ source: String, _ target: String) -> Int {
             )
         }
     }
+    
     return distanceMatrix[sourceCount][targetCount]
 }

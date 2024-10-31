@@ -102,9 +102,9 @@ struct TempScoreView: View {
             Button(action: {
                 pronunciationScore = calculatePronunciation(original: japanese2, sttText: sttManager.recognizedText)
                 
+                // 사용자의 음성 길이를 초기화
                 voicingTime = sttManager.voicingTime!
-                print("길이 출력: \(voicingTime)")
-                speedScore = calculateSpeededPronunciation(originalLength: timeLength2, sttVoicingTime: voicingTime)
+                speedScore = calculateVoiceSpeed(originalLength: timeLength2, sttVoicingTime: voicingTime)
                 
             }) {
                 Text("채점하기")

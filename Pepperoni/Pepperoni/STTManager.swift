@@ -11,53 +11,53 @@ import Combine
 
 class STTManager: ObservableObject {
     var isRecording = false
-        @Published var recognizedText = ""
-        @Published var startTime: Double?
-        @Published var endTime: Double?
-        @Published var voicingTime: Double?
+    @Published var recognizedText = ""
+    @Published var startTime: Double?
+    @Published var endTime: Double?
+    @Published var voicingTime: Double?
+    
+    private var audioEngine = AVAudioEngine()
+    private var speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
+    private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
+    private var recognitionTask: SFSpeechRecognitionTask?
+    private var audioRecorder: AVAudioRecorder?
+    
+    func startRecording() {
+        guard let speechRecognizer = speechRecognizer, speechRecognizer.isAvailable else {
+            print("Speech recognizer is not available.")
+            return
+        }
         
-        private var audioEngine = AVAudioEngine()
-        private var speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
-        private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
-        private var recognitionTask: SFSpeechRecognitionTask?
-        private var audioRecorder: AVAudioRecorder?
+        isRecording = true
+        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+        guard let recognitionRequest = recognitionRequest else { return }
+        recognitionRequest.shouldReportPartialResults = true
         
-        func startRecording() {
-            guard let speechRecognizer = speechRecognizer, speechRecognizer.isAvailable else {
-                print("Speech recognizer is not available.")
-                return
+        let inputNode = audioEngine.inputNode
+        let recordingFormat = inputNode.outputFormat(forBus: 0)
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, _) in
+            recognitionRequest.append(buffer)
+        }
+        
+        audioEngine.prepare()
+        try? audioEngine.start()
+        
+        // 녹음 파일 설정, 녹음
+        let audioFileURL = getFileURL()
+        startAudioRecorder()
+        
+        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
+            if let result = result {
+                DispatchQueue.main.async {
+                    self?.recognizedText = result.bestTranscription.formattedString
+                }
             }
             
-            isRecording = true
-            recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-            guard let recognitionRequest = recognitionRequest else { return }
-            recognitionRequest.shouldReportPartialResults = true
-            
-            let inputNode = audioEngine.inputNode
-            let recordingFormat = inputNode.outputFormat(forBus: 0)
-            inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, _) in
-                recognitionRequest.append(buffer)
-            }
-            
-            audioEngine.prepare()
-            try? audioEngine.start()
-            
-            // 녹음 파일 설정, 녹음
-            let audioFileURL = getFileURL()
-            startAudioRecorder()
-            
-            recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
-                if let result = result {
-                    DispatchQueue.main.async {
-                        self?.recognizedText = result.bestTranscription.formattedString
-                    }
-                }
-                
-                if error != nil || (result?.isFinal ?? false) {
-                    self?.stopRecording()
-                }
+            if error != nil || (result?.isFinal ?? false) {
+                self?.stopRecording()
             }
         }
+    }
     
     func stopRecording() {
         recognitionTask?.finish()
@@ -69,6 +69,7 @@ class STTManager: ObservableObject {
             self.voicingTime = voicingTime
             print("음성 시간: \(voicingTime)초") // 디버깅용
         }
+        
         cleanup()
     }
     
@@ -147,6 +148,7 @@ class STTManager: ObservableObject {
             
             let voicingTime = (endTime ?? 0) - (startTime ?? 0)
             return voicingTime
+            
         } catch {
             print("Audio file processing failed: \(error.localizedDescription)")
             return 0.0
