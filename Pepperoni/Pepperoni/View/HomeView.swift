@@ -11,46 +11,55 @@ import SwiftData
 struct HomeView: View {
     
     var body: some View {
-        DataLoadingView()
-        VStack {
-            HStack {
+        VStack(spacing: 20) {
+            HStack (spacing: 12){
                 Text("anisentence")
                     .font(.title3)
                     .fontWeight(.bold)
-                    .foregroundStyle(.ppBlue)
+                
                 Spacer()
+                
+                Button {
+                } label: {
+                    Image("Namecard")
+                }
+                
+                Button {
+                } label: {
+                    Text(Image(systemName: "info.circle"))
+                        .font(.title2)
+                        .foregroundStyle(.gray)
+                }
             }
             .frame(height: 70)
             
-            Group{
+            VStack{
                 Image("Roni")
-                
-                Button("애니 목록") {
-                    Router.shared.navigate(to: .animeList)
-                }
-                .frame(width: 357, height: 60)
-                .foregroundStyle(.white)
-                .background(.ppBlue)
-                .cornerRadius(16)
             }
+            .frame(maxWidth: .infinity, maxHeight: 291)
+            .background(.secondary)
+            .cornerRadius(20)
             
-            Group{
-                Rectangle()
-                    .frame(width: 360, height: 180)
-                    .cornerRadius(16)
-                    .foregroundStyle(.ppBlue)
-                
-//                Button("최애의 아이") {
-//                    Router.shared.navigate(to: .learning(character: Character))
-//                }
-//                .frame(width: 180, height: 60)
-//                .foregroundStyle(.white)
-//                .background(.ppBlue)
-//                .cornerRadius(16)
+            Button {
+                Router.shared.navigate(to: .animeList)
+            } label: {
+                HStack{
+                    Text(Image(systemName: "list.bullet"))
+                    
+                    Text("애니 목록")
+                }
             }
+            .frame(maxWidth: .infinity, maxHeight: 60)
+            .foregroundStyle(.white)
+            .background(.secondary)
+            .cornerRadius(16)
+            
+            Rectangle()
+                .frame(maxWidth: .infinity, maxHeight: 245)
+                .cornerRadius(16)
+                .foregroundStyle(.ppBlue)
         }
         .padding()
-
     }
 }
 
