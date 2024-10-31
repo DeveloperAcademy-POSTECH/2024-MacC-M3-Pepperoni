@@ -11,7 +11,7 @@ struct LearningView: View {
     
     let quote: AnimeQuote
     
-    var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["天上天下", "唯我独尊"], pronunciation: ["텐조오텐게", "유이가도쿠손"], korean: ["천상천하", "유아독존"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [0.01, 1.6], voicingTime: 1.9, audiofile: "JUJ005.m4a", youtubeID: "cJVeIwP_HoQ", youtubeStartTime: 90, youtubeEndTime: 115)
+//    var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["天上天下", "唯我独尊"], pronunciation: ["텐조오텐게", "유이가도쿠손"], korean: ["천상천하", "유아독존"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [0.01, 1.6], voicingTime: 1.9, audiofile: "JUJ005.m4a", youtubeID: "cJVeIwP_HoQ", youtubeStartTime: 90, youtubeEndTime: 115)
     
     @State var isCounting: Bool = true
     @State var countdown = 4 // 초기 카운트 설정
@@ -215,6 +215,9 @@ struct LearningView: View {
         quote.evaluation.speedScore = calculateVoiceSpeed(
             originalLength: quote.voicingTime,
             sttVoicingTime: sttManager.voicingTime!)
+        print("원본 일본어: \(quote.japanese)")
+        print("원본 속도: \(quote.voicingTime)")
+        print("사용자 속도: \(sttManager.voicingTime!)")
         
         // 80점이 넘으면 pass
         if quote.evaluation.pronunciationScore < 80 {
