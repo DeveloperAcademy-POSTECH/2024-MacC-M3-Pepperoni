@@ -11,36 +11,61 @@ import SwiftData
 struct AnimeSearchView: View {
     @Query var allAnimes: [Anime]
     @State private var searchText: String = ""
-
-    var filteredAnimes: [Anime] {
-        // 사용자가 입력한 검색어를 기준으로 필터링
-        if searchText.isEmpty {
-            return allAnimes
-        } else {
-            return allAnimes.filter {
-                $0.title.lowercased().contains(searchText.lowercased())
-            }
-        }
+    @Environment(\.presentationMode) var presentationMode
+    
+    private var filteredAnimes: [Anime] {
+        animeArray.filter { !$0.title.isEmpty && searchText.isEmpty == false && $0.title.contains(searchText) }
     }
+    
+    // 임시 더미 배열
+    let animeArray: [Anime] = [
+        Anime(
+            title: "하이큐",
+            characters: [
+                Character(name: "오이카와 토오루", favorite: false)
+            ],
+            favorite: true
+        ),
+        Anime(
+            title: "원피스",
+            characters: [
+                Character(name: "빈스모크 상디", favorite: false)
+            ],
+            favorite: true
+        ),
+        Anime(
+            title: "최애의 아이",
+            characters: [
+                Character(name: "호시노 아이", favorite: false)
+            ],
+            favorite: false
+        ),
+        Anime(
+            title: "주술회전",
+            characters: [
+                Character(name: "고죠 사토루", favorite: false)
+            ],
+            favorite: false
+        )
+    ]
 
     var body: some View {
         VStack {
-            // - MARK: 검색창
-            TextField("애니를 검색해보세요", text: $searchText)
-                .padding()
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-
-            // - MARK: 애니 리스트
-            List(filteredAnimes, id: \.id) { anime in
-                Button {
-                    Router.shared.navigate(to: .characterList(anime: anime))
-                } label: {
-                    Text(anime.title)
+            SearchBar(searchText: $searchText)
+            
+            if !filteredAnimes.isEmpty {
+                List(filteredAnimes, id: \.id) { anime in
+                    Button {
+                        Router.shared.navigate(to: .characterList(anime: anime))
+                    } label: {
+                        Text(anime.title)
+                    }
                 }
             }
         }
-        .padding()
     }
+    
+
 }
 
 #Preview {
