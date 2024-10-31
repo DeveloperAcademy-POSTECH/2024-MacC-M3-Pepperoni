@@ -25,15 +25,15 @@ struct ResultView: View {
     var body: some View {
         ScrollView{
             if showCongratulation && totalPass {
-                VStack(spacing:0){
+                VStack(spacing: 0){
                     Rectangle()
-                        .frame(height:65)
+                        .frame(height: 65)
                         .overlay{
                             Text("Congratulate!")
                                 .foregroundStyle(.ppBlue)
                                 .bold()
                         }
-                    YouTubePlayerView(videoID: quote.youtubeID, startTime: 20, endTime:25)
+                    YouTubePlayerView(videoID: quote.youtubeID, startTime: 20, endTime: 25)
                         .frame(height: 218)
                         .padding(.bottom, 30)
                 }
@@ -47,7 +47,7 @@ struct ResultView: View {
                 VStack{
                     Spacer()
                     RoundedRectangle(cornerRadius: 48)
-                        .frame(height:511)
+                        .frame(height: 511)
                         .padding(.horizontal, 20)
                 }
                 
@@ -56,7 +56,7 @@ struct ResultView: View {
                     HStack(spacing:-30){
                         Star(isPassed: quote.evaluation.pronunciationPass, size: 112)
                         Star(isPassed: quote.evaluation.intonationPass, size: 127)
-                            .offset(y:-30)
+                            .offset(y: -30)
                         Star(isPassed: quote.evaluation.speedPass, size: 112)
                     }.padding(.bottom, 18)
                     
@@ -74,7 +74,7 @@ struct ResultView: View {
                         .padding(.top, 10)
                     
                 }
-            }.frame(height:604)
+            }.frame(height: 604)
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // ScoreBar 애니메이션 후 Star 애니메이션
@@ -91,7 +91,6 @@ struct ResultView: View {
                 }
             }
         }
-        
     }
 }
 
@@ -111,7 +110,7 @@ struct Star: View{
                 Image(systemName: "star.fill")
                     .resizable()
                     .foregroundStyle(filled ? (isPassed ? .blue : .white) : .clear) // 초기에는 색상이 투명하게 설정
-                    .frame(width: size*0.85, height: size*0.85)
+                    .frame(width: size * 0.85, height: size * 0.85)
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // ScoreBar 애니메이션 이후 지연
@@ -122,7 +121,6 @@ struct Star: View{
             }
     }
 }
-
 
 struct ScoreBar: View {
     
@@ -135,8 +133,8 @@ struct ScoreBar: View {
     var body: some View {
         VStack{
             ZStack(alignment:.bottom){
-                RoundedRectangle(cornerRadius:16)
-                    .frame(width:80, height:288)
+                RoundedRectangle(cornerRadius: 16)
+                    .frame(width: 80, height: 288)
                     .foregroundStyle(.gray)
                 RoundedRectangle(cornerRadius: 16)
                     .frame(width: 80, height: 288 * animatedScore / 100)
