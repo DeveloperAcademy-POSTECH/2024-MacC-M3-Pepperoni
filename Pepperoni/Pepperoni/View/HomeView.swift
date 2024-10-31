@@ -23,6 +23,7 @@ struct HomeView: View {
                     Text("anisentence")
                         .font(.title3)
                         .fontWeight(.bold)
+                        .foregroundStyle(.gray1)
                     
                     Spacer()
                     
@@ -42,11 +43,12 @@ struct HomeView: View {
                 
                 VStack{
                     SpeechBubbleRight()
+                        .foregroundStyle(.white)
                         .padding(.horizontal, 39)
                         .padding(.top, 32)
                         .overlay{
                             Text("우리 잠 언제 자?")
-                                .foregroundStyle(.white)
+                                .foregroundStyle(.blue1)
                         }
                     HStack{
                         Spacer()
@@ -60,7 +62,7 @@ struct HomeView: View {
                     
                 }
                 .frame(maxWidth: .infinity, maxHeight: 291)
-                .background(.secondary)
+                .background(Color.gray1)
                 .cornerRadius(20)
                 
                 Button {
@@ -74,7 +76,7 @@ struct HomeView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: 60)
                 .foregroundStyle(.white)
-                .background(.secondary)
+                .background(Color.darkGray)
                 .cornerRadius(16)
                 TabView{
                     ForEach(characters) { character in
@@ -85,32 +87,38 @@ struct HomeView: View {
                         ZStack{
                             Rectangle()
                                 .cornerRadius(16)
-                                .foregroundStyle(.ppBlue)
+                                .foregroundStyle(Color.skyBlue1)
                             ZStack{
                                 RoundedRectangle(cornerRadius: 20)
+                                    .foregroundStyle(Color.blueWhite)
                                 
                                 HStack(spacing:26){
                                     Image("Roni")
                                         .background{
-                                            Color.white
+                                            Color.lightGray2
                                         }
                                         .cornerRadius(12)
                                     
                                     
                                     VStack{
                                         RoundedRectangle(cornerRadius: 16)
-                                            .foregroundStyle(.white)
+                                            .foregroundStyle(Color.lightGray1)
                                             .frame(height:52)
                                             .overlay{
                                                 Text(character.anime?.title ?? "")
+                                                    .font(.system(size: 20, weight: .bold))
+                                                    .foregroundStyle(Color.darkGray)
                                             }
                                         Spacer()
                                         HStack{
                                             Text(character.name)
+                                                .foregroundStyle(Color.blue1)
+                                                .font(.system(size: 20, weight: .bold))
                                             Spacer()
                                             Text("달성률")
+                                                .foregroundStyle(Color.lightGray2)
+                                                .font(.system(size: 14, weight: .bold))
                                         }
-                                        .foregroundStyle(.white)
                                         
                                         CharacterRowInHome(character: character, ratio: ratio)
                                             .frame(height:26)
@@ -122,6 +130,7 @@ struct HomeView: View {
                             }
                             .frame(height: 179)
                             .padding(.horizontal, 11.5)
+                            .padding(.bottom, 20)
                             
                         }
                     }
@@ -166,10 +175,10 @@ struct CharacterRowInHome: View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 Rectangle()
-                    .fill(Color.gray)
+                    .fill(Color.gray2)
                 
                 Rectangle()
-                    .fill(Color.blue)
+                    .fill(Color.blue1)
                     .frame(width: geometry.size.width * ratio, height: 68)
                     .cornerRadius(20)
                     .padding(.bottom, 0)

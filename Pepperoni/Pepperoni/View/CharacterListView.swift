@@ -24,6 +24,7 @@ struct CharacterListView: View {
                             .scaledToFit()
                             .frame(width: 25, height: 25)
                             .foregroundColor(anime.favorite ? .blue : .white)
+                        
                     }
                     .padding(.top)
                 }
@@ -39,7 +40,7 @@ struct CharacterListView: View {
             }
             .padding()
             .frame(maxWidth: .infinity)
-            .background(.gray)
+            .background(Color.gray2)
             
             // -MARK: 캐릭터 리스트
             List(anime.characters, id: \.id) { character in
@@ -82,10 +83,10 @@ struct CharacterRow: View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 Rectangle()
-                    .fill(Color.gray)
+                    .fill(Color.lightGray2)
                 
                 Rectangle()
-                    .fill(Color.blue)
+                    .fill(Color.skyBlue1)
                     .frame(width: geometry.size.width * ratio, height: 68)
                     .cornerRadius(20)
                     .padding(.bottom, 0)
@@ -99,12 +100,13 @@ struct CharacterRow: View {
                     Spacer()
                     
                     Text("\(character.completedQuotes) / \(character.quotes.count)")
+                        .foregroundStyle(Color.gray2)
                 }
                 .padding()
                 .overlay(
                     character.favorite ?
                     Image(systemName: "heart.fill")
-                        .foregroundStyle(.ppBlue)
+                        .foregroundStyle(.blue1)
                         .shadow(color: .black, radius: 0)
                         .font(.title3)
                         .padding(.horizontal, 16)
