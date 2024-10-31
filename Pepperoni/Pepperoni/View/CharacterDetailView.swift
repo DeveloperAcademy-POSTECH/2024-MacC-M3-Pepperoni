@@ -19,7 +19,7 @@ struct CharacterDetailView: View {
         VStack{
             ZStack{
                 Rectangle()
-                    .background(.gray1)
+                    .foregroundStyle(.gray1)
                     .frame(height: 584)
                     .cornerRadius(60)
                 
@@ -36,7 +36,6 @@ struct CharacterDetailView: View {
                                 .frame(width: 26, height: 25)
                                 .foregroundColor(character.favorite ? .blue : .white)
                         }
-                        .padding(.top)
                     }
                     
                     Rectangle()
@@ -120,7 +119,7 @@ struct CharacterDetailView: View {
                     // -MARK: 대사 리스트
                     ScrollView(.vertical) {
                         LazyVStack(spacing: 0) {
-//                            Spacer().frame(height: itemHeight * 2.5) // 스크롤 여유 공간
+                            Spacer().frame(height: itemHeight * 2.5) // 스크롤 여유 공간
                             
                             ForEach(0..<character.quotes.count, id: \.self) { index in
                                 let quote = character.quotes[index]
@@ -158,7 +157,7 @@ struct CharacterDetailView: View {
                                 )
                                 .id(index)
                                 .frame(height: itemHeight)
-                                .padding(.bottom, index == selectedIndex ? 36 : 16)
+                                .padding(.vertical, index == selectedIndex ? 24 : 16)
                                 .onTapGesture {
                                     Router.shared.navigate(to: .learningStart(quote: character.quotes[index]))
                                 }
