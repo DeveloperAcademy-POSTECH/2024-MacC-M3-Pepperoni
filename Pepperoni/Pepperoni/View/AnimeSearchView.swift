@@ -27,6 +27,20 @@ struct AnimeSearchView: View {
             favorite: true
         ),
         Anime(
+            title: "하이볼",
+            characters: [
+                Character(name: "오이카와 토오루", favorite: false)
+            ],
+            favorite: true
+        ),
+        Anime(
+            title: "하하하",
+            characters: [
+                Character(name: "오이카와 토오루", favorite: false)
+            ],
+            favorite: true
+        ),
+        Anime(
             title: "원피스",
             characters: [
                 Character(name: "빈스모크 상디", favorite: false)
@@ -52,20 +66,31 @@ struct AnimeSearchView: View {
     var body: some View {
         VStack {
             SearchBar(searchText: $searchText)
-            
+        
             if !filteredAnimes.isEmpty {
                 List(filteredAnimes, id: \.id) { anime in
                     Button {
                         Router.shared.navigate(to: .characterList(anime: anime))
                     } label: {
-                        Text(anime.title)
+                        HStack {
+                            Text(anime.title)
+                                .foregroundColor(.primary)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.gray)
+                        }
                     }
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                 }
+                .listStyle(PlainListStyle())
             }
+            
+            Spacer()
         }
     }
-    
-
 }
 
 #Preview {
