@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LearningStartView: View {
     
-    let animeId: String
+    let quote: AnimeQuote
     
     var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["才能は", "開花させる", "もの", "センスは", "磨く", "もの"], pronunciation: ["사이노우와", "카이카사세루", "모노", "센스와", "미가쿠", "모노"], korean: ["재능은", "발휘하는", "것", "센스는", "연마하는", "것"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [2.0, 2.5, 3.3, 5.0, 5.4, 6.0], audiofile: "HIQ001.m4a")
     
@@ -26,6 +26,7 @@ struct LearningStartView: View {
                     .padding(.horizontal, 47.5)
                     .overlay{
                         VStack {
+                            // TODO: dummieQuote -> quote로 변경
                             if dummieQuote.pronunciation.count >= 5 {
                                 let halfIndex = dummieQuote.pronunciation.count / 2
                                 
@@ -127,7 +128,7 @@ struct LearningStartView: View {
                 })
                 
                 Button(action:{
-                    // 다음 뷰로 넘어가는 router 코드
+                    Router.shared.navigate(to: .learning(quote: quote))
                 }, label:{
                     RoundedRectangle(cornerRadius: 10)
                         .frame(height:60)
@@ -145,7 +146,7 @@ struct LearningStartView: View {
 }
 
 #Preview {
-    LearningStartView(animeId: "123")
+    LearningStartView(quote: AnimeQuote(japanese: ["才能は", "開花させる", "もの", "センスは", "磨く", "もの"], pronunciation: ["사이노우와", "카이카사세루", "모노", "센스와", "미가쿠", "모노"], korean: ["재능은", "발휘하는", "것", "센스는", "연마하는", "것"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [2.0, 2.5, 3.3, 5.0, 5.4, 6.0], audiofile: "HIQ001.m4a"))
 }
 
 struct SpeechBubble: Shape {
