@@ -155,8 +155,8 @@ struct CharacterDetailView: View {
                                 .frame(height: itemHeight)
                                 .padding(.vertical, index == selectedIndex ? 36 : 16)
                                 .onTapGesture {
-                                    Router.shared.navigate(to: LearningStartView(quote: character.quotes[index]))
-                                        }
+                                    Router.shared.navigate(to: .learningStart(quote: character.quotes[index]))
+                                }
                             }
                             
                             Spacer().frame(height: itemHeight * 2.5) // 스크롤 여유 공간
