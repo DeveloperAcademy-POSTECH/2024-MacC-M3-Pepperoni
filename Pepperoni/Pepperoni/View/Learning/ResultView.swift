@@ -33,7 +33,7 @@ struct ResultView: View {
                                 .foregroundStyle(.ppBlue)
                                 .bold()
                         }
-                    YouTubePlayerView(videoID: "CGREMa2xFBk", startTime: 20, endTime:25)
+                    YouTubePlayerView(videoID: quote.youtubeID, startTime: 20, endTime:25)
                         .frame(height: 218)
                         .padding(.bottom, 30)
                 }
