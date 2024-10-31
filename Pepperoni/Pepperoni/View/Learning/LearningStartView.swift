@@ -15,6 +15,8 @@ struct LearningStartView: View {
     
     @State private var currentPage = 0  // 현재 페이지를 관리할 변수
     
+    @StateObject private var audioPlayerManager = AudioPlayerManager()
+    
     var body: some View {
         ZStack{
             Color.gray
@@ -114,6 +116,7 @@ struct LearningStartView: View {
                 
                 Button(action:{
                     // 오디오파일 재생이 들어감
+                    audioPlayerManager.playAudio(from: dummieQuote.audiofile)
                 }, label:{
                     RoundedRectangle(cornerRadius: 10)
                         .frame(height:50)
@@ -126,6 +129,7 @@ struct LearningStartView: View {
                             .foregroundStyle(.white)
                         }
                 })
+                .disabled(audioPlayerManager.isPlaying)
                 
                 Button(action:{
                     Router.shared.navigate(to: .learning(quote: quote))
