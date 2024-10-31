@@ -73,7 +73,6 @@ struct ResultView: View {
                         .font(.system(size: 50))
                         .padding(.top, 10)
                     
-                    
                 }
             }.frame(height:604)
         }

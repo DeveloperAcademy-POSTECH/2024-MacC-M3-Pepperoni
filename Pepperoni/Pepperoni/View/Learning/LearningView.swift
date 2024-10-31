@@ -11,7 +11,7 @@ struct LearningView: View {
     
     let quote: AnimeQuote
     
-    var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["天上天下", "唯我独尊"], pronunciation: ["텐조오텐게", "유이가도쿠손"], korean: ["천상천하", "유아독존"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [0.01, 1.6], voicingTime: 0.0, audiofile: "JUJ005.m4a", youtubeID: "cJVeIwP_HoQ", youtubeStartTime: 90, youtubeEndTime: 115)
+    var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["天上天下", "唯我独尊"], pronunciation: ["텐조오텐게", "유이가도쿠손"], korean: ["천상천하", "유아독존"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [0.01, 1.6], voicingTime: 1.9, audiofile: "JUJ005.m4a", youtubeID: "cJVeIwP_HoQ", youtubeStartTime: 90, youtubeEndTime: 115)
     
     @State var isCounting: Bool = true
     @State var countdown = 4 // 초기 카운트 설정
@@ -35,6 +35,7 @@ struct LearningView: View {
                 }
                 .padding(.bottom, 48)
                 
+                // TODO: dummieQuote -> quote로 변경
                 if dummieQuote.japanese.count >= 5 {
                     let halfIndex = dummieQuote.japanese.count / 2
                     
@@ -122,9 +123,10 @@ struct LearningView: View {
                 }
                 
                 Button(action:{
-//                    Router.shared.navigate(to: .result(score: 90))
+                    Router.shared.navigate(to: .result(quote: dummieQuote))
                     sttManager.stopRecording()
                     stopTimer()
+                    grading()
                 }, label:{
                     RoundedRectangle(cornerRadius: 10)
                         .frame(width: 220, height:60)
@@ -144,16 +146,13 @@ struct LearningView: View {
                 Color.black.opacity(0.7) // 어두운 오버레이 배경
                     .edgesIgnoringSafeArea(.all)
                 
-                Text(countdown == 1 ? "Start!" : "\(countdown-1)") // 카운트다운 숫자
+                Text(countdown == 1 ? "Start!" : "\(countdown - 1)") // 카운트다운 숫자
                     .font(.system(size: 100, weight: .bold))
                     .foregroundColor(.white)
                     .onAppear {
                         startCountdown() // 뷰가 나타나면 카운트다운 시작
                     }
             }
-        }
-        .onAppear {
-            sttManager.startRecording() // 뷰에 진입 시 녹음 시작
         }
         .onDisappear {
             sttManager.stopRecording() // 뷰에서 벗어날 때 녹음 중지
@@ -174,6 +173,11 @@ struct LearningView: View {
                 // 카운트가 끝나면 오버레이를 제거하고 타이머 종료
                 self.isCounting = false
                 timer.invalidate()
+                
+                // 타이머가 끝난 후에 비동기로 STT 시작
+                DispatchQueue.main.async {
+                    sttManager.startRecording() // 타이머 종료 후 STT 녹음 시작
+                }
             }
         }
     }
@@ -200,6 +204,38 @@ struct LearningView: View {
         let endTime = timeByWord[wordIndex + 1]
         
         return timerCount >= startTime && timerCount < endTime
+    }
+    
+    // 채점
+    private func grading() {
+        // 발음과 속도를 채점합니다.
+        dummieQuote.evaluation.pronunciationScore = calculatePronunciation(original: dummieQuote.japanese, sttText: sttManager.recognizedText)
+        
+        dummieQuote.evaluation.speedScore = calculateVoiceSpeed(
+            originalLength: dummieQuote.voicingTime,
+            sttVoicingTime: sttManager.voicingTime!)
+        
+        // 80점이 넘으면 pass
+        if dummieQuote.evaluation.pronunciationScore < 80 {
+            dummieQuote.evaluation.pronunciationPass = false
+        } else {
+            dummieQuote.evaluation.pronunciationPass = true
+        }
+        
+        if dummieQuote.evaluation.speedScore < 80 {
+            dummieQuote.evaluation.speedPass = false
+        } else {
+            dummieQuote.evaluation.speedPass = true
+        }
+        
+        // 임시로 발음, 속도가 모두 80점이 넘었다면 높낮이도 pass
+        // 유튜브 영상 띄우기 위함
+        if dummieQuote.evaluation.pronunciationPass && dummieQuote.evaluation.speedPass {
+            dummieQuote.evaluation.intonationPass = true
+        }
+        
+        print("발음 정확도: \(String(format: "%.1f", dummieQuote.evaluation.pronunciationScore))%")
+        print("속도 정확도: \(String(format: "%.1f", dummieQuote.evaluation.speedScore))%")
     }
 
 }

@@ -37,7 +37,7 @@ struct LearningStartView: View {
                                     if currentPage == 0 {
                                         VStack {
                                             Text(dummieQuote.korean.prefix(halfIndex).joined(separator: " "))
-                                                
+                                            
                                             Text(dummieQuote.japanese.prefix(halfIndex).joined(separator: " "))
                                                 .padding(.vertical, 35)
                                             Text(dummieQuote.pronunciation.prefix(halfIndex).joined(separator: " "))
@@ -142,10 +142,8 @@ struct LearningStartView: View {
                             Text("명대사 따라하기 시작")
                         }
                 })
-                
             }
         }
-        
     }
 }
 
