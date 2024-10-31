@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5164DDD92CCF7DB7001FC7D9 /* STTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164DDD82CCF7DB7001FC7D9 /* STTManager.swift */; };
 		5164DDDB2CCF7DF3001FC7D9 /* STTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5164DDDA2CCF7DF3001FC7D9 /* STTView.swift */; };
+		90429A872CD25FD800A23D0B /* LearningStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90429A862CD25FD800A23D0B /* LearningStartView.swift */; };
 		BD26F35E2CCFD63F00F6007F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3572CCFD63F00F6007F /* HomeView.swift */; };
 		BD26F3622CCFF03000F6007F /* VideoTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3612CCFF03000F6007F /* VideoTestView.swift */; };
 		BD54BC3A2CD1225000366076 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = BD54BC392CD1225000366076 /* YouTubeiOSPlayerHelper */; };
@@ -34,6 +35,7 @@
 		5164DDD82CCF7DB7001FC7D9 /* STTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTManager.swift; sourceTree = "<group>"; };
 		5164DDDA2CCF7DF3001FC7D9 /* STTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTView.swift; sourceTree = "<group>"; };
 		5164DDDC2CCF8EA7001FC7D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		90429A862CD25FD800A23D0B /* LearningStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningStartView.swift; sourceTree = "<group>"; };
 		BD26F3572CCFD63F00F6007F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BD26F3612CCFF03000F6007F /* VideoTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoTestView.swift; path = Pepperoni/VideoTestView.swift; sourceTree = SOURCE_ROOT; };
 		BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YouTubePlayerView.swift; path = Pepperoni/YouTubePlayerView.swift; sourceTree = SOURCE_ROOT; };
@@ -136,6 +138,7 @@
 		BDF0073C2CD24E3100A386A1 /* Learning */ = {
 			isa = PBXGroup;
 			children = (
+				90429A862CD25FD800A23D0B /* LearningStartView.swift */,
 				BDF0073A2CD24E3100A386A1 /* LearningView.swift */,
 				BDF0073B2CD24E3100A386A1 /* ResultView.swift */,
 			);
@@ -257,6 +260,7 @@
 				BDF007362CD24E2900A386A1 /* DataLoadingView.swift in Sources */,
 				BDF007492CD24E7100A386A1 /* JSONUtils.swift in Sources */,
 				BDF007372CD24E2900A386A1 /* ContentView.swift in Sources */,
+				90429A872CD25FD800A23D0B /* LearningStartView.swift in Sources */,
 				BDF007382CD24E2900A386A1 /* AnimeListView.swift in Sources */,
 				BDF007442CD24E5D00A386A1 /* Router.swift in Sources */,
 				BDF007392CD24E2900A386A1 /* AnimeDetailView.swift in Sources */,
