@@ -36,19 +36,19 @@ struct LearningView: View {
                 .padding(.bottom, 48)
                 
                 // TODO: dummieQuote -> quote로 변경
-                if dummieQuote.japanese.count >= 5 {
-                    let halfIndex = dummieQuote.japanese.count / 2
+                if quote.japanese.count >= 5 {
+                    let halfIndex = quote.japanese.count / 2
                     
                     // 두 개의 HStack으로 나누어 텍스트 표시
                     VStack {
                         HStack {
                             ForEach(0..<halfIndex, id: \.self) { index in
                                 VStack(spacing:13) {
-                                    Text(dummieQuote.korean[index])
+                                    Text(quote.korean[index])
                                         .font(.system(size:18))
-                                    Text(dummieQuote.japanese[index])
+                                    Text(quote.japanese[index])
                                         .font(.system(size:18))
-                                    Text(dummieQuote.pronunciation[index])
+                                    Text(quote.pronunciation[index])
                                         .font(.system(size:14))
                                 }
                                 .bold()
@@ -67,14 +67,15 @@ struct LearningView: View {
                             RoundedRectangle(cornerRadius: 15)
                                 .foregroundStyle(.ppBlue)
                         }
+                        
                         HStack {
                             ForEach(halfIndex..<dummieQuote.japanese.count, id: \.self) { index in
                                 VStack(spacing:13) {
-                                    Text(dummieQuote.korean[index])
+                                    Text(quote.korean[index])
                                         .font(.system(size:18))
-                                    Text(dummieQuote.japanese[index])
+                                    Text(quote.japanese[index])
                                         .font(.system(size:18))
-                                    Text(dummieQuote.pronunciation[index])
+                                    Text(quote.pronunciation[index])
                                         .font(.system(size:14))
                                 }
                                 .bold()
@@ -98,15 +99,15 @@ struct LearningView: View {
                 } else {
                     // 길이가 5 미만일 때 기존 방식
                     HStack {
-                        ForEach(dummieQuote.japanese.indices, id: \.self) { index in
+                        ForEach(quote.japanese.indices, id: \.self) { index in
                             VStack {
-                                Text(dummieQuote.japanese[index])
+                                Text(quote.japanese[index])
                                     .font(.headline)
                                     .foregroundColor(.black)
-                                Text(dummieQuote.korean[index])
+                                Text(quote.korean[index])
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
-                                Text(dummieQuote.pronunciation[index])
+                                Text(quote.pronunciation[index])
                                     .font(.subheadline)
                                     .foregroundColor(.blue)
                             }
@@ -123,14 +124,14 @@ struct LearningView: View {
                 }
                 
                 Button(action:{
-                    Router.shared.navigate(to: .result(quote: dummieQuote))
+                    Router.shared.navigate(to: .result(quote: quote))
                     sttManager.stopRecording()
                     stopTimer()
                     grading()
                 }, label:{
                     RoundedRectangle(cornerRadius: 10)
                         .frame(width: 220, height:60)
-                        .foregroundStyle(.blue)
+                        .foregroundStyle(.pointBlue)
                         .overlay {
                             Text("완료")
                                 .foregroundStyle(.white)
@@ -209,33 +210,33 @@ struct LearningView: View {
     // 채점
     private func grading() {
         // 발음과 속도를 채점합니다.
-        dummieQuote.evaluation.pronunciationScore = calculatePronunciation(original: dummieQuote.japanese, sttText: sttManager.recognizedText)
+        quote.evaluation.pronunciationScore = calculatePronunciation(original: quote.japanese, sttText: sttManager.recognizedText)
         
-        dummieQuote.evaluation.speedScore = calculateVoiceSpeed(
-            originalLength: dummieQuote.voicingTime,
+        quote.evaluation.speedScore = calculateVoiceSpeed(
+            originalLength: quote.voicingTime,
             sttVoicingTime: sttManager.voicingTime!)
         
         // 80점이 넘으면 pass
-        if dummieQuote.evaluation.pronunciationScore < 80 {
-            dummieQuote.evaluation.pronunciationPass = false
+        if quote.evaluation.pronunciationScore < 80 {
+            quote.evaluation.pronunciationPass = false
         } else {
-            dummieQuote.evaluation.pronunciationPass = true
+            quote.evaluation.pronunciationPass = true
         }
         
-        if dummieQuote.evaluation.speedScore < 80 {
-            dummieQuote.evaluation.speedPass = false
+        if quote.evaluation.speedScore < 80 {
+            quote.evaluation.speedPass = false
         } else {
-            dummieQuote.evaluation.speedPass = true
+            quote.evaluation.speedPass = true
         }
         
         // 임시로 발음, 속도가 모두 80점이 넘었다면 높낮이도 pass
         // 유튜브 영상 띄우기 위함
-        if dummieQuote.evaluation.pronunciationPass && dummieQuote.evaluation.speedPass {
-            dummieQuote.evaluation.intonationPass = true
+        if quote.evaluation.pronunciationPass && quote.evaluation.speedPass {
+            quote.evaluation.intonationPass = true
         }
         
-        print("발음 정확도: \(String(format: "%.1f", dummieQuote.evaluation.pronunciationScore))%")
-        print("속도 정확도: \(String(format: "%.1f", dummieQuote.evaluation.speedScore))%")
+        print("발음 정확도: \(String(format: "%.1f", quote.evaluation.pronunciationScore))%")
+        print("속도 정확도: \(String(format: "%.1f", quote.evaluation.speedScore))%")
     }
 
 }

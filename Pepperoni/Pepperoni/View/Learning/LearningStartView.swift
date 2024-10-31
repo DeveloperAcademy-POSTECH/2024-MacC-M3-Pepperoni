@@ -23,36 +23,38 @@ struct LearningStartView: View {
                 .ignoresSafeArea()
             VStack {
                 SpeechBubble()
-                    .fill(Color.blue)
+                    .fill(Color.skyBlue1)
                     .frame(height: 340)
                     .padding(.horizontal, 47.5)
                     .overlay{
                         VStack {
                             // TODO: dummieQuote -> quote로 변경
-                            if dummieQuote.pronunciation.count >= 5 {
+                            if quote.pronunciation.count >= 5 {
                                 let halfIndex = dummieQuote.pronunciation.count / 2
                                 
                                 // 페이지 내용
                                 VStack {
                                     if currentPage == 0 {
                                         VStack {
-                                            Text(dummieQuote.korean.prefix(halfIndex).joined(separator: " "))
-                                            
-                                            Text(dummieQuote.japanese.prefix(halfIndex).joined(separator: " "))
+                                            Text(quote.korean.prefix(halfIndex).joined(separator: " "))
+                                                .font(.system(size: 26, weight: .bold))
+                                            Text(quote.japanese.prefix(halfIndex).joined(separator: " "))
+                                                .font(.system(size: 26, weight: .bold))
                                                 .padding(.vertical, 35)
-                                            Text(dummieQuote.pronunciation.prefix(halfIndex).joined(separator: " "))
+                                            Text(quote.pronunciation.prefix(halfIndex).joined(separator: " "))
                                                 .font(.system(size: 20, weight: .bold))
                                         }
-                                        .font(.system(size: 26, weight: .bold))
                                     } else {
                                         VStack {
-                                            Text(dummieQuote.korean.suffix(from: halfIndex).joined(separator: " "))
-                                            Text(dummieQuote.japanese.suffix(from: halfIndex).joined(separator: " "))
+                                            Text(quote.korean.suffix(from: halfIndex).joined(separator: " "))
+                                                .font(.system(size: 26, weight: .bold))
+                                            Text(quote.japanese.suffix(from: halfIndex).joined(separator: " "))
                                                 .padding(.vertical, 35)
-                                            Text(dummieQuote.pronunciation.suffix(from: halfIndex).joined(separator: " "))
+                                                .font(.system(size: 26, weight: .bold))
+                                            Text(quote.pronunciation.suffix(from: halfIndex).joined(separator: " "))
                                                 .font(.system(size: 20, weight: .bold))
                                         }
-                                        .font(.system(size: 26, weight: .bold))
+                                        
                                     }
                                     
                                     HStack {
@@ -98,9 +100,9 @@ struct LearningStartView: View {
                             } else {
                                 // pronunciation 배열의 길이가 5 미만일 때 기존 방식으로 한 페이지에 표시
                                 VStack {
-                                    Text(dummieQuote.korean.joined(separator: " "))
-                                    Text(dummieQuote.japanese.joined(separator: " "))
-                                    Text(dummieQuote.pronunciation.joined(separator: " "))
+                                    Text(quote.korean.joined(separator: " "))
+                                    Text(quote.japanese.joined(separator: " "))
+                                    Text(quote.pronunciation.joined(separator: " "))
                                 }
                                 .frame(height: 300)
                                 .padding(.horizontal, 47.5)
@@ -118,7 +120,7 @@ struct LearningStartView: View {
                     // 오디오파일 재생이 들어감
                     audioPlayerManager.playAudio(from: dummieQuote.audiofile)
                 }, label:{
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 6)
                         .frame(height:50)
                         .padding(.horizontal, 20)
                         .overlay{
@@ -134,12 +136,13 @@ struct LearningStartView: View {
                 Button(action:{
                     Router.shared.navigate(to: .learning(quote: quote))
                 }, label:{
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 6)
                         .frame(height:60)
                         .foregroundStyle(.white)
                         .padding(.horizontal, 20)
                         .overlay{
                             Text("명대사 따라하기 시작")
+                                .bold()
                         }
                 })
             }
