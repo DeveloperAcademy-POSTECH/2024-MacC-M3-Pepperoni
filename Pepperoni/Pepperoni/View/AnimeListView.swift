@@ -49,31 +49,57 @@ struct AnimeListView: View {
     
     @State private var text = ""
     @State private var isSearchViewActive: Bool = false
+    // 선택된 장르를 저장할 상태 변수
+    @State private var selectedGenre: String? = "로맨스"
+    // 장르 배열
+    let genres = ["전체", "로맨스", "액션", "힐링", "드라마", "코미디"]
     
     var body: some View {
         
-        // - MARK: 애니 리스트
-        VStack {
-            VStack {
-                // - MARK: 검색창 (TextField를 Button으로 감쌈)
-                Button {
-                    Router.shared.navigate(to: .animeSearch)
-                } label: {
-                    HStack {
-                        TextField("애니를 검색해보세요", text: $text)
-                            .padding()
-                            .background(.gray)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .disabled(true) // 사용자가 직접 수정할 수 없게 비활성화
-                    }
+        VStack(spacing: 0) {
+            // - MARK: 검색창
+            Button {
+                Router.shared.navigate(to: .animeSearch)
+            } label: {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                    
+                    TextField("애니 검색", text: $text)
+                        .foregroundColor(.blue)
+                        .padding(.vertical, 10)
                 }
-                .buttonStyle(PlainButtonStyle())
+                .padding(.horizontal)
+                .background(Color(UIColor.systemGray6))
+                .cornerRadius(10)
+                .disabled(true)
             }
+            .buttonStyle(PlainButtonStyle())
+            .padding(.horizontal)
+            
+            // -MARK: Top Anime 카드
+            ZStack(alignment: .bottomTrailing){
+                Image("topAnimeCard")
+                
+                HStack {
+                    Spacer()
+                    
+                    Text("주술회전")
+                        .font(.title)
+                        .fontWeight(.black)
+                        .foregroundStyle(.white)
+                        .padding(.bottom, 20)
+                        .padding(.trailing, 28)
+                }
+            }
+            .padding()
+            
             // -MARK: 핀한 애니
-            VStack{
+            VStack(spacing: 0){
                 HStack(spacing: 4) {
                     Text("핀한 애니")
                         .foregroundStyle(.white)
+                    
                     Text(Image(systemName: "pin.fill"))
                         .foregroundStyle(.blue)
                         .rotationEffect(.degrees(48))
@@ -84,9 +110,9 @@ struct AnimeListView: View {
                 .fontWeight(.bold)
                 .frame(height: 38)
                 .background(.black)
-
+                
                 ScrollView(.horizontal) {
-                    LazyHStack {
+                    HStack {
                         // TODO: allAnimes 로 배열 변경
                         ForEach(favoriteAnimes, id: \.id) { anime in
                             Button {
@@ -98,12 +124,12 @@ struct AnimeListView: View {
                                         .font(.title3)
                                     
                                     Text(anime.title)
+                                        .foregroundStyle(.black)
                                 }
                                 .padding(8)
                                 .background(Color.blue.opacity(0.1))
                                 .cornerRadius(6)
                             }
-                            .buttonStyle(PlainButtonStyle()) // 버튼 스타일을 기본으로 설정
                         }
                     }
                     .padding()
@@ -122,6 +148,29 @@ struct AnimeListView: View {
                 .frame(height: 38)
                 .background(.black)
                 .fontWeight(.bold)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+                        ForEach(genres, id: \.self) { genre in
+                            Button(action: {
+                                selectedGenre = genre
+                            }) {
+                                Text(genre)
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 16)
+                                    .background(selectedGenre == genre ? Color.ppBlue : Color.white)
+                                    .foregroundColor(selectedGenre == genre ? .white : .gray)
+                                    .clipShape(Capsule())
+                                    .overlay(
+                                        Capsule()
+                                            .stroke(selectedGenre == genre ? Color.ppBlue : Color.gray, lineWidth: 1)
+                                    )
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 6)
+                }
                 
                 List(animeArray, id: \.id) { anime in
                     Button {
