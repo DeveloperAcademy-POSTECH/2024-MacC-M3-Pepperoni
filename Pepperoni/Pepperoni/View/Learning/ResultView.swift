@@ -33,7 +33,7 @@ struct ResultView: View {
                                 .foregroundStyle(.ppBlue)
                                 .bold()
                         }
-                    YouTubePlayerView(videoID: quote.youtubeID, startTime: 20, endTime: 25)
+                    YouTubePlayerView(videoID: quote.youtubeID, startTime: quote.youtubeStartTime, endTime: quote.youtubeEndTime)
                         .frame(height: 218)
                         .padding(.bottom, 30)
                 }
@@ -90,6 +90,17 @@ struct ResultView: View {
                             showCongratulation = true
                         }
                     }
+                }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    Router.shared.navigateToRoot()
+                }) {
+                    Image(systemName: "xmark")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.gray1)
                 }
             }
         }
