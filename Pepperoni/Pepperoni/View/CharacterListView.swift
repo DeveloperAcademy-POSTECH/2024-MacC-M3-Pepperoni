@@ -128,7 +128,8 @@ struct CharacterListView: View {
                 ],
                 completedQuotes: 1
             )
-        ]
+        ],
+        favorite: false
     )
 
     var body: some View {
@@ -137,11 +138,18 @@ struct CharacterListView: View {
                 HStack{
                     Spacer()
                     
-                    Text(Image(systemName: "pin.square.fill"))
-                        .foregroundStyle(.white)
-                        .font(.title2)
+                    Button(action: {
+                        toggleFavorite() // 즐겨찾기 상태 토글
+                    }) {
+                        Image(systemName: dummieAnime.favorite ? "pin.square.fill" : "pin.square")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(dummieAnime.favorite ? .blue : .white)
+                    }
+                    .padding(.top)
                 }
-                
+            
                 HStack{
                     Text(dummieAnime.title)
                         .fontWeight(.bold)
@@ -180,6 +188,11 @@ struct CharacterListView: View {
         }
         .navigationTitle(anime.title)
     }
+    
+    private func toggleFavorite() {
+        dummieAnime.favorite.toggle() // favorite 상태를 토글
+    }
+
 }
 
 // -MARK: Character Row
