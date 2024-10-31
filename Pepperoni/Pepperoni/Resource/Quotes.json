@@ -124,7 +124,7 @@
         "season": "1",
         "episode": 5,
         "character": "고토 히토리",
-        "japanese": ["バンドを", "し続け", "たい"]
+        "japanese": ["バンドを", "し続け", "たい"],
         "pronunciation": ["반도오", "시츠즈케", "타이"],
         "korean": ["밴드를", "계속하고", "싶어"],
         "timemark": [0.3, 0.7, 1.3],
