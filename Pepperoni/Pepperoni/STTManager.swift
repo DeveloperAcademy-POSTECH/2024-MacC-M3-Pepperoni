@@ -50,6 +50,7 @@ class STTManager: ObservableObject {
             if let result = result {
                 DispatchQueue.main.async {
                     self?.recognizedText = result.bestTranscription.formattedString
+                    print("Recognized Text: \(self?.recognizedText ?? "")")
                 }
             }
             
