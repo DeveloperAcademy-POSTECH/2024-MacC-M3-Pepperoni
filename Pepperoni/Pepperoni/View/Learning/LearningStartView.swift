@@ -11,8 +11,6 @@ struct LearningStartView: View {
     
     let quote: AnimeQuote
     
-//    var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["天上天下", "唯我独尊"], pronunciation: ["텐조오텐게", "유이가도쿠손"], korean: ["천상천하", "유아독존"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [0.01, 1.6], voicingTime: 0.0, audiofile: "JUJ005.m4a", youtubeID: "cJVeIwP_HoQ", youtubeStartTime: 90, youtubeEndTime: 115)
-    
     @State private var currentPage = 0  // 현재 페이지를 관리할 변수
     
     @StateObject private var audioPlayerManager = AudioPlayerManager()
@@ -118,13 +116,6 @@ struct LearningStartView: View {
                 Button(action:{
                     // 오디오파일 재생이 들어감
                     audioPlayerManager.playAudio(from: quote.audiofile)
-                    print("러닝스타트 : \(quote.voicingTime)")
-                    print("러닝스타트 : \(self.quote.voicingTime)")
-                    print("러닝스타트 : \(quote.japanese)")
-                    print("러닝스타트 : \(self.quote.japanese)")
-                    print("러닝스타트 : \(quote.pronunciation)")
-                    print("러닝스타트 : \(quote.isCompleted)")
-                    print("러닝스타트 : \(quote.timemark)")
                 }, label:{
                     RoundedRectangle(cornerRadius: 6)
                         .frame(height:50)
