@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct CharacterDetailView: View {
     let character: Character
@@ -185,6 +186,13 @@ struct CharacterDetailView: View {
                                 .padding(.vertical, index == selectedIndex ? 24 : 16)
                                 .onTapGesture {
                                     Router.shared.navigate(to: .learningStart(quote: character.quotes[index]))
+                                    AVAudioApplication.requestRecordPermission { granted in
+                                        if granted {
+                                            print("마이크 접근 권한이 허용되었습니다.")
+                                        } else {
+                                            print("마이크 접근 권한이 거부되었습니다.")
+                                        }
+                                    }
                                 }
                             }
                             

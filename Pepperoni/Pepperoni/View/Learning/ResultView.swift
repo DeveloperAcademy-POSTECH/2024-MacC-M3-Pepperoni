@@ -55,7 +55,7 @@ struct ResultView: View {
                 
                 VStack {
                     //MARK: - 별 3개
-                    HStack(spacing: -30){
+                    HStack(spacing: -30) {
                         Star(isPassed: quote.evaluation.pronunciationPass, size: 112)
                         Star(isPassed: quote.evaluation.intonationPass, size: 127)
                             .offset(y: -30)
@@ -63,7 +63,7 @@ struct ResultView: View {
                     }.padding(.bottom, 18)
                     
                     //MARK: - 막대바 및 점수
-                    HStack(spacing: 12){
+                    HStack(spacing: 12) {
                         ScoreBar(title: "발음", score: quote.evaluation.pronunciationScore)
                         ScoreBar(title: "높낮이", score: quote.evaluation.intonationScore)
                         ScoreBar(title: "스피드", score: quote.evaluation.speedScore)
@@ -77,7 +77,8 @@ struct ResultView: View {
                         .padding(.top, 10)
                     
                 }
-            }.frame(height: 604)
+            }
+            .frame(height: 604)
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // ScoreBar 애니메이션 후 Star 애니메이션
