@@ -30,18 +30,43 @@ struct CharacterDetailView: View {
                         Button(action: {
                             toggleFavorite() // 즐겨찾기 상태 토글
                         }) {
-                            Image(systemName: character.favorite ? "heart.fill" : "heart")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 26, height: 25)
-                                .foregroundColor(character.favorite ? .blue : .white)
+                                Image(systemName: character.favorite ? "heart.fill" : "heart")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 26, height: 25)
+                                    .foregroundColor(character.favorite ? .blue1 : .white)
                         }
                     }
+                    .padding(.top, 8)
                     
-                    Rectangle()
-                        .frame(width: 134, height: 134)
-                        .cornerRadius(16)
-                        .border(.white, width: 3)
+                    ZStack {
+                        Rectangle()
+                            .foregroundStyle(.darkGray)
+                            .frame(width: 134, height: 134)
+                            .border(.white, width: 3)
+                        
+                        Image(systemName: "person.fill")
+                            .resizable()
+                            .frame(width: 82, height: 87)
+                            .foregroundStyle(.blueWhite)
+                        
+                        
+                        // 사진 추가 버튼 !!! 준요 여기야 
+                        Button {
+                        
+                        } label: {
+                            ZStack{
+                                Circle()
+                                    .frame(width: 40, height: 40)
+                                    .foregroundStyle(.lightGray1)
+                                
+                                Image(systemName: "plus")
+                                    .foregroundStyle(.darkGray)
+                            }
+                        }
+                        .offset(x: 60, y: 56)
+                    }
+                    .padding(.bottom, 4)
                     
                     Text("\(character.name)")
                         .font(.title)
@@ -153,7 +178,7 @@ struct CharacterDetailView: View {
                                 .padding()
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
-                                        .fill(index == selectedIndex ? Color.pointBlue : Color.blue)
+                                        .fill(index == selectedIndex ? Color.pointBlue : Color.blue1)
                                 )
                                 .id(index)
                                 .frame(height: itemHeight)
@@ -219,7 +244,7 @@ struct AchievementBar: View {
                     .fill(Color.darkGray)
                 
                 Rectangle()
-                    .fill(Color.blue)
+                    .fill(Color.blue1)
                     .frame(width: geometry.size.width * ratio, height: 20)
                     .cornerRadius(20)
                     .padding(.bottom, 0)
