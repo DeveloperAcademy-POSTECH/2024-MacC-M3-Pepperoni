@@ -5,9 +5,7 @@
 //  Created by Hyun Jaeyeon on 10/27/24.
 //
 
-import Foundation
 import SwiftUI
-
 
 // MARK: - Route Enum
 enum Destination: Hashable {
