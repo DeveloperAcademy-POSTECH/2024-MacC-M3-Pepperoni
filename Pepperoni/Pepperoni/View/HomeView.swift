@@ -73,11 +73,13 @@ struct HomeView: View {
                         
                         Text("애니 목록")
                     }
+                    .frame(maxWidth: .infinity)
                 }
                 .frame(maxWidth: .infinity, maxHeight: 60)
                 .foregroundStyle(.white)
                 .background(Color.darkGray)
                 .cornerRadius(16)
+                
                 TabView{
                     ForEach(characters) { character in
                         let totalQuotes = character.quotes.count
@@ -93,12 +95,17 @@ struct HomeView: View {
                                     .foregroundStyle(Color.blueWhite)
                                 
                                 HStack(spacing:26){
-                                    Image("Roni")
-                                        .background{
-                                            Color.lightGray2
-                                        }
-                                        .cornerRadius(12)
-                                    
+                                    ZStack {
+                                        Rectangle()
+                                            .foregroundStyle(.lightGray2)
+                                            .frame(width: 131, height: 150)
+                                            .cornerRadius(12)
+                                        
+                                        Image(systemName: "person.fill")
+                                            .resizable()
+                                            .frame(width: 82, height: 87)
+                                            .foregroundStyle(.white)
+                                    }
                                     
                                     VStack{
                                         RoundedRectangle(cornerRadius: 16)
@@ -132,6 +139,9 @@ struct HomeView: View {
                             .padding(.horizontal, 11.5)
                             .padding(.bottom, 20)
                             
+                        }
+                        .onTapGesture {
+                            Router.shared.navigate(to: .characterDetail(character: character))
                         }
                     }
                 }
