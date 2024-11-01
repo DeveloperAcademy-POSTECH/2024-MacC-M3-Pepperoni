@@ -98,8 +98,12 @@ struct LearningStartView: View {
                                 // pronunciation 배열의 길이가 5 미만일 때 기존 방식으로 한 페이지에 표시
                                 VStack {
                                     Text(quote.korean.joined(separator: " "))
+                                        .font(.system(size: 26, weight: .bold))
                                     Text(quote.japanese.joined(separator: " "))
+                                        .font(.system(size: 26, weight: .bold))
+                                        .padding(.vertical, 35)
                                     Text(quote.pronunciation.joined(separator: " "))
+                                        .font(.system(size: 20, weight: .bold))
                                 }
                                 .frame(height: 300)
                                 .padding(.horizontal, 47.5)
