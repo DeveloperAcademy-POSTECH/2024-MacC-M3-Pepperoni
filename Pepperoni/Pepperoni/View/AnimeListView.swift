@@ -95,10 +95,18 @@ struct AnimeListView: View {
                             Button {
                                 Router.shared.navigate(to: .characterList(anime: anime))
                             } label: {
-                                HStack {
-                                    Text(Image(systemName: "pin.square.fill"))
-                                        .foregroundStyle(.blue1)
-                                        .font(.title3)
+                                HStack (spacing: 6){
+                                    ZStack{
+                                        Rectangle()
+                                            .frame(width: 18, height: 18)
+                                            .foregroundStyle(.white)
+                                            .cornerRadius(10)
+                                        
+                                        Image(systemName: "pin.square.fill")
+                                            .foregroundStyle(.blue1)
+                                            .font(.title3)
+                                            .frame(width: 24, height: 24)
+                                    }
                                     
                                     Text(anime.title)
                                         .foregroundStyle(.darkGray)
