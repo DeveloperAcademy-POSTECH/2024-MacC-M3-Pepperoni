@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct LearningStartView: View {
     
@@ -16,7 +17,7 @@ struct LearningStartView: View {
     @StateObject private var audioPlayerManager = AudioPlayerManager()
     
     var body: some View {
-        ZStack{
+        ZStack {
             Color.gray
                 .ignoresSafeArea()
             VStack {
@@ -120,6 +121,7 @@ struct LearningStartView: View {
                     RoundedRectangle(cornerRadius: 6)
                         .frame(height:50)
                         .padding(.horizontal, 20)
+                        .foregroundStyle(.blue1)
                         .overlay{
                             HStack{
                                 Text("명대사 듣기")
@@ -140,6 +142,8 @@ struct LearningStartView: View {
                         .overlay{
                             Text("명대사 따라하기 시작")
                                 .bold()
+                                .foregroundStyle(.blue1)
+                                .font(.system(size: 20))
                         }
                 })
             }

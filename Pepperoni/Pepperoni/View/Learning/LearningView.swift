@@ -234,11 +234,16 @@ struct LearningView: View {
         
         // 임시로 발음, 속도가 모두 80점이 넘었다면 높낮이도 pass
         // 유튜브 영상 띄우기 위함
+        //TODO: 억양 채점 추가
         if quote.evaluation.pronunciationPass && quote.evaluation.speedPass {
             quote.evaluation.intonationPass = true
             
-            //TODO: 이 대사에서 별 3개를 이미 달성했다면 추가로 +1 되지 않게 해야함
-            self.quote.character?.completedQuotes += 1
+            // 대사가 이미 별 3개를 달성한 상태가 아니라면
+            if !quote.isCompleted {
+                // 별 3개 달성 표시 및 캐릭터의 completedQuotes 증가
+                quote.isCompleted = true
+                quote.character?.completedQuotes += 1
+            }
         }
         
         print("발음 정확도: \(String(format: "%.1f", quote.evaluation.pronunciationScore))%")
