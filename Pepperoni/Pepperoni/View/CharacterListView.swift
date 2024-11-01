@@ -92,8 +92,16 @@ struct CharacterRow: View {
                     .padding(.bottom, 0)
                 
                 HStack {
-                    Circle()
-                        .frame(width: 40, height: 40)
+                    ZStack{
+                        Circle()
+                            .frame(width: 40, height: 40)
+                            .foregroundStyle(.white)
+                        
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .foregroundStyle(.gray2)
+                    }
                     
                     Text(character.name)
                     
