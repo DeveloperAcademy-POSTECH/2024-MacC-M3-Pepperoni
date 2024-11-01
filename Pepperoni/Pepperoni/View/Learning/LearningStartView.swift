@@ -23,33 +23,27 @@ struct LearningStartView: View {
                 SpeechBubble()
                     .fill(Color.skyBlue1)
                     .frame(height: 340)
-                    .padding(.horizontal, 47.5)
+                    .padding(.horizontal, 20)
                     .overlay{
                         VStack {
                             if quote.pronunciation.count >= 5 {
                                 let halfIndex = quote.pronunciation.count / 2
-                                
+                                                                
                                 // 페이지 내용
                                 VStack {
                                     if currentPage == 0 {
                                         VStack {
-                                            Text(quote.korean.prefix(halfIndex).joined(separator: " "))
-                                                .font(.system(size: 26, weight: .bold))
-                                            Text(quote.japanese.prefix(halfIndex).joined(separator: " "))
-                                                .font(.system(size: 26, weight: .bold))
+                                            highlightedText(textArray: Array(quote.korean.prefix(halfIndex)), indexOffset: 0)
+                                            highlightedText(textArray: Array(quote.japanese.prefix(halfIndex)), indexOffset: 0)
                                                 .padding(.vertical, 35)
-                                            Text(quote.pronunciation.prefix(halfIndex).joined(separator: " "))
-                                                .font(.system(size: 20, weight: .bold))
+                                            highlightedText(textArray: Array(quote.pronunciation.prefix(halfIndex)), indexOffset: 0, isPronunciation: true)
                                         }
                                     } else {
                                         VStack {
-                                            Text(quote.korean.suffix(from: halfIndex).joined(separator: " "))
-                                                .font(.system(size: 26, weight: .bold))
-                                            Text(quote.japanese.suffix(from: halfIndex).joined(separator: " "))
+                                            highlightedText(textArray: Array(quote.korean.suffix(from: halfIndex)), indexOffset: halfIndex)
+                                            highlightedText(textArray: Array(quote.japanese.suffix(from: halfIndex)), indexOffset: halfIndex)
                                                 .padding(.vertical, 35)
-                                                .font(.system(size: 26, weight: .bold))
-                                            Text(quote.pronunciation.suffix(from: halfIndex).joined(separator: " "))
-                                                .font(.system(size: 20, weight: .bold))
+                                            highlightedText(textArray: Array(quote.pronunciation.suffix(from: halfIndex)), indexOffset: halfIndex, isPronunciation: true)
                                         }
                                         
                                     }
@@ -93,20 +87,17 @@ struct LearningStartView: View {
                                     }
                                 }
                                 .frame(height: 340)
-                                .padding(.horizontal, 47.5)
+                                .padding(.horizontal, 20)
                             } else {
                                 // pronunciation 배열의 길이가 5 미만일 때 기존 방식으로 한 페이지에 표시
                                 VStack {
-                                    Text(quote.korean.joined(separator: " "))
-                                        .font(.system(size: 26, weight: .bold))
-                                    Text(quote.japanese.joined(separator: " "))
-                                        .font(.system(size: 26, weight: .bold))
+                                    highlightedText(textArray: quote.korean, indexOffset: 0)
+                                    highlightedText(textArray: quote.japanese, indexOffset: 0)
                                         .padding(.vertical, 35)
-                                    Text(quote.pronunciation.joined(separator: " "))
-                                        .font(.system(size: 20, weight: .bold))
+                                    highlightedText(textArray: quote.pronunciation, indexOffset: 0, isPronunciation: true)
                                 }
                                 .frame(height: 300)
-                                .padding(.horizontal, 47.5)
+                                .padding(.horizontal, 20)
                             }
                         }
                     }
@@ -151,7 +142,49 @@ struct LearningStartView: View {
                 })
             }
         }
+        .onReceive(audioPlayerManager.$currentTime) { currentTime in
+            let halfIndex = quote.pronunciation.count / 2
+            updatePageBasedOnCurrentTime(currentTime: currentTime, halfIndex: halfIndex)
+        }
     }
+    
+    private func updatePageBasedOnCurrentTime(currentTime: Double, halfIndex: Int) {
+        let halfTime = quote.timemark[halfIndex]
+        if currentTime >= halfTime && currentPage == 0 {
+            currentPage = 1
+        } else if currentTime < halfTime && currentPage == 1 {
+            currentPage = 0
+        }
+    }
+    
+    private func highlightedText(textArray: [String], indexOffset: Int, isPronunciation: Bool = false) -> some View {
+        HStack {
+            ForEach(textArray.indices, id: \.self) { index in
+                Text(textArray[index])
+                    .font(isPronunciation ? .system(size: 20, weight: .bold) : .system(size: 26, weight: .bold))
+                    .foregroundColor(isPlayingWord(at: index + indexOffset) ? .pointBlue : .black) // 재생 중이면 빨간색으로 강조 표시
+            }
+        }
+    }
+    
+    // 현재 재생 중인 단어인지 확인하는 함수 추가
+    private func isPlayingWord(at index: Int) -> Bool {
+        guard index < quote.timemark.count else { return false }
+        
+        // `audioPlayerManager.currentTime`을 사용하여 현재 재생 시간을 가져옵니다.
+        let startTime = quote.timemark[index]
+        let currentTime = audioPlayerManager.currentTime
+        
+        // 마지막 인덱스일 때는 `startTime`만 비교
+        if index == quote.timemark.count - 1 {
+            return currentTime >= startTime
+        }
+        
+        // 마지막 인덱스가 아닐 때는 `startTime`과 `endTime` 사이에 있는지 확인
+        let endTime = quote.timemark[index + 1]
+        return currentTime >= startTime && currentTime < endTime
+    }
+    
 }
 
 //#Preview {
