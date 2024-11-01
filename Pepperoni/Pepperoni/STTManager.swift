@@ -50,6 +50,7 @@ class STTManager: ObservableObject {
             if let result = result {
                 DispatchQueue.main.async {
                     self?.recognizedText = result.bestTranscription.formattedString
+                    print("Recognized Text: \(self?.recognizedText ?? "")")
                 }
             }
             
@@ -89,7 +90,7 @@ class STTManager: ObservableObject {
         let audioSession = AVAudioSession.sharedInstance()
         
         do {
-            try audioSession.setCategory(.playAndRecord, mode: .default)
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetooth])
             try audioSession.setActive(true)
             
             let recordingSettings = [

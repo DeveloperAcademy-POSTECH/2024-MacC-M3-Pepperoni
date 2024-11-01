@@ -60,11 +60,18 @@ struct JSONUtils {
                     let pronunciation = jsonItem["pronunciation"] as? [String] ?? []
                     let korean = jsonItem["korean"] as? [String] ?? []
                     let timemark = jsonItem["timemark"] as? [Double] ?? []
-                    let voicingtime = jsonItem["voicingtime"] as? Double ?? 0.0
+                    let voicingTime = jsonItem["voicingTime"] as? Double ?? 0.0
                     let audiofile = jsonItem["audiofile"] as? String ?? ""
                     let youtubeId = jsonItem["youtubeid"] as? String ?? ""
                     let youtubeStartTime = jsonItem["start"] as? Int ?? 0
                     let youtubeEndTime = jsonItem["end"] as? Int ?? 0
+                    
+                    if let voicingTimeValue = jsonItem["voicingTime"] {
+                        print("voicingTime의 원래 타입: \(type(of: voicingTimeValue))")
+                    } else {
+                        print("voicingTime 필드가 JSON에서 누락되었습니다.")
+                    }
+
                     
                     // 평가 초기화
                     let evaluation = Evaluation(
@@ -84,7 +91,7 @@ struct JSONUtils {
                     if let anime = try? modelContext.fetch(animeFetchDescriptor).first,
                        let character = anime.characters.first(where: { $0.name == characterName }) {
                         
-                        let newQuote = AnimeQuote(japanese: japanese, pronunciation: pronunciation, korean: korean, evaluation: evaluation, timemark: timemark, voicingTime: voicingtime, audiofile: audiofile, youtubeID: youtubeId, youtubeStartTime: youtubeStartTime, youtubeEndTime: youtubeEndTime)
+                        let newQuote = AnimeQuote(japanese: japanese, pronunciation: pronunciation, korean: korean, evaluation: evaluation, timemark: timemark, voicingTime: voicingTime, audiofile: audiofile, youtubeID: youtubeId, youtubeStartTime: youtubeStartTime, youtubeEndTime: youtubeEndTime)
                         
                         modelContext.insert(newQuote)
                         character.quotes.append(newQuote)

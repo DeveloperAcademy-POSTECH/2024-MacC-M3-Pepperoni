@@ -29,7 +29,7 @@ func calculateVoiceSpeed(originalLength: Double, sttVoicingTime: Double) -> Doub
     }
     
     // 100% 점수 기준 시간 (±0.5초)
-    let acceptableRange: Double = 0.5
+    let acceptableRange: Double = 0.8
     
     // 원래 음원 길이에 따라 점수 계산
     let minAcceptableTime = originalLength - acceptableRange

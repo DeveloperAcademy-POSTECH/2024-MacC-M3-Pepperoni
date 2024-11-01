@@ -11,7 +11,7 @@ struct LearningView: View {
     
     let quote: AnimeQuote
     
-    var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["才能は", "開花させる", "もの", "センスは", "磨く", "もの"], pronunciation: ["사이노우와", "카이카사세루", "모노", "센스와", "미가쿠", "모노"], korean: ["재능은", "발휘하는", "것", "센스는", "연마하는", "것"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [2.0, 2.5, 3.3, 5.0, 5.4, 6.0], voicingTime: 0.0, audiofile: "HIQ001.m4a", youtubeID: "", youtubeStartTime: 0, youtubeEndTime: 10)
+//    var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["天上天下", "唯我独尊"], pronunciation: ["텐조오텐게", "유이가도쿠손"], korean: ["천상천하", "유아독존"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [0.01, 1.6], voicingTime: 1.9, audiofile: "JUJ005.m4a", youtubeID: "cJVeIwP_HoQ", youtubeStartTime: 90, youtubeEndTime: 115)
     
     @State var isCounting: Bool = true
     @State var countdown = 4 // 초기 카운트 설정
@@ -20,10 +20,13 @@ struct LearningView: View {
     @State private var timerCount: Double = 0.0 // 초기 타이머 설정 (초 단위)
     @State private var isRunning: Bool = false   // 타이머 상태
     
+    @StateObject private var sttManager = STTManager()
+    
     var body: some View {
-        ZStack{
+        ZStack {
             VStack {
                 Spacer()
+                
                 HStack{
                     Image(systemName: "timer.circle.fill")
                         .foregroundStyle(.blue)
@@ -32,19 +35,20 @@ struct LearningView: View {
                 }
                 .padding(.bottom, 48)
                 
-                if dummieQuote.japanese.count >= 5 {
-                    let halfIndex = dummieQuote.japanese.count / 2
+                // TODO: dummieQuote -> quote로 변경
+                if quote.japanese.count >= 5 {
+                    let halfIndex = quote.japanese.count / 2
                     
                     // 두 개의 HStack으로 나누어 텍스트 표시
                     VStack {
                         HStack {
                             ForEach(0..<halfIndex, id: \.self) { index in
                                 VStack(spacing:13) {
-                                    Text(dummieQuote.korean[index])
+                                    Text(quote.korean[index])
                                         .font(.system(size:18))
-                                    Text(dummieQuote.japanese[index])
+                                    Text(quote.japanese[index])
                                         .font(.system(size:18))
-                                    Text(dummieQuote.pronunciation[index])
+                                    Text(quote.pronunciation[index])
                                         .font(.system(size:14))
                                 }
                                 .bold()
@@ -63,14 +67,15 @@ struct LearningView: View {
                             RoundedRectangle(cornerRadius: 15)
                                 .foregroundStyle(.ppBlue)
                         }
+                        
                         HStack {
-                            ForEach(halfIndex..<dummieQuote.japanese.count, id: \.self) { index in
+                            ForEach(halfIndex..<quote.japanese.count, id: \.self) { index in
                                 VStack(spacing:13) {
-                                    Text(dummieQuote.korean[index])
+                                    Text(quote.korean[index])
                                         .font(.system(size:18))
-                                    Text(dummieQuote.japanese[index])
+                                    Text(quote.japanese[index])
                                         .font(.system(size:18))
-                                    Text(dummieQuote.pronunciation[index])
+                                    Text(quote.pronunciation[index])
                                         .font(.system(size:14))
                                 }
                                 .bold()
@@ -90,18 +95,19 @@ struct LearningView: View {
                                 .foregroundStyle(.ppBlue)
                         }
                     }
+                    
                 } else {
                     // 길이가 5 미만일 때 기존 방식
                     HStack {
-                        ForEach(dummieQuote.japanese.indices, id: \.self) { index in
+                        ForEach(quote.japanese.indices, id: \.self) { index in
                             VStack {
-                                Text(dummieQuote.japanese[index])
+                                Text(quote.japanese[index])
                                     .font(.headline)
                                     .foregroundColor(.black)
-                                Text(dummieQuote.korean[index])
+                                Text(quote.korean[index])
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
-                                Text(dummieQuote.pronunciation[index])
+                                Text(quote.pronunciation[index])
                                     .font(.subheadline)
                                     .foregroundColor(.blue)
                             }
@@ -116,14 +122,17 @@ struct LearningView: View {
                         }
                     }
                 }
+                
                 Button(action:{
-//                    Router.shared.navigate(to: .result(score: 90))
+                    Router.shared.navigate(to: .result(quote: quote))
+                    sttManager.stopRecording()
                     stopTimer()
+                    grading()
                 }, label:{
                     RoundedRectangle(cornerRadius: 10)
                         .frame(width: 220, height:60)
-                        .foregroundStyle(.blue)
-                        .overlay{
+                        .foregroundStyle(.pointBlue)
+                        .overlay {
                             Text("완료")
                                 .foregroundStyle(.white)
                                 .bold()
@@ -131,13 +140,14 @@ struct LearningView: View {
                 })
                 .padding(.top, 90)
                 Spacer()
+                
             }
-            if isCounting{
+            
+            if isCounting {
                 Color.black.opacity(0.7) // 어두운 오버레이 배경
                     .edgesIgnoringSafeArea(.all)
                 
-                
-                Text(countdown == 1 ? "Start!" : "\(countdown-1)") // 카운트다운 숫자
+                Text(countdown == 1 ? "Start!" : "\(countdown - 1)") // 카운트다운 숫자
                     .font(.system(size: 100, weight: .bold))
                     .foregroundColor(.white)
                     .onAppear {
@@ -145,13 +155,15 @@ struct LearningView: View {
                     }
             }
         }
+        .onDisappear {
+            sttManager.stopRecording() // 뷰에서 벗어날 때 녹음 중지
+        }
         .onChange(of: isCounting) { newValue in
-            if isCounting == false{
+            if isCounting == false {
                 startTimer()
             }
         }
     }
-        
     
     private func startCountdown() {
         // 1초마다 카운트다운 감소
@@ -162,6 +174,11 @@ struct LearningView: View {
                 // 카운트가 끝나면 오버레이를 제거하고 타이머 종료
                 self.isCounting = false
                 timer.invalidate()
+                
+                // 타이머가 끝난 후에 비동기로 STT 시작
+                DispatchQueue.main.async {
+                    sttManager.startRecording() // 타이머 종료 후 STT 녹음 시작
+                }
             }
         }
     }
@@ -189,9 +206,48 @@ struct LearningView: View {
         
         return timerCount >= startTime && timerCount < endTime
     }
+    
+    // 채점
+    private func grading() {
+        // 발음과 속도를 채점합니다.
+        quote.evaluation.pronunciationScore = calculatePronunciation(original: quote.japanese, sttText: sttManager.recognizedText)
+        
+        quote.evaluation.speedScore = calculateVoiceSpeed(
+            originalLength: quote.voicingTime,
+            sttVoicingTime: sttManager.voicingTime!)
+        print("원본 일본어: \(quote.japanese)")
+        print("원본 속도: \(quote.voicingTime)")
+        print("사용자 속도: \(sttManager.voicingTime!)")
+        
+        // 80점이 넘으면 pass
+        if quote.evaluation.pronunciationScore < 80 {
+            quote.evaluation.pronunciationPass = false
+        } else {
+            quote.evaluation.pronunciationPass = true
+        }
+        
+        if quote.evaluation.speedScore < 80 {
+            quote.evaluation.speedPass = false
+        } else {
+            quote.evaluation.speedPass = true
+        }
+        
+        // 임시로 발음, 속도가 모두 80점이 넘었다면 높낮이도 pass
+        // 유튜브 영상 띄우기 위함
+        //TODO: 억양 채점 추가
+        if quote.evaluation.pronunciationPass && quote.evaluation.speedPass {
+            quote.evaluation.intonationPass = true
+            
+            // 대사가 이미 별 3개를 달성한 상태가 아니라면
+            if !quote.isCompleted {
+                // 별 3개 달성 표시 및 캐릭터의 completedQuotes 증가
+                quote.isCompleted = true
+                quote.character?.completedQuotes += 1
+            }
+        }
+        
+        print("발음 정확도: \(String(format: "%.1f", quote.evaluation.pronunciationScore))%")
+        print("속도 정확도: \(String(format: "%.1f", quote.evaluation.speedScore))%")
+    }
 
 }
-
-//#Preview {
-//    LearningView(quote: AnimeQuote(japanese: ["長い間", "くそ", "お世話に", "なりました"], pronunciation: ["나가이아이다", "쿠소", "오세와니", "나리마시타"], korean: ["오랜시간", "빌어먹게", "신세를", "졌습니다"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [1.9, 3.0, 3.9, 4.6], audiofile: "ONP001.m4a"))
-//}

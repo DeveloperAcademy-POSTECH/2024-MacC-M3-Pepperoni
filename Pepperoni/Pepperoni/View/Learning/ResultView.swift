@@ -18,22 +18,22 @@ struct ResultView: View {
         Int(quote.evaluation.pronunciationScore + quote.evaluation.intonationScore + quote.evaluation.speedScore)
     }
     
-    private var totalPass: Bool{
+    private var totalPass: Bool {
         quote.evaluation.pronunciationPass && quote.evaluation.intonationPass && quote.evaluation.speedPass
     }
     
     var body: some View {
-        ScrollView{
+        ScrollView {
             if showCongratulation && totalPass {
-                VStack(spacing:0){
+                VStack(spacing: 0){
                     Rectangle()
-                        .frame(height:65)
+                        .frame(height: 65)
                         .overlay{
                             Text("Congratulate!")
                                 .foregroundStyle(.ppBlue)
                                 .bold()
                         }
-                    YouTubePlayerView(videoID: quote.youtubeID, startTime: 20, endTime:25)
+                    YouTubePlayerView(videoID: quote.youtubeID, startTime: quote.youtubeStartTime, endTime: quote.youtubeEndTime)
                         .frame(height: 218)
                         .padding(.bottom, 30)
                 }
@@ -43,39 +43,41 @@ struct ResultView: View {
                 .font(.system(size: 40))
                 .bold()
             
-            ZStack{
-                VStack{
+            ZStack {
+                VStack {
                     Spacer()
+                    
                     RoundedRectangle(cornerRadius: 48)
-                        .frame(height:511)
+                        .frame(height: 511)
+                        .foregroundStyle(.gray1)
                         .padding(.horizontal, 20)
                 }
                 
-                VStack{
+                VStack {
                     //MARK: - 별 3개
-                    HStack(spacing:-30){
+                    HStack(spacing: -30){
                         Star(isPassed: quote.evaluation.pronunciationPass, size: 112)
                         Star(isPassed: quote.evaluation.intonationPass, size: 127)
-                            .offset(y:-30)
+                            .offset(y: -30)
                         Star(isPassed: quote.evaluation.speedPass, size: 112)
                     }.padding(.bottom, 18)
                     
                     //MARK: - 막대바 및 점수
-                    HStack(spacing:12){
+                    HStack(spacing: 12){
                         ScoreBar(title: "발음", score: quote.evaluation.pronunciationScore)
                         ScoreBar(title: "높낮이", score: quote.evaluation.intonationScore)
                         ScoreBar(title: "스피드", score: quote.evaluation.speedScore)
                     }
                     
+                    //TODO: 눌렀을때 다시 쉐도잉할 수 있게
                     Image(systemName: "arrow.counterclockwise.circle.fill")
                         .symbolRenderingMode(.palette)
-                        .foregroundStyle(.ppBlue, .blue, .gray)
+                        .foregroundStyle(.ppBlue, .blue, .gray2)
                         .font(.system(size: 50))
                         .padding(.top, 10)
                     
-                    
                 }
-            }.frame(height:604)
+            }.frame(height: 604)
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // ScoreBar 애니메이션 후 Star 애니메이션
@@ -92,27 +94,38 @@ struct ResultView: View {
                 }
             }
         }
-        
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    Router.shared.navigateToRoot()
+                }) {
+                    Image(systemName: "xmark")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.gray1)
+                }
+            }
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 
-struct Star: View{
+struct Star: View {
     
     @State private var filled: Bool = false // 애니메이션용 상태 변수
     
     var isPassed: Bool
     var size: CGFloat
     
-    var body: some View{
+    var body: some View {
         Image(systemName: "star.fill")
             .resizable()
-            .foregroundStyle(isPassed ? .ppBlue : .gray)
+            .foregroundStyle(isPassed ? .ppBlue : .lightGray2)
             .frame(width: size, height: size)
             .overlay{
                 Image(systemName: "star.fill")
                     .resizable()
-                    .foregroundStyle(filled ? (isPassed ? .blue : .white) : .clear) // 초기에는 색상이 투명하게 설정
-                    .frame(width: size*0.85, height: size*0.85)
+                    .foregroundStyle(filled ? (isPassed ? .blue : .blueWhite) : .clear) // 초기에는 색상이 투명하게 설정
+                    .frame(width: size * 0.85, height: size * 0.85)
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // ScoreBar 애니메이션 이후 지연
@@ -124,7 +137,6 @@ struct Star: View{
     }
 }
 
-
 struct ScoreBar: View {
     
     @State private var animatedScore: Double = 0 // 애니메이션용 변수 추가
@@ -135,13 +147,13 @@ struct ScoreBar: View {
     
     var body: some View {
         VStack{
-            ZStack(alignment:.bottom){
-                RoundedRectangle(cornerRadius:16)
-                    .frame(width:80, height:288)
-                    .foregroundStyle(.gray)
+            ZStack(alignment: .bottom) {
+                RoundedRectangle(cornerRadius: 16)
+                    .frame(width: 80, height: 288)
+                    .foregroundStyle(.lightGray2)
                 RoundedRectangle(cornerRadius: 16)
                     .frame(width: 80, height: 288 * animatedScore / 100)
-                    .foregroundStyle(score == 100.0 ? .blue : .ppBlue)
+                    .foregroundStyle(score == 100.0 ? .blue : .skyBlue1)
                 Text("\(Int(score))%")
                     .font(.system(size: 16, weight: .bold))
                     .padding(.bottom, 19)
@@ -158,8 +170,4 @@ struct ScoreBar: View {
                 .padding(.top, 10)
         }
     }
-}
-
-#Preview {
-    ResultView(quote: AnimeQuote(japanese: ["才能は", "開花させる", "もの", "センスは", "磨く", "もの"], pronunciation: ["사이노우와", "카이카사세루", "모노", "센스와", "미가쿠", "모노"], korean: ["재능은", "발휘하는", "것", "센스는", "연마하는", "것"], evaluation: Evaluation(pronunciationScore: 78.0, pronunciationPass: true, intonationScore: 93, intonationPass: true, speedScore: 95.0, speedPass: true), timemark: [2.0, 2.5, 3.3, 5.0, 5.4, 6.0], voicingTime: 0.0, audiofile: "HIQ001.m4a", youtubeID: "", youtubeStartTime: 0, youtubeEndTime: 10))
 }

@@ -6,51 +6,53 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct LearningStartView: View {
     
     let quote: AnimeQuote
     
-    var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["才能は", "開花させる", "もの", "センスは", "磨く", "もの"], pronunciation: ["사이노우와", "카이카사세루", "모노", "센스와", "미가쿠", "모노"], korean: ["재능은", "발휘하는", "것", "센스는", "연마하는", "것"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [2.0, 2.5, 3.3, 5.0, 5.4, 6.0], voicingTime: 0.0, audiofile: "HIQ001.m4a", youtubeID: "", youtubeStartTime: 0, youtubeEndTime: 10)
-    
     @State private var currentPage = 0  // 현재 페이지를 관리할 변수
     
+    @StateObject private var audioPlayerManager = AudioPlayerManager()
+    
     var body: some View {
-        ZStack{
+        ZStack {
             Color.gray
                 .ignoresSafeArea()
             VStack {
                 SpeechBubble()
-                    .fill(Color.blue)
+                    .fill(Color.skyBlue1)
                     .frame(height: 340)
                     .padding(.horizontal, 47.5)
                     .overlay{
                         VStack {
-                            // TODO: dummieQuote -> quote로 변경
-                            if dummieQuote.pronunciation.count >= 5 {
-                                let halfIndex = dummieQuote.pronunciation.count / 2
+                            if quote.pronunciation.count >= 5 {
+                                let halfIndex = quote.pronunciation.count / 2
                                 
                                 // 페이지 내용
                                 VStack {
                                     if currentPage == 0 {
                                         VStack {
-                                            Text(dummieQuote.korean.prefix(halfIndex).joined(separator: " "))
-                                                
-                                            Text(dummieQuote.japanese.prefix(halfIndex).joined(separator: " "))
+                                            Text(quote.korean.prefix(halfIndex).joined(separator: " "))
+                                                .font(.system(size: 26, weight: .bold))
+                                            Text(quote.japanese.prefix(halfIndex).joined(separator: " "))
+                                                .font(.system(size: 26, weight: .bold))
                                                 .padding(.vertical, 35)
-                                            Text(dummieQuote.pronunciation.prefix(halfIndex).joined(separator: " "))
+                                            Text(quote.pronunciation.prefix(halfIndex).joined(separator: " "))
                                                 .font(.system(size: 20, weight: .bold))
                                         }
-                                        .font(.system(size: 26, weight: .bold))
                                     } else {
                                         VStack {
-                                            Text(dummieQuote.korean.suffix(from: halfIndex).joined(separator: " "))
-                                            Text(dummieQuote.japanese.suffix(from: halfIndex).joined(separator: " "))
+                                            Text(quote.korean.suffix(from: halfIndex).joined(separator: " "))
+                                                .font(.system(size: 26, weight: .bold))
+                                            Text(quote.japanese.suffix(from: halfIndex).joined(separator: " "))
                                                 .padding(.vertical, 35)
-                                            Text(dummieQuote.pronunciation.suffix(from: halfIndex).joined(separator: " "))
+                                                .font(.system(size: 26, weight: .bold))
+                                            Text(quote.pronunciation.suffix(from: halfIndex).joined(separator: " "))
                                                 .font(.system(size: 20, weight: .bold))
                                         }
-                                        .font(.system(size: 26, weight: .bold))
+                                        
                                     }
                                     
                                     HStack {
@@ -96,9 +98,9 @@ struct LearningStartView: View {
                             } else {
                                 // pronunciation 배열의 길이가 5 미만일 때 기존 방식으로 한 페이지에 표시
                                 VStack {
-                                    Text(dummieQuote.korean.joined(separator: " "))
-                                    Text(dummieQuote.japanese.joined(separator: " "))
-                                    Text(dummieQuote.pronunciation.joined(separator: " "))
+                                    Text(quote.korean.joined(separator: " "))
+                                    Text(quote.japanese.joined(separator: " "))
+                                    Text(quote.pronunciation.joined(separator: " "))
                                 }
                                 .frame(height: 300)
                                 .padding(.horizontal, 47.5)
@@ -114,10 +116,12 @@ struct LearningStartView: View {
                 
                 Button(action:{
                     // 오디오파일 재생이 들어감
+                    audioPlayerManager.playAudio(from: quote.audiofile)
                 }, label:{
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 6)
                         .frame(height:50)
                         .padding(.horizontal, 20)
+                        .foregroundStyle(.blue1)
                         .overlay{
                             HStack{
                                 Text("명대사 듣기")
@@ -126,27 +130,29 @@ struct LearningStartView: View {
                             .foregroundStyle(.white)
                         }
                 })
+                .disabled(audioPlayerManager.isPlaying)
                 
                 Button(action:{
                     Router.shared.navigate(to: .learning(quote: quote))
                 }, label:{
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 6)
                         .frame(height:60)
                         .foregroundStyle(.white)
                         .padding(.horizontal, 20)
                         .overlay{
                             Text("명대사 따라하기 시작")
+                                .bold()
+                                .foregroundStyle(.blue1)
+                                .font(.system(size: 20))
                         }
                 })
-                
             }
         }
-        
     }
 }
 
 //#Preview {
-//    LearningStartView(quote: AnimeQuote(japanese: ["才能は", "開花させる", "もの", "センスは", "磨く", "もの"], pronunciation: ["사이노우와", "카이카사세루", "모노", "센스와", "미가쿠", "모노"], korean: ["재능은", "발휘하는", "것", "센스는", "연마하는", "것"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [2.0, 2.5, 3.3, 5.0, 5.4, 6.0], audiofile: "HIQ001.m4a"))
+//    LearningStartView(quote: AnimeQuote(japanese: ["天上天下", "唯我独尊"], pronunciation: ["텐조오텐게", "유이가도쿠손"], korean: ["천상천하", "유아독존"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [0.01, 1.6], voicingTime: 0.0, audiofile: "JUJ005.m4a", youtubeID: "cJVeIwP_HoQ", youtubeStartTime: 90, youtubeEndTime: 115))
 //}
 
 struct SpeechBubble: Shape {
