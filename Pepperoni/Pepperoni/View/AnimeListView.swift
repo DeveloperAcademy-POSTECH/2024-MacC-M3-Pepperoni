@@ -24,7 +24,7 @@ struct AnimeListView: View {
     @State private var text = ""
     @State private var isSearchViewActive: Bool = false
     // 선택된 장르를 저장할 상태 변수
-    @State private var selectedGenre: String? = "로맨스"
+    @State private var selectedGenre: String? = "전체"
     // 장르 배열
     let genres = ["전체", "로맨스", "액션", "힐링", "드라마", "코미디"]
     
@@ -40,7 +40,7 @@ struct AnimeListView: View {
                         .foregroundColor(.lightGray2)
                     
                     TextField("애니 검색", text: $text)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.blue1)
                         .padding(.vertical, 10)
                 }
                 .padding(.horizontal)
@@ -95,10 +95,18 @@ struct AnimeListView: View {
                             Button {
                                 Router.shared.navigate(to: .characterList(anime: anime))
                             } label: {
-                                HStack {
-                                    Text(Image(systemName: "pin.square.fill"))
-                                        .foregroundStyle(.blue)
-                                        .font(.title3)
+                                HStack (spacing: 6){
+                                    ZStack{
+                                        Rectangle()
+                                            .frame(width: 18, height: 18)
+                                            .foregroundStyle(.white)
+                                            .cornerRadius(10)
+                                        
+                                        Image(systemName: "pin.square.fill")
+                                            .foregroundStyle(.blue1)
+                                            .font(.title3)
+                                            .frame(width: 24, height: 24)
+                                    }
                                     
                                     Text(anime.title)
                                         .foregroundStyle(.darkGray)
@@ -135,12 +143,12 @@ struct AnimeListView: View {
                                 Text(genre)
                                     .padding(.vertical, 8)
                                     .padding(.horizontal, 16)
-                                    .background(selectedGenre == genre ? Color.blue : Color.white)
+                                    .background(selectedGenre == genre ? Color.blue1 : Color.white)
                                     .foregroundColor(selectedGenre == genre ? .white : .lightGray2)
                                     .clipShape(Capsule())
                                     .overlay(
                                         Capsule()
-                                            .stroke(selectedGenre == genre ? Color.blue : Color.lightGray2, lineWidth: 1)
+                                            .stroke(selectedGenre == genre ? Color.blue1 : Color.lightGray2, lineWidth: 1)
                                     )
                             }
                         }
