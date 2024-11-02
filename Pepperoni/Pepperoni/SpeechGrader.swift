@@ -49,6 +49,11 @@ func calculateVoiceSpeed(originalLength: Double, sttVoicingTime: Double) -> Doub
 
 /// Levenshtein Distance 함수
 private func levenshteinDistance(_ source: String, _ target: String) -> Int {
+    // target이 비어있거나 길이가 0인 경우 처리
+    if target.isEmpty {
+        return source.count 
+    }
+    
     let (sourceCount, targetCount) = (source.count, target.count)
     var distanceMatrix = [[Int]](repeating: [Int](repeating: 0, count: targetCount + 1), count: sourceCount + 1)
     
