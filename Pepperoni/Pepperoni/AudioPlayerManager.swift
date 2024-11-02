@@ -11,6 +11,9 @@ import Combine
 class AudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     private var audioPlayer: AVAudioPlayer?
     @Published var isPlaying = false
+    
+    private var timer: Timer?
+    @Published var currentTime: Double = 0.0 // 현재 재생 시간, @Published로 선언하여 변화를 감지
 
     func playAudio(from fileName: String) {
         guard let fileURL = Bundle.main.url(forResource: fileName, withExtension: nil), !isPlaying else {
@@ -26,19 +29,36 @@ class AudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
             audioPlayer?.prepareToPlay()
             audioPlayer?.play()
             isPlaying = true
+            startTimer()  // 타이머 시작
         } catch {
             print("Failed to play audio: \(error.localizedDescription)")
         }
     }
 
-    func stopAudio() {
+    private func stopAudio() {
         audioPlayer?.stop()
         isPlaying = false
+        stopTimer()  // 타이머 정지
+    }
+    
+    private func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+            if let player = self?.audioPlayer {
+                self?.currentTime = player.currentTime
+            }
+        }
+    }
+    
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+        self.currentTime = 0.0
     }
     
     // AVAudioPlayerDelegate 메서드: 오디오 재생이 끝났을 때 호출
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         isPlaying = false
+        stopTimer()  // 타이머 정지
     }
 }
 
