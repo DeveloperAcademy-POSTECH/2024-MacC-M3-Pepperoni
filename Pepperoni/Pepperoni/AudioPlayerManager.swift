@@ -21,6 +21,14 @@ class AudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
             return
         }
         
+        // 무음 모드에서도 소리를 재생할 수 있도록 오디오 세션 설정
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("Failed to set audio session category: \(error.localizedDescription)")
+        }
+        
         stopAudio()  // 기존 재생 중이던 오디오 중지
         
         do {
