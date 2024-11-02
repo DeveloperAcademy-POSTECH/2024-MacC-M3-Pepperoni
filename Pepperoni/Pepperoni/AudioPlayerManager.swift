@@ -35,7 +35,7 @@ class AudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         }
     }
 
-    func stopAudio() {
+    private func stopAudio() {
         audioPlayer?.stop()
         isPlaying = false
         stopTimer()  // 타이머 정지
