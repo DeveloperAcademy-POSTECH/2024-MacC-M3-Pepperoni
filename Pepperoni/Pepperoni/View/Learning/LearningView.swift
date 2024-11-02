@@ -211,10 +211,11 @@ struct LearningView: View {
     private func grading() {
         // 발음과 속도를 채점합니다.
         quote.evaluation.pronunciationScore = calculatePronunciation(original: quote.japanese, sttText: sttManager.recognizedText)
-        
+        //TODO: 억양 채점 여기에 넣어주세요!
         quote.evaluation.speedScore = calculateVoiceSpeed(
             originalLength: quote.voicingTime,
             sttVoicingTime: sttManager.voicingTime!)
+        
         print("원본 일본어: \(quote.japanese)")
         print("원본 속도: \(quote.voicingTime)")
         print("사용자 속도: \(sttManager.voicingTime!)")
@@ -234,7 +235,7 @@ struct LearningView: View {
         
         // 임시로 발음, 속도가 모두 80점이 넘었다면 높낮이도 pass
         // 유튜브 영상 띄우기 위함
-        //TODO: 억양 채점 추가
+        //TODO: 별 3개 채웠는데 다시 시도 했을때 0점이면 억양의 별은 채워져 있음 억양추가시 수정 필요
         if quote.evaluation.pronunciationPass && quote.evaluation.speedPass {
             quote.evaluation.intonationPass = true
             
@@ -247,6 +248,7 @@ struct LearningView: View {
         }
         
         print("발음 정확도: \(String(format: "%.1f", quote.evaluation.pronunciationScore))%")
+        //TODO: 억양 정확도 print("억양 정확도: " )
         print("속도 정확도: \(String(format: "%.1f", quote.evaluation.speedScore))%")
     }
 
