@@ -70,16 +70,38 @@ struct ResultView: View {
                     }
                     
                     //TODO: 눌렀을때 다시 쉐도잉할 수 있게
-                    Button(action: {
-                        Router.shared.resetAndNavigateToLearning(quote: quote)
-                    } ) {
-                        Image(systemName: "arrow.counterclockwise.circle.fill")
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.ppBlue, .blue, .gray2)
-                            .font(.system(size: 50))
-                            .padding(.top, 10)
-                    }
                     
+                    HStack(alignment: .center) {
+                        Button(action: {
+                           // .learningStart로
+                            Router.shared.navPath = NavigationPath()
+                            Router.shared.navigate(to: .characterDetail(character: quote.character!))
+                            Router.shared.navigate(to: .learningStart(quote: quote))
+                        }) {
+                            ZStack {
+                                Rectangle()
+                                    .frame(width: 126, height: 65)
+                                    .cornerRadius(50)
+                                    .foregroundStyle(.gray2)
+                                
+                                Text("다시듣기")
+                                    .foregroundStyle(.blue1)
+                                    .font(.system(size: 18, weight: .bold))
+                            }
+                        }
+                        
+                        Button(action: {
+                            // .learning으로
+                            Router.shared.navPath = NavigationPath()
+                            Router.shared.navigate(to: .learningStart(quote: quote))
+                            Router.shared.navigate(to: .learning(quote: quote))
+                        } ) {
+                            Image(systemName: "arrow.counterclockwise.circle.fill")
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.ppBlue, .blue, .gray2)
+                                .font(.system(size: 65))
+                        }
+                    }
                     
                 }
             }
