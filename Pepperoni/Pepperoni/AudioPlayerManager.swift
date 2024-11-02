@@ -9,7 +9,7 @@ import AVFoundation
 import Combine
 
 class AudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
-    var audioPlayer: AVAudioPlayer?
+    private var audioPlayer: AVAudioPlayer?
     @Published var isPlaying = false
     
     private var timer: Timer?
