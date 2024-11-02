@@ -40,4 +40,12 @@ final class Router: ObservableObject {
     func navigateToRoot() {
         navPath.removeLast(navPath.count)
     }
+    
+    // 특정 AnimeQuote로 학습 시작과 함께 learningView로 이동
+    func resetAndNavigateToLearning(quote: AnimeQuote) {
+        navPath = NavigationPath()
+        
+        navPath.append(Destination.learningStart(quote: quote))
+        navPath.append(Destination.learning(quote: quote))
+    }
 }

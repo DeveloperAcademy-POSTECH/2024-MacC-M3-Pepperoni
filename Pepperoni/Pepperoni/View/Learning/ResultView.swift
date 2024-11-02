@@ -70,11 +70,16 @@ struct ResultView: View {
                     }
                     
                     //TODO: 눌렀을때 다시 쉐도잉할 수 있게
-                    Image(systemName: "arrow.counterclockwise.circle.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.ppBlue, .blue, .gray2)
-                        .font(.system(size: 50))
-                        .padding(.top, 10)
+                    Button(action: {
+                        Router.shared.resetAndNavigateToLearning(quote: quote)
+                    } ) {
+                        Image(systemName: "arrow.counterclockwise.circle.fill")
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.ppBlue, .blue, .gray2)
+                            .font(.system(size: 50))
+                            .padding(.top, 10)
+                    }
+                    
                     
                 }
             }
