@@ -30,12 +30,13 @@ struct CharacterDetailView: View {
                     .frame(height: 584)
                     .cornerRadius(60)
                 
+                // -MARK: 하트 버튼
                 VStack{
                     HStack{
                         Spacer()
                         
                         Button(action: {
-                            toggleFavorite() // 즐겨찾기 상태 토글
+                            toggleFavorite()
                         }) {
                                 Image(systemName: character.favorite ? "heart.fill" : "heart")
                                     .resizable()
@@ -241,10 +242,13 @@ struct CharacterDetailView: View {
         return (totalScore, totalPasses)
     }
     
-    // 즐겨찾기 상태 토글 함수
+    /// 최애(favorite) 설정 함수
     private func toggleFavorite() {
-        character.favorite.toggle() // favorite 상태를 토글
-        print("favorite")
+        if favoriteCharacters.count < 3 || character.favorite {
+            character.favorite.toggle()
+        } else {
+            showAlert = true
+        }
     }
 }
 
