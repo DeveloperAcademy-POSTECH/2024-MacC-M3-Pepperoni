@@ -282,7 +282,6 @@ struct AchievementBar: View {
 
 // -MARK: ImagePicker
 struct ImagePickerView: UIViewControllerRepresentable {
-    
     @Binding var selectedImageData: Data?
     @Environment(\.dismiss) var dismiss
     var mode: UIImagePickerController.SourceType
@@ -313,8 +312,13 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let selectedImage = info[.originalImage] as? UIImage {
-            guard let data = selectedImage.jpegData(compressionQuality: 0.6) else { return }
+        // 편집된 이미지 가져오기
+        if let editedImage = info[.editedImage] as? UIImage {
+            guard let data = editedImage.jpegData(compressionQuality: 0.6) else { return }
+            self.picker.selectedImageData = data
+        // 편집된 이미지가 없을 경우, 원본 이미지 사용
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            guard let data = originalImage.jpegData(compressionQuality: 0.6) else { return }
             self.picker.selectedImageData = data
         }
         
