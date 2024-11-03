@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVFoundation
+import SwiftData
 
 struct CharacterDetailView: View {
     let character: Character
@@ -15,6 +16,11 @@ struct CharacterDetailView: View {
     
     let itemHeight: CGFloat = 58.0
     let menuHeightMultiplier: CGFloat = 5
+    
+    @Query(filter: #Predicate<Character> { $0.favorite == true })
+    private var favoriteCharacters: [Character]
+    
+    @State private var showAlert: Bool = false
     
     var body: some View {
         VStack{
