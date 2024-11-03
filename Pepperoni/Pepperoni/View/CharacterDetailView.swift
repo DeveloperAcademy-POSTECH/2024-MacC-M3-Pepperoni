@@ -7,11 +7,14 @@
 
 import SwiftUI
 import AVFoundation
+import PhotosUI
 
 struct CharacterDetailView: View {
     let character: Character
     
     @State private var selectedIndex: Int? = 0
+    @State private var profileImage: UIImage? // 선택된 프로필 이미지
+    @State private var showImagePicker = false // 이미지 피커 표시 상태
     
     let itemHeight: CGFloat = 58.0
     let menuHeightMultiplier: CGFloat = 5
@@ -25,11 +28,12 @@ struct CharacterDetailView: View {
                     .cornerRadius(60)
                 
                 VStack{
+                    // -MARK: favorite 버튼
                     HStack{
                         Spacer()
                         
                         Button(action: {
-                            toggleFavorite() // 즐겨찾기 상태 토글
+                            toggleFavorite()
                         }) {
                                 Image(systemName: character.favorite ? "heart.fill" : "heart")
                                     .resizable()
@@ -40,21 +44,31 @@ struct CharacterDetailView: View {
                     }
                     .padding(.top, 8)
                     
+                    // -MARK: 캐릭터 프로필
                     ZStack {
-                        Rectangle()
-                            .foregroundStyle(.darkGray)
-                            .frame(width: 134, height: 134)
-                            .border(.white, width: 3)
+                        if let profileImage = profileImage {
+                            Image(uiImage: profileImage)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 134, height: 134)
+                                .clipShape(Rectangle())
+                        } else {
+                            //기본 이미지
+                            Rectangle()
+                                .foregroundStyle(.darkGray)
+                                .frame(width: 134, height: 134)
+                                .border(.white, width: 3)
+                            
+                            Image(systemName: "person.fill")
+                                .resizable()
+                                .frame(width: 82, height: 87)
+                                .foregroundStyle(.blueWhite)
+                        }
                         
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .frame(width: 82, height: 87)
-                            .foregroundStyle(.blueWhite)
                         
-                        
-                        // 사진 추가 버튼 !!! 준요 여기야 
+                        // 사진 추가 버튼
                         Button {
-                        
+                            showImagePicker = true
                         } label: {
                             ZStack{
                                 Circle()
@@ -74,6 +88,7 @@ struct CharacterDetailView: View {
                         .fontWeight(.medium)
                         .foregroundStyle(.white)
                     
+                    // -MARK: 총점수, 별, 달성률
                     VStack(alignment: .leading) {
                         HStack{
                             Text("총점수")
@@ -210,13 +225,16 @@ struct CharacterDetailView: View {
                     .cornerRadius(20)
                 }
             }
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker(profileImage: $profileImage) // 이미지 선택 시 업데이트
+            }
         }
         .padding()
         .background(.darkGray)
     }
     
-    // 별, 총점수 계산 함수
-    func calculateScoresAndPasses(for character: Character) -> (totalScore: Int, totalPasses: Int) {
+    /// 별, 총점수 계산 함수
+    private func calculateScoresAndPasses(for character: Character) -> (totalScore: Int, totalPasses: Int) {
         var totalScore = 0
         var totalPasses = 0
         
@@ -235,7 +253,7 @@ struct CharacterDetailView: View {
         return (totalScore, totalPasses)
     }
     
-    // 즐겨찾기 상태 토글 함수
+    /// 즐겨찾기 상태 토글 함수
     private func toggleFavorite() {
         character.favorite.toggle() // favorite 상태를 토글
         print("favorite")
@@ -259,6 +277,43 @@ struct AchievementBar: View {
             }
             .frame(height: 20)
             .cornerRadius(20)
+        }
+    }
+}
+
+// -MARK: ImagePicker
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var profileImage: UIImage?
+
+    func makeUIViewController(context: Context) -> PHPickerViewController {
+        var config = PHPickerConfiguration()
+        config.filter = .images
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, PHPickerViewControllerDelegate {
+        let parent: ImagePicker
+
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            picker.dismiss(animated: true)
+            guard let provider = results.first?.itemProvider, provider.canLoadObject(ofClass: UIImage.self) else { return }
+            provider.loadObject(ofClass: UIImage.self) { image, _ in
+                DispatchQueue.main.async {
+                    self.parent.profileImage = image as? UIImage
+                }
+            }
         }
     }
 }
