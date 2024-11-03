@@ -66,13 +66,6 @@ struct JSONUtils {
                     let youtubeStartTime = jsonItem["start"] as? Int ?? 0
                     let youtubeEndTime = jsonItem["end"] as? Int ?? 0
                     
-                    if let voicingTimeValue = jsonItem["voicingTime"] {
-                        print("voicingTime의 원래 타입: \(type(of: voicingTimeValue))")
-                    } else {
-                        print("voicingTime 필드가 JSON에서 누락되었습니다.")
-                    }
-
-                    
                     // 평가 초기화
                     let evaluation = Evaluation(
                         pronunciationScore: 0.0,
