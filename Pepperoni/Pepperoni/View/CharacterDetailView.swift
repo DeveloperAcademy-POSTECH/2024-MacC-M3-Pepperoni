@@ -7,14 +7,13 @@
 
 import SwiftUI
 import AVFoundation
-import PhotosUI
 
 struct CharacterDetailView: View {
     let character: Character
     
     @State private var selectedIndex: Int? = 0
-    @State private var profileImage: UIImage? // 선택된 프로필 이미지
-    @State private var showImagePicker = false // 이미지 피커 표시 상태
+    @State private var profileImage: Data?
+    @State private var isCameraPickerPresented = false
     
     let itemHeight: CGFloat = 58.0
     let menuHeightMultiplier: CGFloat = 5
@@ -46,14 +45,14 @@ struct CharacterDetailView: View {
                     
                     // -MARK: 캐릭터 프로필
                     ZStack {
-                        if let profileImage = profileImage {
-                            Image(uiImage: profileImage)
+                        if let profileImage = profileImage, let image = UIImage(data: profileImage) {
+                            Image(uiImage: image)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 134, height: 134)
                                 .clipShape(Rectangle())
                         } else {
-                            //기본 이미지
+                            // 기본 이미지
                             Rectangle()
                                 .foregroundStyle(.darkGray)
                                 .frame(width: 134, height: 134)
@@ -65,10 +64,9 @@ struct CharacterDetailView: View {
                                 .foregroundStyle(.blueWhite)
                         }
                         
-                        
                         // 사진 추가 버튼
                         Button {
-                            showImagePicker = true
+                            isCameraPickerPresented = true
                         } label: {
                             ZStack{
                                 Circle()
@@ -225,8 +223,9 @@ struct CharacterDetailView: View {
                     .cornerRadius(20)
                 }
             }
-            .sheet(isPresented: $showImagePicker) {
-                ImagePicker(profileImage: $profileImage) // 이미지 선택 시 업데이트
+            .sheet(isPresented: $isCameraPickerPresented) {
+                ImagePickerView(selectedImageData: $profileImage,
+                           mode: .photoLibrary)
             }
         }
         .padding()
@@ -282,42 +281,46 @@ struct AchievementBar: View {
 }
 
 // -MARK: ImagePicker
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var profileImage: UIImage?
-
-    func makeUIViewController(context: Context) -> PHPickerViewController {
-        var config = PHPickerConfiguration()
-        config.filter = .images
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = context.coordinator
-        return picker
+struct ImagePickerView: UIViewControllerRepresentable {
+    
+    @Binding var selectedImageData: Data?
+    @Environment(\.dismiss) var dismiss
+    var mode: UIImagePickerController.SourceType
+    
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = mode
+        imagePicker.allowsEditing = true // 사진 편집 기능
+        imagePicker.delegate = context.coordinator
+        return imagePicker
     }
-
-    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
-
+    
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
+        
+    }
+    
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    class Coordinator: NSObject, PHPickerViewControllerDelegate {
-        let parent: ImagePicker
-
-        init(_ parent: ImagePicker) {
-            self.parent = parent
-        }
-
-        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            picker.dismiss(animated: true)
-            guard let provider = results.first?.itemProvider, provider.canLoadObject(ofClass: UIImage.self) else { return }
-            provider.loadObject(ofClass: UIImage.self) { image, _ in
-                DispatchQueue.main.async {
-                    self.parent.profileImage = image as? UIImage
-                }
-            }
-        }
+        return Coordinator(picker: self)
     }
 }
 
+class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    var picker: ImagePickerView
+    
+    init(picker: ImagePickerView) {
+        self.picker = picker
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.originalImage] as? UIImage {
+            guard let data = selectedImage.jpegData(compressionQuality: 0.6) else { return }
+            self.picker.selectedImageData = data
+        }
+        
+        self.picker.dismiss()
+    }
+}
 
 #Preview {
     CharacterDetailView(character: Character(name: "고죠", favorite: false))
