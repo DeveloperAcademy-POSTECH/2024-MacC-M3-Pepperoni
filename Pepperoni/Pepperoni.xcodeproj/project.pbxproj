@@ -28,6 +28,7 @@
 		BD737E402CC7468C0096CDEC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD737E3F2CC746840096CDEC /* .gitignore */; };
 		BD7D58A52CD2618200EAD175 /* AnimeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7D58A42CD2618200EAD175 /* AnimeListView.swift */; };
 		BD7D58A72CD2679200EAD175 /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7D58A62CD2679200EAD175 /* CharacterDetailView.swift */; };
+		BD8695212CD768CA00FDE710 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8695202CD768CA00FDE710 /* ImagePickerView.swift */; };
 		BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */; };
 		BDE03C512CCF2634000DACB8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDE03C482CCF2634000DACB8 /* Preview Assets.xcassets */; };
 		BDF007312CD24DD500A386A1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF0072F2CD24DD500A386A1 /* Models.swift */; };
@@ -67,6 +68,7 @@
 		BD737E3F2CC746840096CDEC /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BD7D58A42CD2618200EAD175 /* AnimeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeListView.swift; sourceTree = "<group>"; };
 		BD7D58A62CD2679200EAD175 /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
+		BD8695202CD768CA00FDE710 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		BDE03C482CCF2634000DACB8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PepperoniApp.swift; sourceTree = "<group>"; };
 		BDF0072F2CD24DD500A386A1 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			children = (
 				BD2BAAF72CD37D8500873607 /* SearchBar.swift */,
 				BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */,
+				BD8695202CD768CA00FDE710 /* ImagePickerView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 			files = (
 				BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */,
 				BD54BC3C2CD122A300366076 /* YouTubePlayerView.swift in Sources */,
+				BD8695212CD768CA00FDE710 /* ImagePickerView.swift in Sources */,
 				BDF007312CD24DD500A386A1 /* Models.swift in Sources */,
 				BDF007362CD24E2900A386A1 /* DataLoadingView.swift in Sources */,
 				BDF007492CD24E7100A386A1 /* JSONUtils.swift in Sources */,
@@ -473,7 +477,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Pepperoni/Preview Content\"";
-				DEVELOPMENT_TEAM = 2U3B7G3F2A;
+				DEVELOPMENT_TEAM = PK4L7H6D6F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pepperoni/Info.plist;
