@@ -69,6 +69,3 @@ class AudioPlayerManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         stopTimer()  // 타이머 정지
     }
 }
-
-
-
