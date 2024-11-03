@@ -13,7 +13,7 @@ struct CharacterDetailView: View {
     let character: Character
     
     @State private var selectedIndex: Int? = 0
-    @State private var profileImage: Data?
+    @State private var selectedImage: Data?
     @State private var isCameraPickerPresented = false
     
     let itemHeight: CGFloat = 58.0
@@ -46,7 +46,7 @@ struct CharacterDetailView: View {
                     
                     // -MARK: 캐릭터 프로필
                     ZStack {
-                        if let profileImage = character.image, let image = UIImage(data: profileImage) {
+                        if let selectedImage = character.image, let image = UIImage(data: selectedImage) {
                             Image(uiImage: image)
                                 .resizable()
                                 .scaledToFill()
@@ -225,15 +225,15 @@ struct CharacterDetailView: View {
                 }
             }
             .sheet(isPresented: $isCameraPickerPresented) {
-                ImagePickerView(selectedImageData: $profileImage,
+                ImagePickerView(selectedImageData: $selectedImage,
                            mode: .photoLibrary)
             }
         }
         .padding()
         .background(.darkGray)
         // 이미지 등록 시, SwiftData에 이미지 저장
-        .onChange(of: profileImage) {
-            if let newImageData = profileImage {
+        .onChange(of: selectedImage) {
+            if let newImageData = selectedImage {
                 character.updateImage(newImageData)
             }
         }
@@ -284,52 +284,6 @@ struct AchievementBar: View {
             .frame(height: 20)
             .cornerRadius(20)
         }
-    }
-}
-
-// -MARK: ImagePicker
-struct ImagePickerView: UIViewControllerRepresentable {
-    @Binding var selectedImageData: Data?
-    @Environment(\.dismiss) var dismiss
-    var mode: UIImagePickerController.SourceType
-    
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = mode
-        imagePicker.allowsEditing = true // 사진 편집 기능
-        imagePicker.delegate = context.coordinator
-        return imagePicker
-    }
-    
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
-        
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(picker: self)
-    }
-}
-
-class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    var picker: ImagePickerView
-    
-    init(picker: ImagePickerView) {
-        self.picker = picker
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        // 편집된 이미지 가져오기
-        if let editedImage = info[.editedImage] as? UIImage {
-            guard let data = editedImage.jpegData(compressionQuality: 0.6) else { return }
-            self.picker.selectedImageData = data
-        // 편집된 이미지가 없을 경우, 원본 이미지 사용
-        } else if let originalImage = info[.originalImage] as? UIImage {
-            guard let data = originalImage.jpegData(compressionQuality: 0.6) else { return }
-            self.picker.selectedImageData = data
-        }
-        
-        self.picker.dismiss()
     }
 }
 
