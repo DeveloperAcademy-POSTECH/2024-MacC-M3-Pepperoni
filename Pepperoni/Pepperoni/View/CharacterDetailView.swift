@@ -220,9 +220,12 @@ struct CharacterDetailView: View {
         }
         .padding()
         .background(.darkGray)
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("최애 자리가 다 찼어요"), message: Text("최애 캐릭터는 3개까지 설정 가능해요🥹"), dismissButton: .default(Text("확인")))
+        }
     }
     
-    // 별, 총점수 계산 함수
+    /// 별, 총점수 계산 함수
     func calculateScoresAndPasses(for character: Character) -> (totalScore: Int, totalPasses: Int) {
         var totalScore = 0
         var totalPasses = 0
