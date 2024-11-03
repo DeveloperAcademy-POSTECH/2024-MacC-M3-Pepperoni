@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 import AVFoundation
 
 struct CharacterDetailView: View {
@@ -45,7 +46,7 @@ struct CharacterDetailView: View {
                     
                     // -MARK: 캐릭터 프로필
                     ZStack {
-                        if let profileImage = profileImage, let image = UIImage(data: profileImage) {
+                        if let profileImage = character.image, let image = UIImage(data: profileImage) {
                             Image(uiImage: image)
                                 .resizable()
                                 .scaledToFill()
@@ -230,6 +231,12 @@ struct CharacterDetailView: View {
         }
         .padding()
         .background(.darkGray)
+        // 이미지 등록 시, SwiftData에 이미지 저장
+        .onChange(of: profileImage) {
+            if let newImageData = profileImage {
+                character.updateImage(newImageData)
+            }
+        }
     }
     
     /// 별, 총점수 계산 함수
@@ -329,4 +336,3 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
 #Preview {
     CharacterDetailView(character: Character(name: "고죠", favorite: false))
 }
-

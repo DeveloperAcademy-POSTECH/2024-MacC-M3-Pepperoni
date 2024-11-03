@@ -44,6 +44,10 @@ class Character {
         self.anime = anime
         self.completedQuotes = completedQuotes
     }
+    
+    func updateImage(_ newImage: Data?) {
+        self.image = newImage
+    }
 }
 
 @Model
