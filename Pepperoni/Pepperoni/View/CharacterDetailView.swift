@@ -267,4 +267,3 @@ struct AchievementBar: View {
 #Preview {
     CharacterDetailView(character: Character(name: "고죠", favorite: false))
 }
-

@@ -157,6 +157,8 @@ struct LearningView: View {
         }
         .onDisappear {
             sttManager.stopRecording() // 뷰에서 벗어날 때 녹음 중지
+            isCounting = true
+            countdown = 4
         }
         .onChange(of: isCounting) { newValue in
             if isCounting == false {
@@ -193,8 +195,8 @@ struct LearningView: View {
     }
     
     private func stopTimer() {
-        timer?.invalidate()  // 타이머 중지
-        timer = nil          // 타이머 객체 초기화
+        self.timer?.invalidate()  // 타이머 중지
+        self.timer = nil          // 타이머 객체 초기화
         isRunning = false
     }
     
