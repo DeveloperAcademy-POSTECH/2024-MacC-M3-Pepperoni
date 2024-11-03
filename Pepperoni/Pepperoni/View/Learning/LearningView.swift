@@ -150,17 +150,17 @@ struct LearningView: View {
                 Text(countdown == 1 ? "Start!" : "\(countdown - 1)") // 카운트다운 숫자
                     .font(.system(size: 100, weight: .bold))
                     .foregroundColor(.white)
-                    .onAppear {
-                        startCountdown() // 뷰가 나타나면 카운트다운 시작
-                    }
             }
+        }
+        .onAppear {
+            startCountdown() // 뷰가 나타나면 카운트다운 시작
         }
         .onDisappear {
             sttManager.stopRecording() // 뷰에서 벗어날 때 녹음 중지
             isCounting = true
             countdown = 4
         }
-        .onChange(of: isCounting) { newValue in
+        .onChange(of: isCounting) {
             if isCounting == false {
                 startTimer()
             }
@@ -197,6 +197,7 @@ struct LearningView: View {
     private func stopTimer() {
         self.timer?.invalidate()  // 타이머 중지
         self.timer = nil          // 타이머 객체 초기화
+        timerCount = 0
         isRunning = false
     }
     
