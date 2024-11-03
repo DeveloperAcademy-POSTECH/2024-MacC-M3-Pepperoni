@@ -207,7 +207,8 @@ struct LearningView: View {
         return timerCount >= startTime && timerCount < endTime
     }
     
-    // 채점
+    /// 채점 함수
+    /// 사용자 음성의 발음, 억양, 스피드를 대상 음성과 비교하여 채점합니다.
     private func grading() {
         // 발음과 속도를 채점합니다.
         quote.evaluation.pronunciationScore = calculatePronunciation(original: quote.japanese, sttText: sttManager.recognizedText)
@@ -221,6 +222,7 @@ struct LearningView: View {
         print("사용자 속도: \(sttManager.voicingTime!)")
         
         // 80점이 넘으면 pass
+        // TODO: 억양 채점이 추가되면 pass 조건 로직 수정 필요
         if quote.evaluation.pronunciationScore < 80 {
             quote.evaluation.pronunciationPass = false
         } else {
