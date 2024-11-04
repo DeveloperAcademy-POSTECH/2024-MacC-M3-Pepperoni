@@ -69,8 +69,7 @@ struct ResultView: View {
                         ScoreBar(title: "스피드", score: quote.evaluation.speedScore)
                     }
                     
-                    //TODO: 눌렀을때 다시 쉐도잉할 수 있게
-                    
+                    //TODO: Router에 하나씩 뷰를 쌓아주는 방식은 비효율적인 방식으로 보임, Router 혹은 방식 개선 필요
                     HStack(alignment: .center) {
                         Button(action: {
                            // .learningStart로
@@ -93,6 +92,7 @@ struct ResultView: View {
                         Button(action: {
                             // .learning으로
                             Router.shared.navPath = NavigationPath()
+                            Router.shared.navigate(to: .characterDetail(character: quote.character!))
                             Router.shared.navigate(to: .learningStart(quote: quote))
                             Router.shared.navigate(to: .learning(quote: quote))
                         } ) {
