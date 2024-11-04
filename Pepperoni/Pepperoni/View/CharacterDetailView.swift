@@ -170,30 +170,45 @@ struct CharacterDetailView: View {
                             
                             ForEach(0..<character.quotes.count, id: \.self) { index in
                                 let quote = character.quotes[index]
+                                let evaluation = quote.evaluation
+                                let passCount = [evaluation.pronunciationPass, evaluation.intonationPass, evaluation.speedPass].filter { $0 }.count
                                 
-                                VStack(alignment: .leading) {
+                                VStack(alignment: .leading, spacing: 4) {
                                     HStack{
-                                        Text(quote.korean.joined(separator: " "))
-                                            .foregroundStyle(.white)
-                                            .font(.title3)
-                                            .fontWeight(.bold)
-                                            .fixedSize(horizontal: false, vertical: true)
-                                        
-                                        Spacer()
-                                        
                                         Text("#\(index+1)")
                                             .foregroundStyle(.white)
                                             .font(.title3)
                                             .fontWeight(.bold)
+                                        
+                                        Spacer()
+                                        
+                                        // 별
+                                        HStack(spacing: 4) {
+                                            ForEach(0..<3) { i in
+                                                if i < passCount {
+                                                    Text(Image(systemName: "star.fill"))
+                                                        .foregroundStyle(.white)
+                                                } else {
+                                                    Text(Image(systemName: "star"))
+                                                        .foregroundStyle(.white)
+                                                }
+                                            }
+                                        }
                                     }
                                     
-                                    // selectedIndex와 일치하는 경우에만 quote.japanese 표시
+                                    // 한국어
+                                    Text(quote.korean.joined(separator: " "))
+                                        .foregroundStyle(.white)
+                                        .font(.title3)
+                                        .fontWeight(.bold)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                    
+                                    // 일본어 - selectedIndex일 때만
                                     if index == selectedIndex {
                                         Text(quote.japanese.joined(separator: " "))
                                             .foregroundStyle(.white)
                                             .font(.title3)
                                             .fontWeight(.bold)
-                                            .padding(.top, 4)
                                             .fixedSize(horizontal: false, vertical: true)
                                     }
                                 }
