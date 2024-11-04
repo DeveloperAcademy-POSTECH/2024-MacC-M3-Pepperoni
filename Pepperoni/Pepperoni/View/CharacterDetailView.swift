@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 import AVFoundation
 import SwiftData
 
@@ -13,6 +14,8 @@ struct CharacterDetailView: View {
     let character: Character
     
     @State private var selectedIndex: Int? = 0
+    @State private var selectedImage: Data?
+    @State private var isCameraPickerPresented = false
     
     let itemHeight: CGFloat = 58.0
     let menuHeightMultiplier: CGFloat = 5
@@ -32,6 +35,7 @@ struct CharacterDetailView: View {
                 
                 // -MARK: 하트 버튼
                 VStack{
+                    // -MARK: favorite 버튼
                     HStack{
                         Spacer()
                         
@@ -47,21 +51,30 @@ struct CharacterDetailView: View {
                     }
                     .padding(.top, 8)
                     
+                    // -MARK: 캐릭터 프로필
                     ZStack {
-                        Rectangle()
-                            .foregroundStyle(.darkGray)
-                            .frame(width: 134, height: 134)
-                            .border(.white, width: 3)
+                        if let selectedImage = character.image, let image = UIImage(data: selectedImage) {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 134, height: 134)
+                                .clipShape(Rectangle())
+                        } else {
+                            // 기본 이미지
+                            Rectangle()
+                                .foregroundStyle(.darkGray)
+                                .frame(width: 134, height: 134)
+                                .border(.white, width: 3)
+                            
+                            Image(systemName: "person.fill")
+                                .resizable()
+                                .frame(width: 82, height: 87)
+                                .foregroundStyle(.blueWhite)
+                        }
                         
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .frame(width: 82, height: 87)
-                            .foregroundStyle(.blueWhite)
-                        
-                        
-                        // 사진 추가 버튼 !!! 준요 여기야 
+                        // 사진 추가 버튼
                         Button {
-                        
+                            isCameraPickerPresented = true
                         } label: {
                             ZStack{
                                 Circle()
@@ -81,6 +94,7 @@ struct CharacterDetailView: View {
                         .fontWeight(.medium)
                         .foregroundStyle(.white)
                     
+                    // -MARK: 총점수, 별, 달성률
                     VStack(alignment: .leading) {
                         HStack{
                             Text("총점수")
@@ -217,6 +231,10 @@ struct CharacterDetailView: View {
                     .cornerRadius(20)
                 }
             }
+            .sheet(isPresented: $isCameraPickerPresented) {
+                ImagePickerView(selectedImageData: $selectedImage,
+                           mode: .photoLibrary)
+            }
         }
         .padding()
         .background(.darkGray)
@@ -276,8 +294,6 @@ struct AchievementBar: View {
     }
 }
 
-
 #Preview {
     CharacterDetailView(character: Character(name: "고죠", favorite: false))
 }
-
