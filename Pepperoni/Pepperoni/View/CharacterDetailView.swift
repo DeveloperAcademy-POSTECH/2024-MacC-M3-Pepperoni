@@ -173,6 +173,12 @@ struct CharacterDetailView: View {
         }
         .padding()
         .background(.darkGray)
+        .onChange(of: selectedImage) {
+            // 이미지 등록 시, SwiftData에 이미지 저장
+            if let newImageData = selectedImage {
+                character.updateImage(newImageData)
+            }
+        }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("최애 자리가 다 찼어요"), message: Text("최애 캐릭터는 3개까지 설정 가능해요🥹"), dismissButton: .default(Text("확인")))
         }
