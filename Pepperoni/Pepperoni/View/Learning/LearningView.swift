@@ -124,10 +124,12 @@ struct LearningView: View {
                 }
                 
                 Button(action:{
-                    Router.shared.navigate(to: .result(quote: quote))
-                    sttManager.stopRecording()
-                    stopTimer()
-                    grading()
+                    Task {
+                        Router.shared.navigate(to: .result(quote: quote))
+                        await sttManager.stopRecording()  // 비동기 녹음 중지
+                        stopTimer()
+                        grading()  // 녹음 중지 후 채점
+                    }
                 }, label:{
                     RoundedRectangle(cornerRadius: 10)
                         .frame(width: 220, height:60)
@@ -156,9 +158,11 @@ struct LearningView: View {
             startCountdown() // 뷰가 나타나면 카운트다운 시작
         }
         .onDisappear {
-            sttManager.stopRecording() // 뷰에서 벗어날 때 녹음 중지
-            isCounting = true
-            countdown = 4
+            Task {
+                await sttManager.stopRecording() // 뷰에서 벗어날 때 녹음 중지
+                isCounting = true
+                countdown = 4
+            }
         }
         .onChange(of: isCounting) {
             if isCounting == false {
@@ -216,13 +220,18 @@ struct LearningView: View {
         // 발음과 속도를 채점합니다.
         quote.evaluation.pronunciationScore = calculatePronunciation(original: quote.japanese, sttText: sttManager.recognizedText)
         //TODO: 억양 채점 여기에 넣어주세요!
-        quote.evaluation.speedScore = calculateVoiceSpeed(
-            originalLength: quote.voicingTime,
-            sttVoicingTime: sttManager.voicingTime!)
+        if let sttVoicingTime = sttManager.voicingTime {
+                quote.evaluation.speedScore = calculateVoiceSpeed(
+                    originalLength: quote.voicingTime,
+                    sttVoicingTime: sttVoicingTime
+                )
+            } else {
+                print("Error: sttManager.voicingTime is nil.")
+                // 필요 시, nil일 때의 기본 동작을 추가
+            }
         
         print("원본 일본어: \(quote.japanese)")
         print("원본 속도: \(quote.voicingTime)")
-        print("사용자 속도: \(sttManager.voicingTime!)")
         
         // 80점이 넘으면 pass
         // TODO: 억양 채점이 추가되면 pass 조건 로직 수정 필요

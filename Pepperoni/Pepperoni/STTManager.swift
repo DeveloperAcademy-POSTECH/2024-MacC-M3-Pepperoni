@@ -55,20 +55,25 @@ class STTManager: ObservableObject {
             }
             
             if error != nil || (result?.isFinal ?? false) {
-                self?.stopRecording()
+                Task { [weak self] in
+                    await self?.stopRecording()
+                }
             }
         }
     }
     
-    func stopRecording() {
+    func stopRecording() async {
         recognitionTask?.finish()
         audioRecorder?.stop()
         
         // 녹음을 정지했을때 시간 측정 함수를 실행합니다.
         if let audioFileURL = audioRecorder?.url {
-            let voicingTime = processAudioFile(at: audioFileURL)
-            self.voicingTime = voicingTime
-            print("음성 시간: \(voicingTime)초") // 디버깅용
+            let voicingTime = self.processAudioFile(at: audioFileURL)
+            
+            DispatchQueue.main.async {
+                self.voicingTime = voicingTime
+                print("음성 시간: \(voicingTime)초") // 디버깅용
+            }
         }
         
         cleanup()
@@ -139,14 +144,21 @@ class STTManager: ObservableObject {
             }
             
             if let start = startFrame, let end = endFrame {
-                self.startTime = Double(start) / sampleRate
-                self.endTime = Double(end) / sampleRate
+                let start = Double(start) / sampleRate
+                let end = Double(end) / sampleRate
+                
+                DispatchQueue.main.async {
+                    self.startTime = start
+                    self.endTime = end
+                }
             } else {
-                self.startTime = nil
-                self.endTime = nil
+                DispatchQueue.main.async {
+                    self.startTime = nil
+                    self.endTime = nil
+                }
                 print("음성이 발견되지 않았습니다.")
             }
-            
+
             let voicingTime = (endTime ?? 0) - (startTime ?? 0)
             return voicingTime
             

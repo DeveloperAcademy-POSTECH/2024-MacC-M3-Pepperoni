@@ -108,7 +108,7 @@ struct ResultView: View {
             .frame(height: 604)
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // ScoreBar 애니메이션 후 Star 애니메이션
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // ScoreBar 애니메이션 후 Star 애니메이션
                 isScoreAnimated = true
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // Star 애니메이션 후 Congratulation 표시
@@ -174,7 +174,7 @@ struct ScoreBar: View {
     var highlighted: Bool = false
     
     var body: some View {
-        VStack{
+        VStack {
             ZStack(alignment: .bottom) {
                 RoundedRectangle(cornerRadius: 16)
                     .frame(width: 80, height: 288)
@@ -192,6 +192,7 @@ struct ScoreBar: View {
                     animatedScore = score
                 }
             }
+            
             Text(title)
                 .foregroundStyle(.white)
                 .bold()
