@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import AVFoundation
+import SwiftData
 
 struct CharacterDetailView: View {
     let character: Character
@@ -19,6 +20,11 @@ struct CharacterDetailView: View {
     let itemHeight: CGFloat = 58.0
     let menuHeightMultiplier: CGFloat = 5
     
+    @Query(filter: #Predicate<Character> { $0.favorite == true })
+    private var favoriteCharacters: [Character]
+    
+    @State private var showAlert: Bool = false
+    
     var body: some View {
         VStack{
             ZStack{
@@ -27,6 +33,7 @@ struct CharacterDetailView: View {
                     .frame(height: 584)
                     .cornerRadius(60)
                 
+                // -MARK: 하트 버튼
                 VStack{
                     // -MARK: favorite 버튼
                     HStack{
@@ -231,16 +238,13 @@ struct CharacterDetailView: View {
         }
         .padding()
         .background(.darkGray)
-        // 이미지 등록 시, SwiftData에 이미지 저장
-        .onChange(of: selectedImage) {
-            if let newImageData = selectedImage {
-                character.updateImage(newImageData)
-            }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("최애 자리가 다 찼어요"), message: Text("최애 캐릭터는 3개까지 설정 가능해요🥹"), dismissButton: .default(Text("확인")))
         }
     }
     
     /// 별, 총점수 계산 함수
-    private func calculateScoresAndPasses(for character: Character) -> (totalScore: Int, totalPasses: Int) {
+    func calculateScoresAndPasses(for character: Character) -> (totalScore: Int, totalPasses: Int) {
         var totalScore = 0
         var totalPasses = 0
         
@@ -259,10 +263,13 @@ struct CharacterDetailView: View {
         return (totalScore, totalPasses)
     }
     
-    /// 즐겨찾기 상태 토글 함수
+    /// 최애(favorite) 설정 함수
     private func toggleFavorite() {
-        character.favorite.toggle() // favorite 상태를 토글
-        print("favorite")
+        if favoriteCharacters.count < 3 || character.favorite {
+            character.favorite.toggle()
+        } else {
+            showAlert = true
+        }
     }
 }
 
