@@ -161,6 +161,7 @@ struct ResultView: View {
 }
 
 // MARK: - 민무늬 스타뷰
+// 추가적인 애니메이션 배제할 시에는 해당 코드로 다시 진행함.
 //struct StarView: View {
 //    
 //    @State private var filled: Bool = false // 애니메이션용 상태 변수
