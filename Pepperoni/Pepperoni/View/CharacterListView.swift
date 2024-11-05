@@ -50,7 +50,6 @@ struct CharacterListView: View {
             Spacer()
         }
         // -MARK: NavigationBar
-        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 BackButton()
