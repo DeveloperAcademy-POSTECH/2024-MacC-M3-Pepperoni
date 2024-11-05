@@ -26,7 +26,7 @@ struct CharacterDetailView: View {
     @State private var showAlert: Bool = false
     
     var body: some View {
-        VStack{
+        VStack {
             ZStack{
                 Rectangle()
                     .foregroundStyle(.gray1)
@@ -95,7 +95,7 @@ struct CharacterDetailView: View {
                     
                     // -MARK: 총점수, 별, 달성률
                     VStack(alignment: .leading) {
-                        HStack{
+                        HStack {
                             Text("총점수")
                                 .padding(.bottom, 2)
                                 .foregroundStyle(.gray1)
@@ -114,7 +114,7 @@ struct CharacterDetailView: View {
                                 .foregroundStyle(.pointBlue)
                         }
                         
-                        HStack{
+                        HStack {
                             Text("별")
                                 .padding(.bottom, 2)
                                 .foregroundStyle(.gray1)
