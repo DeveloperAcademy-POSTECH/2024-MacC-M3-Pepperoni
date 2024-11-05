@@ -15,7 +15,8 @@ struct CharacterDetailView: View {
     
     @State private var selectedIndex: Int? = 0
     @State private var selectedImage: Data?
-    @State private var isCameraPickerPresented = false
+    @State private var showImagePicker = false
+    @State private var showActionSheet = false
     
     let itemHeight: CGFloat = 58.0
     let menuHeightMultiplier: CGFloat = 5
@@ -52,39 +53,31 @@ struct CharacterDetailView: View {
                     
                     // -MARK: 캐릭터 프로필
                     ZStack {
-                        if let selectedImage = character.image, let image = UIImage(data: selectedImage) {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 134, height: 134)
-                                .clipShape(Rectangle())
-                        } else {
-                            // 기본 이미지
-                            Rectangle()
-                                .foregroundStyle(.darkGray)
-                                .frame(width: 134, height: 134)
-                                .border(.white, width: 3)
-                            
-                            Image(systemName: "person.fill")
-                                .resizable()
-                                .frame(width: 82, height: 87)
-                                .foregroundStyle(.blueWhite)
-                        }
-                        
                         // 사진 추가 버튼
                         Button {
-                            isCameraPickerPresented = true
+                            showActionSheet = true
                         } label: {
-                            ZStack{
-                                Circle()
-                                    .frame(width: 40, height: 40)
-                                    .foregroundStyle(.lightGray1)
-                                
-                                Image(systemName: "plus")
-                                    .foregroundStyle(.darkGray)
+                            if let selectedImage = character.image, let image = UIImage(data: selectedImage) {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 134, height: 134)
+                                    .clipShape(Rectangle())
+                            } else {
+                                ZStack{
+                                    // 기본 이미지
+                                    Rectangle()
+                                        .foregroundStyle(.darkGray)
+                                        .frame(width: 134, height: 134)
+                                        .border(.white, width: 3)
+                                    
+                                    Image(systemName: "person.fill")
+                                        .resizable()
+                                        .frame(width: 82, height: 87)
+                                        .foregroundStyle(.blueWhite)
+                                }
                             }
                         }
-                        .offset(x: 60, y: 56)
                     }
                     .padding(.bottom, 4)
                     
@@ -166,7 +159,7 @@ struct CharacterDetailView: View {
                     QuoteListView(character: character, selectedIndex: $selectedIndex)
                 }
             }
-            .sheet(isPresented: $isCameraPickerPresented) {
+            .sheet(isPresented: $showImagePicker) {
                 ImagePickerView(selectedImageData: $selectedImage,
                            mode: .photoLibrary)
             }
