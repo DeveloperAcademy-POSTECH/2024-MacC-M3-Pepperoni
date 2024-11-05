@@ -231,13 +231,6 @@ struct StarView: View {
     }
 }
 
-
-
-
-
-
-
-
 struct ScoreBar: View {
     
     @State private var animatedScore: Double = 0 // 애니메이션용 변수 추가
