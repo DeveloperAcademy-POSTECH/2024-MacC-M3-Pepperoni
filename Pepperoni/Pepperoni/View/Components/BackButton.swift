@@ -15,7 +15,10 @@ struct BackButton: View {
             Router.shared.navigateBack()
         } label: {
             Image(systemName: "chevron.left")
+                .resizable()
+                .scaledToFit()
                 .foregroundColor(color)
+                .frame(height: 20)
         }
     }
 }
