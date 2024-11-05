@@ -26,7 +26,7 @@ struct CharacterDetailView: View {
     @State private var showAlert: Bool = false
     
     var body: some View {
-        VStack{
+        VStack {
             ZStack{
                 Rectangle()
                     .foregroundStyle(.gray1)
@@ -35,7 +35,6 @@ struct CharacterDetailView: View {
                 
                 // -MARK: 하트 버튼
                 VStack{
-                    // -MARK: favorite 버튼
                     HStack{
                         Spacer()
                         
@@ -96,7 +95,7 @@ struct CharacterDetailView: View {
                     
                     // -MARK: 총점수, 별, 달성률
                     VStack(alignment: .leading) {
-                        HStack{
+                        HStack {
                             Text("총점수")
                                 .padding(.bottom, 2)
                                 .foregroundStyle(.gray1)
@@ -115,7 +114,7 @@ struct CharacterDetailView: View {
                                 .foregroundStyle(.pointBlue)
                         }
                         
-                        HStack{
+                        HStack {
                             Text("별")
                                 .padding(.bottom, 2)
                                 .foregroundStyle(.gray1)
@@ -164,71 +163,7 @@ struct CharacterDetailView: View {
                     Spacer()
                     
                     // -MARK: 대사 리스트
-                    ScrollView(.vertical) {
-                        LazyVStack(spacing: 0) {
-                            Spacer().frame(height: itemHeight * 2.5) // 스크롤 여유 공간
-                            
-                            ForEach(0..<character.quotes.count, id: \.self) { index in
-                                let quote = character.quotes[index]
-                                
-                                VStack(alignment: .leading) {
-                                    HStack{
-                                        Text(quote.korean.joined(separator: " "))
-                                            .foregroundStyle(.white)
-                                            .font(.title3)
-                                            .fontWeight(.bold)
-                                            .fixedSize(horizontal: false, vertical: true)
-                                        
-                                        Spacer()
-                                        
-                                        Text("#\(index+1)")
-                                            .foregroundStyle(.white)
-                                            .font(.title3)
-                                            .fontWeight(.bold)
-                                    }
-                                    
-                                    // selectedIndex와 일치하는 경우에만 quote.japanese 표시
-                                    if index == selectedIndex {
-                                        Text(quote.japanese.joined(separator: " "))
-                                            .foregroundStyle(.white)
-                                            .font(.title3)
-                                            .fontWeight(.bold)
-                                            .padding(.top, 4)
-                                            .fixedSize(horizontal: false, vertical: true)
-                                    }
-                                }
-                                .padding()
-                                .background(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .fill(index == selectedIndex ? Color.pointBlue : Color.blue1)
-                                )
-                                .id(index)
-                                .frame(height: itemHeight)
-                                .padding(.vertical, index == selectedIndex ? 24 : 16)
-                                .onTapGesture {
-                                    Router.shared.navigate(to: .learningStart(quote: character.quotes[index]))
-                                    AVAudioApplication.requestRecordPermission { granted in
-                                        if granted {
-                                            print("마이크 접근 권한이 허용되었습니다.")
-                                        } else {
-                                            print("마이크 접근 권한이 거부되었습니다.")
-                                        }
-                                    }
-                                }
-                            }
-                            
-                            Spacer().frame(height: itemHeight * 2.5) // 스크롤 여유 공간
-                        }
-                        .scrollTargetLayout()
-                        .padding()
-                        
-                    }
-                    .background(.white)
-                    .scrollPosition(id: $selectedIndex, anchor: .center)
-                    .scrollTargetBehavior(.viewAligned)
-                    .scrollIndicators(.hidden)
-                    .frame(height: 391)
-                    .cornerRadius(20)
+                    QuoteListView(character: character, selectedIndex: $selectedIndex)
                 }
             }
             .sheet(isPresented: $isCameraPickerPresented) {
@@ -238,6 +173,12 @@ struct CharacterDetailView: View {
         }
         .padding()
         .background(.darkGray)
+        .onChange(of: selectedImage) {
+            // 이미지 등록 시, SwiftData에 이미지 저장
+            if let newImageData = selectedImage {
+                character.updateImage(newImageData)
+            }
+        }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("최애 자리가 다 찼어요"), message: Text("최애 캐릭터는 3개까지 설정 가능해요🥹"), dismissButton: .default(Text("확인")))
         }
@@ -273,24 +214,93 @@ struct CharacterDetailView: View {
     }
 }
 
-struct AchievementBar: View {
-    var ratio: CGFloat
+/// 대사 리스트 뷰
+struct QuoteListView: View {
+    let character: Character
+    @Binding var selectedIndex: Int?
+    
+    let itemHeight: CGFloat = 58.0
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .leading) {
-                Rectangle()
-                    .fill(Color.darkGray)
+        ScrollView(.vertical) {
+            LazyVStack(spacing: 0) {
+                Spacer().frame(height: itemHeight * 2.5) // 스크롤 여유 공간
                 
-                Rectangle()
-                    .fill(Color.blue1)
-                    .frame(width: geometry.size.width * ratio, height: 20)
-                    .cornerRadius(20)
-                    .padding(.bottom, 0)
+                ForEach(0..<character.quotes.count, id: \.self) { index in
+                    let quote = character.quotes[index]
+                    let evaluation = quote.evaluation
+                    let passCount = [evaluation.pronunciationPass, evaluation.intonationPass, evaluation.speedPass].filter { $0 }.count
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack {
+                            Text("#\(index + 1)")
+                                .foregroundStyle(.white)
+                                .font(.title3)
+                                .fontWeight(.bold)
+                            
+                            Spacer()
+                            
+                            // 별
+                            HStack(spacing: 4) {
+                                ForEach(0..<3) { i in
+                                    if i < passCount {
+                                        Text(Image(systemName: "star.fill"))
+                                            .foregroundStyle(.white)
+                                    } else {
+                                        Text(Image(systemName: "star"))
+                                            .foregroundStyle(.white)
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // 한국어
+                        Text(quote.korean.joined(separator: " "))
+                            .foregroundStyle(.white)
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .fixedSize(horizontal: false, vertical: true)
+                        
+                        // 일본어 - selectedIndex일 때만
+                        if index == selectedIndex {
+                            Text(quote.japanese.joined(separator: " "))
+                                .foregroundStyle(.white)
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(index == selectedIndex ? Color.pointBlue : Color.blue1)
+                    )
+                    .id(index)
+                    .frame(height: itemHeight)
+                    .padding(.vertical, index == selectedIndex ? 28 : 20)
+                    .onTapGesture {
+                        Router.shared.navigate(to: .learningStart(quote: character.quotes[index]))
+                        AVAudioApplication.requestRecordPermission { granted in
+                            if granted {
+                                print("마이크 접근 권한이 허용되었습니다.")
+                            } else {
+                                print("마이크 접근 권한이 거부되었습니다.")
+                            }
+                        }
+                    }
+                }
+                
+                Spacer().frame(height: itemHeight * 2.5) // 스크롤 여유 공간
             }
-            .frame(height: 20)
-            .cornerRadius(20)
+            .scrollTargetLayout()
+            .padding()
         }
+        .background(.white)
+        .scrollPosition(id: $selectedIndex, anchor: .center)
+        .scrollTargetBehavior(.viewAligned)
+        .scrollIndicators(.hidden)
+        .frame(height: 391)
+        .cornerRadius(20)
     }
 }
 
