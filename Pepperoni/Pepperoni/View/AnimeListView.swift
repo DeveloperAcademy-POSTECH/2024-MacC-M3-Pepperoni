@@ -31,24 +31,17 @@ struct AnimeListView: View {
     var body: some View {
         
         VStack(spacing: 0) {
-            // - MARK: 검색창
-            Button {
-                Router.shared.navigate(to: .animeSearch)
-            } label: {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(.lightGray2)
-                    
-                    TextField("애니 검색", text: $text)
-                        .foregroundColor(.blue1)
-                        .padding(.vertical, 10)
-                }
-                .padding(.horizontal)
-                .background(.lightGray1)
-                .cornerRadius(10)
-                .disabled(true)
+            // - MARK: 백버튼, 검색창
+            HStack{
+                BackButton(color: .black)
+                    .frame(height: 40)
+                
+                SearchBar(searchText: $text)
+                    .disabled(true)
+                    .onTapGesture {
+                        Router.shared.navigate(to: .animeSearch)
+                    }
             }
-            .buttonStyle(PlainButtonStyle())
             .padding(.horizontal)
             
             // -MARK: Top Anime 카드
