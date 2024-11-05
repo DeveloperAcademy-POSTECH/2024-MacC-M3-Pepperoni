@@ -202,12 +202,12 @@ struct StarView: View {
     var size: CGFloat
     
     var body: some View {
-        Image("Star.empty")
+        Image("EmptyStar")
             .resizable()
             .scaledToFit()
             .frame(width: size, height: size)
             .overlay(
-                Image("Star.fill")
+                Image("FilledStar")
                     .resizable()
                     .scaledToFit()
                     .frame(width: size, height: size)
