@@ -14,7 +14,7 @@ struct LearningView: View {
 //    var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["天上天下", "唯我独尊"], pronunciation: ["텐조오텐게", "유이가도쿠손"], korean: ["천상천하", "유아독존"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [0.01, 1.6], voicingTime: 1.9, audiofile: "JUJ005.m4a", youtubeID: "cJVeIwP_HoQ", youtubeStartTime: 90, youtubeEndTime: 115)
     
     @State var isCounting: Bool = true
-    @State var countdown = 4 // 초기 카운트 설정
+    @State var countdown = 3 // 초기 카운트 설정
     
     @State private var timer: Timer? = nil       // 타이머 객체
     @State private var timerCount: Double = 0.0 // 초기 타이머 설정 (초 단위)
@@ -162,9 +162,10 @@ struct LearningView: View {
                 Color.black.opacity(0.7) // 어두운 오버레이 배경
                     .edgesIgnoringSafeArea(.all)
                 
-                Text(countdown == 1 ? "Start!" : "\(countdown - 1)") // 카운트다운 숫자
+                Text(countdown > 0 ? "\(countdown)" : "Start!")
                     .font(.system(size: 100, weight: .bold))
                     .foregroundColor(.white)
+
             }
         }
         .onAppear {
@@ -182,21 +183,21 @@ struct LearningView: View {
     }
     
     private func startCountdown() {
-        // 1초마다 카운트다운 감소
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if countdown > 1 {
                 countdown -= 1
-            } else {
-                // 카운트가 끝나면 오버레이를 제거하고 타이머 종료
-                self.isCounting = false
-                timer.invalidate()
+            } else if countdown == 1 {
+                countdown -= 1
                 
-                DispatchQueue.main.async {
-                    sttManager.startRecording() // 타이머 종료 후 STT 녹음 시작
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    self.isCounting = false
+                    timer.invalidate()
+                    sttManager.startRecording() // STT 녹음 시작
                 }
             }
         }
     }
+
     
     // 0에서 증가하는 타이머 시작 함수
     private func startTimer() {
