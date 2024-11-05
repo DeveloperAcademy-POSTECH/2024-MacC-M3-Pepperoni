@@ -11,7 +11,6 @@ import SwiftData
 struct AnimeSearchView: View {
     @Query var allAnimes: [Anime]
     @State private var searchText: String = ""
-    @Environment(\.presentationMode) var presentationMode
     
     private var filteredAnimes: [Anime] {
         allAnimes.filter { !$0.title.isEmpty && searchText.isEmpty == false && $0.title.contains(searchText) }
@@ -19,7 +18,17 @@ struct AnimeSearchView: View {
 
     var body: some View {
         VStack {
-            SearchBar(searchText: $searchText)
+            HStack{
+                SearchBar(searchText: $searchText)
+                
+                Button("Cancel") {
+                    searchText = ""
+                    Router.shared.navigateBack()
+                }
+                .foregroundColor(.black)
+                .padding(.leading, 8)
+            }
+            .padding(.horizontal)
         
             if !filteredAnimes.isEmpty {
                 List(filteredAnimes, id: \.id) { anime in
