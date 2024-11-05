@@ -46,19 +46,26 @@ struct CharacterListView: View {
             }
             .listStyle(PlainListStyle())
             .scrollContentBackground(.hidden)
-
+            
             Spacer()
         }
         // -MARK: NavigationBar
+        .navigationBarBackButtonHidden(true)
         .toolbar {
-            Button(action: {
-                toggleFavorite()
-            }) {
-                Image(systemName: anime.favorite ? "pin.square.fill" : "pin.square")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 25, height: 25)
-                    .foregroundColor(anime.favorite ? .blue1 : .white)
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton()
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    toggleFavorite()
+                }) {
+                    Image(systemName: anime.favorite ? "pin.square.fill" : "pin.square")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 25, height: 25)
+                        .foregroundColor(anime.favorite ? .blue1 : .white)
+                }
             }
         }
     }
