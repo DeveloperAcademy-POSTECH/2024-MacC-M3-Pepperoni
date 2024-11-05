@@ -21,6 +21,7 @@
 		90429A9A2CD36D5800A23D0B /* BTR002.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 90429A8A2CD36D5800A23D0B /* BTR002.m4a */; };
 		90429A9B2CD36D5800A23D0B /* JUJ002.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 90429A8F2CD36D5800A23D0B /* JUJ002.m4a */; };
 		90429A9C2CD36D5800A23D0B /* JUJ003.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 90429A902CD36D5800A23D0B /* JUJ003.m4a */; };
+		BD13E5132CDA50E4001ED452 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD13E5122CDA50E4001ED452 /* BackButton.swift */; };
 		BD26F35E2CCFD63F00F6007F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD26F3572CCFD63F00F6007F /* HomeView.swift */; };
 		BD2BAAF82CD37D9200873607 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2BAAF72CD37D8500873607 /* SearchBar.swift */; };
 		BD54BC3A2CD1225000366076 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = BD54BC392CD1225000366076 /* YouTubeiOSPlayerHelper */; };
@@ -62,6 +63,7 @@
 		90429A902CD36D5800A23D0B /* JUJ003.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = JUJ003.m4a; sourceTree = "<group>"; };
 		90429A912CD36D5800A23D0B /* JUJ004.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = JUJ004.m4a; sourceTree = "<group>"; };
 		90429A922CD36D5800A23D0B /* JUJ005.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = JUJ005.m4a; sourceTree = "<group>"; };
+		BD13E5122CDA50E4001ED452 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		BD26F3572CCFD63F00F6007F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BD2BAAF72CD37D8500873607 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YouTubePlayerView.swift; path = Pepperoni/View/Components/YouTubePlayerView.swift; sourceTree = SOURCE_ROOT; };
@@ -123,6 +125,7 @@
 				BD8695222CD921B200FDE710 /* AchievementBar.swift */,
 				BD54BC3B2CD122A300366076 /* YouTubePlayerView.swift */,
 				BD8695202CD768CA00FDE710 /* ImagePickerView.swift */,
+				BD13E5122CDA50E4001ED452 /* BackButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				BDF007492CD24E7100A386A1 /* JSONUtils.swift in Sources */,
 				BDF007372CD24E2900A386A1 /* ContentView.swift in Sources */,
 				51ECA4F82CD26C21001AB4E0 /* SpeechGrader.swift in Sources */,
+				BD13E5132CDA50E4001ED452 /* BackButton.swift in Sources */,
 				BDF007382CD24E2900A386A1 /* AnimeSearchView.swift in Sources */,
 				51ECA4FC2CD3A3F4001AB4E0 /* AudioPlayerManager.swift in Sources */,
 				90429A872CD25FD800A23D0B /* LearningStartView.swift in Sources */,

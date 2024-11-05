@@ -12,33 +12,17 @@ struct CharacterListView: View {
 
     var body: some View {
         VStack {
-            VStack{
-                HStack{
-                    Spacer()
-                    
-                    Button(action: {
-                        toggleFavorite() // 즐겨찾기 상태 토글
-                    }) {
-                        Image(systemName: anime.favorite ? "pin.square.fill" : "pin.square")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25, height: 25)
-                            .foregroundColor(.white)
-                        
-                    }
-                    .padding(.top)
-                }
-            
-                HStack{
-                    Text(anime.title)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
-                        .padding()
-                    
-                    Spacer()
-                }
+            HStack(alignment: .bottom){
+                Text(anime.title)
+                    .font(.headline)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.white)
+                
+                Spacer()
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.top, 74)
+            .padding(.bottom, 32)
             .frame(maxWidth: .infinity)
             .background(Color.gray2)
             
@@ -62,16 +46,33 @@ struct CharacterListView: View {
             }
             .listStyle(PlainListStyle())
             .scrollContentBackground(.hidden)
-
+            
             Spacer()
         }
-        .navigationTitle(anime.title)
+        // -MARK: NavigationBar
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton()
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    toggleFavorite()
+                }) {
+                    Image(systemName: anime.favorite ? "pin.square.fill" : "pin.square")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 25, height: 25)
+                        .foregroundColor(anime.favorite ? .blue1 : .white)
+                }
+            }
+        }
     }
     
+    /// 즐겨찾기 상태 토글 함수
     private func toggleFavorite() {
-        anime.favorite.toggle() // favorite 상태를 토글
+        anime.favorite.toggle()
     }
-
 }
 
 // -MARK: Character Row

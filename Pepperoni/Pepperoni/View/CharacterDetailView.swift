@@ -28,29 +28,13 @@ struct CharacterDetailView: View {
     
     var body: some View {
         VStack {
-            ZStack{
+            ZStack {
                 Rectangle()
                     .foregroundStyle(.gray1)
                     .frame(height: 584)
                     .cornerRadius(60)
                 
-                // -MARK: 하트 버튼
-                VStack{
-                    HStack{
-                        Spacer()
-                        
-                        Button(action: {
-                            toggleFavorite()
-                        }) {
-                                Image(systemName: character.favorite ? "heart.fill" : "heart")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 26, height: 25)
-                                    .foregroundColor(character.favorite ? .blue1 : .white)
-                        }
-                    }
-                    .padding(.top, 8)
-                    
+                VStack {
                     // -MARK: 캐릭터 프로필
                     ZStack {
                         // 사진 추가 버튼
@@ -188,6 +172,32 @@ struct CharacterDetailView: View {
             // 이미지 등록 시, SwiftData에 이미지 저장
             if let newImageData = selectedImage {
                 character.updateImage(newImageData)
+            }
+        }
+        // -MARK: NavigationBar
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton()
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    toggleFavorite()
+                }) {
+                    ZStack{
+                        Image(systemName: character.favorite ? "heart.fill" : "heart")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 26, height: 25)
+                            .foregroundStyle(character.favorite ? .blue1 : .clear)
+                        
+                        Image(systemName: "heart")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 26, height: 25)
+                            .foregroundStyle(.white)
+                    }
+                }
             }
         }
         .alert(isPresented: $showAlert) {
