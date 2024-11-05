@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct BackButton: View {
-    @Environment(\.dismiss) private var dismiss
-    // 기본 색상 - white
-    var color: Color = .white
+    var color: Color = .white // 기본 색상 - white
     
     var body: some View {
         Button {
-            self.dismiss()
+            Router.shared.navigateBack()
         } label: {
             Image(systemName: "chevron.left")
                 .foregroundColor(color)

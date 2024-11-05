@@ -164,22 +164,28 @@ struct CharacterDetailView: View {
             }
         }
         // -MARK: NavigationBar
-        .toolbar{
-            Button(action: {
-                toggleFavorite()
-            }) {
-                ZStack{
-                    Image(systemName: character.favorite ? "heart.fill" : "heart")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 26, height: 25)
-                        .foregroundStyle(character.favorite ? .blue1 : .clear)
-                    
-                    Image(systemName: "heart")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 26, height: 25)
-                        .foregroundStyle(.white)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton()
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    toggleFavorite()
+                }) {
+                    ZStack{
+                        Image(systemName: character.favorite ? "heart.fill" : "heart")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 26, height: 25)
+                            .foregroundStyle(character.favorite ? .blue1 : .clear)
+                        
+                        Image(systemName: "heart")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 26, height: 25)
+                            .foregroundStyle(.white)
+                    }
                 }
             }
         }
