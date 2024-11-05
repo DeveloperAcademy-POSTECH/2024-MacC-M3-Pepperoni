@@ -92,15 +92,23 @@ struct CharacterRow: View {
                     .padding(.bottom, 0)
                 
                 HStack {
-                    ZStack{
-                        Circle()
-                            .frame(width: 40, height: 40)
-                            .foregroundStyle(.white)
-                        
-                        Image(systemName: "person.circle.fill")
+                    if let imageData = character.image, let uiImage = UIImage(data: imageData) {
+                        Image(uiImage: uiImage)
                             .resizable()
+                            .scaledToFill()
                             .frame(width: 40, height: 40)
-                            .foregroundStyle(.gray2)
+                            .clipShape(Circle())
+                    } else {
+                        ZStack{
+                            Circle()
+                                .frame(width: 40, height: 40)
+                                .foregroundStyle(.white)
+                            
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .foregroundStyle(.gray2)
+                        }
                     }
                     
                     Text(character.name)
