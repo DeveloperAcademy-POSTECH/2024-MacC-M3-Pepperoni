@@ -15,7 +15,7 @@ struct LearningStartView: View {
     
     @StateObject private var audioPlayerManager = AudioPlayerManager()
     
-    @State var afterFirstPlaying: Bool = true
+    @State var beforeFirstPlaying: Bool = true
     
     var body: some View {
         ZStack {
@@ -113,7 +113,7 @@ struct LearningStartView: View {
                 Button(action:{
                     // 오디오파일 재생이 들어감
                     audioPlayerManager.playAudio(from: quote.audiofile)
-                    afterFirstPlaying = false
+                    beforeFirstPlaying = false
                 }, label:{
                     RoundedRectangle(cornerRadius: 6)
                         .frame(height:50)
@@ -134,17 +134,17 @@ struct LearningStartView: View {
                 }, label:{
                     RoundedRectangle(cornerRadius: 6)
                         .frame(height:60)
-                        .foregroundStyle(afterFirstPlaying || audioPlayerManager.isPlaying ? .gray1 : .white)
+                        .foregroundStyle(beforeFirstPlaying || audioPlayerManager.isPlaying ? .gray1 : .white)
                         .padding(.horizontal, 20)
                         .overlay{
                             Text("명대사 따라하기 시작")
                                 .bold()
-                                .foregroundStyle(afterFirstPlaying || audioPlayerManager.isPlaying ? .white : .blue1)
-                                .opacity(afterFirstPlaying || audioPlayerManager.isPlaying ? 0.3 : 1)
+                                .foregroundStyle(beforeFirstPlaying || audioPlayerManager.isPlaying ? .white : .blue1)
+                                .opacity(beforeFirstPlaying || audioPlayerManager.isPlaying ? 0.3 : 1)
                                 .font(.system(size: 20))
                         }
                 })
-                .disabled(afterFirstPlaying || audioPlayerManager.isPlaying)
+                .disabled(beforeFirstPlaying || audioPlayerManager.isPlaying)
             }
         }
         .onReceive(audioPlayerManager.$currentTime) { currentTime in
