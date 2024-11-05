@@ -15,6 +15,8 @@ struct LearningStartView: View {
     
     @StateObject private var audioPlayerManager = AudioPlayerManager()
     
+    @State var afterFirstPlaying: Bool = true
+    
     var body: some View {
         ZStack {
             Color.gray
@@ -111,6 +113,7 @@ struct LearningStartView: View {
                 Button(action:{
                     // 오디오파일 재생이 들어감
                     audioPlayerManager.playAudio(from: quote.audiofile)
+                    afterFirstPlaying = false
                 }, label:{
                     RoundedRectangle(cornerRadius: 6)
                         .frame(height:50)
@@ -131,15 +134,17 @@ struct LearningStartView: View {
                 }, label:{
                     RoundedRectangle(cornerRadius: 6)
                         .frame(height:60)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(afterFirstPlaying || audioPlayerManager.isPlaying ? .gray1 : .white)
                         .padding(.horizontal, 20)
                         .overlay{
                             Text("명대사 따라하기 시작")
                                 .bold()
-                                .foregroundStyle(.blue1)
+                                .foregroundStyle(afterFirstPlaying || audioPlayerManager.isPlaying ? .white : .blue1)
+                                .opacity(afterFirstPlaying || audioPlayerManager.isPlaying ? 0.3 : 1)
                                 .font(.system(size: 20))
                         }
                 })
+                .disabled(afterFirstPlaying || audioPlayerManager.isPlaying)
             }
         }
         .onReceive(audioPlayerManager.$currentTime) { currentTime in
@@ -186,10 +191,6 @@ struct LearningStartView: View {
     }
     
 }
-
-//#Preview {
-//    LearningStartView(quote: AnimeQuote(japanese: ["天上天下", "唯我独尊"], pronunciation: ["텐조오텐게", "유이가도쿠손"], korean: ["천상천하", "유아독존"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [0.01, 1.6], voicingTime: 0.0, audiofile: "JUJ005.m4a", youtubeID: "cJVeIwP_HoQ", youtubeStartTime: 90, youtubeEndTime: 115))
-//}
 
 struct SpeechBubble: Shape {
     func path(in rect: CGRect) -> Path {
