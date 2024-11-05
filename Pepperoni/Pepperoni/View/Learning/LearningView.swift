@@ -22,6 +22,14 @@ struct LearningView: View {
     
     @StateObject private var sttManager = STTManager()
     
+    // 점수 측정 시 초기화를 위한 변수
+    // TODO: MVVM의 필요성을 느낍니다
+//    @State private var tempPronunciationScore: Double = 0.0
+//    @State private var tempSpeedScore: Double = 0.0
+//    @State private var tempPronunciationPass: Bool = false
+//    @State private var tempSpeedPass: Bool = false
+//    @State private var tempIntonationPass: Bool = false
+    
     var body: some View {
         ZStack {
             VStack {
@@ -35,7 +43,6 @@ struct LearningView: View {
                 }
                 .padding(.bottom, 48)
                 
-                // TODO: dummieQuote -> quote로 변경
                 if quote.japanese.count >= 5 {
                     let halfIndex = quote.japanese.count / 2
                     
@@ -125,11 +132,17 @@ struct LearningView: View {
                 
                 Button(action:{
                     Task {
-                        Router.shared.navigate(to: .result(quote: quote))
-                        await sttManager.stopRecording()  // 비동기 녹음 중지
+                        await sttManager.stopRecording()  // stopRecoding() 동기 처리
                         stopTimer()
-                        grading()  // 녹음 중지 후 채점
+                        grading()
+                        
+                        print("디벅 발음 점수: \(quote.evaluation.pronunciationScore)")
+                        print("디벅 속도 점수: \(quote.evaluation.speedScore)")
+                        print("결과뷰로")
+                        
+                        Router.shared.navigate(to: .result(quote: quote))
                     }
+                    
                 }, label:{
                     RoundedRectangle(cornerRadius: 10)
                         .frame(width: 220, height:60)
@@ -158,11 +171,8 @@ struct LearningView: View {
             startCountdown() // 뷰가 나타나면 카운트다운 시작
         }
         .onDisappear {
-            Task {
-                await sttManager.stopRecording() // 뷰에서 벗어날 때 녹음 중지
-                isCounting = true
-                countdown = 4
-            }
+            isCounting = true
+            countdown = 4
         }
         .onChange(of: isCounting) {
             if isCounting == false {
@@ -181,7 +191,6 @@ struct LearningView: View {
                 self.isCounting = false
                 timer.invalidate()
                 
-                // 타이머가 끝난 후에 비동기로 STT 시작
                 DispatchQueue.main.async {
                     sttManager.startRecording() // 타이머 종료 후 STT 녹음 시작
                 }
@@ -218,34 +227,30 @@ struct LearningView: View {
     /// 사용자 음성의 발음, 억양, 스피드를 대상 음성과 비교하여 채점합니다.
     private func grading() {
         // 발음과 속도를 채점합니다.
+        print("채점시작) 사용자 일본어: \(sttManager.recognizedText)")
         quote.evaluation.pronunciationScore = calculatePronunciation(original: quote.japanese, sttText: sttManager.recognizedText)
         //TODO: 억양 채점 여기에 넣어주세요!
         if let sttVoicingTime = sttManager.voicingTime {
-                quote.evaluation.speedScore = calculateVoiceSpeed(
-                    originalLength: quote.voicingTime,
-                    sttVoicingTime: sttVoicingTime
-                )
-            } else {
-                print("Error: sttManager.voicingTime is nil.")
-                // 필요 시, nil일 때의 기본 동작을 추가
-            }
+            quote.evaluation.speedScore = calculateVoiceSpeed(originalLength: quote.voicingTime, sttVoicingTime: sttVoicingTime)
+            print("사용자 STT 음성 속도: \(sttVoicingTime)")
+        } else {
+            print("Error: sttManager.voicingTime is nil.")
+            quote.evaluation.speedScore = 0.0
+        }
         
         print("원본 일본어: \(quote.japanese)")
         print("원본 속도: \(quote.voicingTime)")
         
+        print("현재 발음 점수: \(quote.evaluation.pronunciationScore)")
+        print("현재 속도 점수: \(quote.evaluation.speedScore)")
+        
         // 80점이 넘으면 pass
         // TODO: 억양 채점이 추가되면 pass 조건 로직 수정 필요
-        if quote.evaluation.pronunciationScore < 80 {
-            quote.evaluation.pronunciationPass = false
-        } else {
-            quote.evaluation.pronunciationPass = true
-        }
-        
-        if quote.evaluation.speedScore < 80 {
-            quote.evaluation.speedPass = false
-        } else {
-            quote.evaluation.speedPass = true
-        }
+        quote.evaluation.pronunciationPass = quote.evaluation.pronunciationScore >= 80
+        quote.evaluation.speedPass = quote.evaluation.speedScore >= 80
+
+        // 발음과 속도 모두 pass일 때만 높낮이 pass
+        quote.evaluation.intonationPass = quote.evaluation.pronunciationPass && quote.evaluation.speedPass
         
         // 임시로 발음, 속도가 모두 80점이 넘었다면 높낮이도 pass
         // 유튜브 영상 띄우기 위함
@@ -261,9 +266,8 @@ struct LearningView: View {
             }
         }
         
-        print("발음 정확도: \(String(format: "%.1f", quote.evaluation.pronunciationScore))%")
+        // print("발음 정확도: \(String(format: "%.1f", quote.evaluation.pronunciationScore))%")
         //TODO: 억양 정확도 print("억양 정확도: " )
-        print("속도 정확도: \(String(format: "%.1f", quote.evaluation.speedScore))%")
+        // print("속도 정확도: \(String(format: "%.1f", quote.evaluation.speedScore))%")
     }
-
 }

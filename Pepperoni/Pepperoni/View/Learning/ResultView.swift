@@ -73,6 +73,7 @@ struct ResultView: View {
                     HStack(alignment: .center) {
                         Button(action: {
                            // .learningStart로
+                            print("다시듣기 누름")
                             Router.shared.navPath = NavigationPath()
                             Router.shared.navigate(to: .characterDetail(character: quote.character!))
                             Router.shared.navigate(to: .learningStart(quote: quote))
@@ -91,6 +92,7 @@ struct ResultView: View {
                         
                         Button(action: {
                             // .learning으로
+                            print("뱅글뱅글 누름")
                             Router.shared.navPath = NavigationPath()
                             Router.shared.navigate(to: .characterDetail(character: quote.character!))
                             Router.shared.navigate(to: .learningStart(quote: quote))
@@ -108,7 +110,7 @@ struct ResultView: View {
             .frame(height: 604)
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // ScoreBar 애니메이션 후 Star 애니메이션
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // ScoreBar 애니메이션 후 Star 애니메이션
                 isScoreAnimated = true
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // Star 애니메이션 후 Congratulation 표시

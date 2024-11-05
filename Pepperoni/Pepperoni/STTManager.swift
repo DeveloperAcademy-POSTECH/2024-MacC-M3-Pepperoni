@@ -29,9 +29,15 @@ class STTManager: ObservableObject {
         }
         
         isRecording = true
+        
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
         guard let recognitionRequest = recognitionRequest else { return }
         recognitionRequest.shouldReportPartialResults = true
+        
+        // iOS13 이상에서 On-Device Speech Recognition을 강제합니다.
+        if #available(iOS 13, *) {
+            recognitionRequest.requiresOnDeviceRecognition = true
+        }
         
         let inputNode = audioEngine.inputNode
         let recordingFormat = inputNode.outputFormat(forBus: 0)
@@ -43,7 +49,6 @@ class STTManager: ObservableObject {
         try? audioEngine.start()
         
         // 녹음 파일 설정, 녹음
-        let audioFileURL = getFileURL()
         startAudioRecorder()
         
         recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
@@ -56,20 +61,26 @@ class STTManager: ObservableObject {
             
             if error != nil || (result?.isFinal ?? false) {
                 Task { [weak self] in
+                    print("rc_stopRecoding 여긴 언제 실행될까?")
                     await self?.stopRecording()
                 }
+            } else {
+                print("recognition 잘됨")
             }
         }
     }
     
     func stopRecording() async {
-        recognitionTask?.finish()
+        guard isRecording else { return } // 변경: 이미 녹음 중이 아닐 경우 함수 종료
+        print("stop 실행")
+        
+        isRecording = false
+        self.recognitionTask?.finish()
         audioRecorder?.stop()
         
         // 녹음을 정지했을때 시간 측정 함수를 실행합니다.
         if let audioFileURL = audioRecorder?.url {
-            let voicingTime = self.processAudioFile(at: audioFileURL)
-            
+            let voicingTime = processAudioFile(at: audioFileURL)
             DispatchQueue.main.async {
                 self.voicingTime = voicingTime
                 print("음성 시간: \(voicingTime)초") // 디버깅용
@@ -80,6 +91,7 @@ class STTManager: ObservableObject {
     }
     
     private func cleanup() {
+        print("cleanup !")
         if audioEngine.isRunning {
             audioEngine.stop()
             audioEngine.inputNode.removeTap(onBus: 0)
@@ -87,13 +99,12 @@ class STTManager: ObservableObject {
         recognitionRequest?.endAudio()
         recognitionRequest = nil
         recognitionTask = nil
-        isRecording = false
     }
     
     /// 사용자의 음성을 저장합니다.
     private func startAudioRecorder() {
         let audioSession = AVAudioSession.sharedInstance()
-        
+        print("사용자 음성 녹음 시작")
         do {
             try audioSession.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetooth])
             try audioSession.setActive(true)
@@ -120,7 +131,7 @@ class STTManager: ObservableObject {
     
     /// 시간 측정 함수
     /// 사용자가 음성을 말한 시점부터 종료시점까지 측정합니다.
-    func processAudioFile(at url: URL) -> Double {
+    private func processAudioFile(at url: URL) -> Double {
         do {
             let audioFile = try AVAudioFile(forReading: url)
             let buffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat, frameCapacity: AVAudioFrameCount(audioFile.length))!
@@ -144,21 +155,14 @@ class STTManager: ObservableObject {
             }
             
             if let start = startFrame, let end = endFrame {
-                let start = Double(start) / sampleRate
-                let end = Double(end) / sampleRate
-                
-                DispatchQueue.main.async {
-                    self.startTime = start
-                    self.endTime = end
-                }
+                self.startTime = Double(start) / sampleRate
+                self.endTime = Double(end) / sampleRate
             } else {
-                DispatchQueue.main.async {
-                    self.startTime = nil
-                    self.endTime = nil
-                }
+                self.startTime = nil
+                self.endTime = nil
                 print("음성이 발견되지 않았습니다.")
             }
-
+            
             let voicingTime = (endTime ?? 0) - (startTime ?? 0)
             return voicingTime
             
