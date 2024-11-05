@@ -86,7 +86,7 @@ struct CharacterDetailView: View {
                     .padding(.bottom, 4)
                     .actionSheet(isPresented: $showActionSheet) {
                         ActionSheet(
-                            title: Text("프로필 이미지 설정"),
+                            title: Text("캐릭터 이미지 설정"),
                             buttons: [
                                 .default(Text("갤러리에서 사진 선택")) {
                                     showImagePicker = true // 갤러리 열기
