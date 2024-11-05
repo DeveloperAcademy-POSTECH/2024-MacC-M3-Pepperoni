@@ -88,7 +88,7 @@ struct CharacterDetailView: View {
                                     showImagePicker = true // 갤러리 열기
                                 },
                                 .default(Text("기본 이미지로 변경")) {
-                                    selectedImage = nil // 기본 이미지로 변경
+                                    character.updateImage(nil) // 기본 이미지로 변경
                                 },
                                 .cancel()
                             ]
