@@ -62,14 +62,18 @@ struct CharacterDetailView: View {
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 134, height: 134)
-                                    .clipShape(Rectangle())
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                    .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white, lineWidth: 3))
                             } else {
                                 ZStack{
                                     // 기본 이미지
-                                    Rectangle()
+                                    RoundedRectangle(cornerRadius: 16)
                                         .foregroundStyle(.darkGray)
                                         .frame(width: 134, height: 134)
-                                        .border(.white, width: 3)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 16)
+                                                .stroke(Color.white, lineWidth: 3)
+                                        )
                                     
                                     Image(systemName: "person.fill")
                                         .resizable()
