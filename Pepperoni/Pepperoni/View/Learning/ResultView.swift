@@ -56,10 +56,10 @@ struct ResultView: View {
                 VStack {
                     //MARK: - 별 3개
                     HStack(spacing: -30) {
-                        Star(isPassed: quote.evaluation.pronunciationPass, size: 112)
-                        Star(isPassed: quote.evaluation.intonationPass, size: 127)
+                        StarView(isPassed: quote.evaluation.pronunciationPass, size: 128.68)
+                        StarView(isPassed: quote.evaluation.intonationPass, size: 145.0)
                             .offset(y: -30)
-                        Star(isPassed: quote.evaluation.speedPass, size: 112)
+                        StarView(isPassed: quote.evaluation.speedPass, size: 128.68)
                     }.padding(.bottom, 18)
                     
                     //MARK: - 막대바 및 점수
@@ -72,8 +72,7 @@ struct ResultView: View {
                     //TODO: Router에 하나씩 뷰를 쌓아주는 방식은 비효율적인 방식으로 보임, Router 혹은 방식 개선 필요
                     HStack(alignment: .center) {
                         Button(action: {
-                           // .learningStart로
-                            print("다시듣기 누름")
+                            // .learningStart로
                             Router.shared.navPath = NavigationPath()
                             Router.shared.navigate(to: .characterDetail(character: quote.character!))
                             Router.shared.navigate(to: .learningStart(quote: quote))
@@ -113,7 +112,7 @@ struct ResultView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // ScoreBar 애니메이션 후 Star 애니메이션
                 isScoreAnimated = true
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // Star 애니메이션 후 Congratulation 표시
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) { // Star 애니메이션 후 Congratulation 표시
                     isStarAnimated = true
                     
                     if totalPass {
@@ -139,28 +138,94 @@ struct ResultView: View {
     }
 }
 
-struct Star: View {
+#Preview{
+    ResultView(quote: AnimeQuote(
+        japanese: ["このまま", "バンドを", "終わらせ", "たく", "ない"],
+        pronunciation: ["코노마마", "반도오", "오와라세", "타쿠", "나이"],
+        korean: ["이대로", "밴드를", "끝내고", "싶지", "않아!"],
+        evaluation: Evaluation(
+            pronunciationScore: 85.0,
+            pronunciationPass: true,
+            intonationScore: 90.0,
+            intonationPass: true,
+            speedScore: 80.0,
+            speedPass: true),
+        timemark: [0.2, 1.4, 1.7, 2.3, 2.6],
+        voicingTime: 2.7,
+        audiofile: "BTR005.m4a",
+        character: nil, // 특정 캐릭터 객체를 설정하려면 Character 인스턴스를 여기 추가
+        isCompleted: true,
+        youtubeID: "6gQGHGpoBm4",
+        youtubeStartTime: 120,
+        youtubeEndTime: 140
+    ))
+}
+
+// MARK: - 민무늬 스타뷰
+// 추가적인 애니메이션 배제할 시에는 해당 코드로 다시 진행함.
+//struct StarView: View {
+//    
+//    @State private var filled: Bool = false // 애니메이션용 상태 변수
+//    
+//    var isPassed: Bool
+//    var size: CGFloat
+//    
+//    var body: some View {
+//        Image("Star.empty")
+//            .resizable()
+//            .scaledToFit()
+//            .frame(width: size, height: size)
+//            .overlay(
+//                Image("Star.fill")
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: size, height: size)
+//                    .opacity(filled && isPassed ? 1 : 0) // 초기에는 투명, 이후 애니메이션으로 채워짐
+//            )
+//            .onAppear {
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // ScoreBar 애니메이션 이후 지연
+//                    withAnimation(.easeIn(duration: 0.5)) {
+//                        filled = true // 애니메이션이 시작되며 Star.fill이 채워짐
+//                    }
+//                }
+//            }
+//    }
+//}
+
+// MARK: - 커졌다가 빛나기
+struct StarView: View {
     
     @State private var filled: Bool = false // 애니메이션용 상태 변수
+    @State private var scale: CGFloat = 1.0 // 스케일 효과를 위한 변수
+    @State private var glowOpacity: Double = 0.0 // 빛나는 효과를 위한 변수
     
     var isPassed: Bool
     var size: CGFloat
     
     var body: some View {
-        Image(systemName: "star.fill")
+        Image("EmptyStar")
             .resizable()
-            .foregroundStyle(isPassed ? .ppBlue : .lightGray2)
+            .scaledToFit()
             .frame(width: size, height: size)
-            .overlay{
-                Image(systemName: "star.fill")
+            .overlay(
+                Image("FilledStar")
                     .resizable()
-                    .foregroundStyle(filled ? (isPassed ? .blue : .blueWhite) : .clear) // 초기에는 색상이 투명하게 설정
-                    .frame(width: size * 0.85, height: size * 0.85)
-            }
+                    .scaledToFit()
+                    .frame(width: size, height: size)
+                    .opacity(filled && isPassed ? 1 : 0)
+                    .scaleEffect(scale) // 스케일 효과 적용
+                    .shadow(color: .yellow.opacity(glowOpacity), radius: 10, x: 0, y: 0) // 빛나는 효과
+            )
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // ScoreBar 애니메이션 이후 지연
-                    withAnimation(.easeIn(duration: 0.5)) {
-                        filled = true // 애니메이션이 시작되며 색상이 채워짐
+                    withAnimation(.easeInOut(duration: 0.7)) {
+                        filled = true
+                        scale = 1.2 // 약간 크게 나타나며
+                        glowOpacity = 0.8 // 빛나는 효과도 시작
+                    }
+                    withAnimation(.easeOut(duration: 0.3).delay(0.7)) { // 작아지며 자연스럽게 끝나는 효과
+                        scale = 1.0
+                        glowOpacity = 0.0 // 빛나는 효과 제거
                     }
                 }
             }
