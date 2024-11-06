@@ -12,9 +12,9 @@ struct HomeView: View {
     
     @State private var isDataLoaded = false
     @Environment(\.modelContext) private var modelContext
-
     
-    @Query private var characters: [Character]
+    @Query(filter: #Predicate<Character> { $0.favorite == true })
+    private var favoriteCharacters: [Character]
     
     var body: some View {
         GeometryReader { geometry in
