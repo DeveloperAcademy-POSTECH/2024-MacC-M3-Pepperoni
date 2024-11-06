@@ -91,6 +91,7 @@ struct ResultView: View {
                         
                         Button(action: {
                             // .learning으로
+                            print("뱅글뱅글 누름")
                             Router.shared.navPath = NavigationPath()
                             Router.shared.navigate(to: .characterDetail(character: quote.character!))
                             Router.shared.navigate(to: .learningStart(quote: quote))
@@ -240,7 +241,7 @@ struct ScoreBar: View {
     var highlighted: Bool = false
     
     var body: some View {
-        VStack{
+        VStack {
             ZStack(alignment: .bottom) {
                 RoundedRectangle(cornerRadius: 16)
                     .frame(width: 80, height: 288)
@@ -258,6 +259,7 @@ struct ScoreBar: View {
                     animatedScore = score
                 }
             }
+            
             Text(title)
                 .foregroundStyle(.white)
                 .bold()
