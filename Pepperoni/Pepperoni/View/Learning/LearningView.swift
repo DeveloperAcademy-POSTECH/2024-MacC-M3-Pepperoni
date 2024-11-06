@@ -173,7 +173,7 @@ struct LearningView: View {
         }
         .onDisappear {
             isCounting = true
-            countdown = 4
+            countdown = 3
         }
         .onChange(of: isCounting) {
             if isCounting == false {
