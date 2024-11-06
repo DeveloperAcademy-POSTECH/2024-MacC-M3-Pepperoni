@@ -45,7 +45,7 @@ struct CharacterDetailView: View {
                                 Image(uiImage: image)
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 134, height: 134)
+                                    .frame(width: 134, height: 139)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
                                     .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white, lineWidth: 3))
                             } else {
@@ -53,7 +53,7 @@ struct CharacterDetailView: View {
                                     // 기본 이미지
                                     RoundedRectangle(cornerRadius: 16)
                                         .foregroundStyle(.darkGray)
-                                        .frame(width: 134, height: 134)
+                                        .frame(width: 134, height: 139)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 16)
                                                 .stroke(Color.white, lineWidth: 3)
