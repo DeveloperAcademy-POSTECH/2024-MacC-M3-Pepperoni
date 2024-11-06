@@ -98,7 +98,7 @@ struct HomeView: View {
                                     ZStack {
                                         Rectangle()
                                             .foregroundStyle(.lightGray2)
-                                            .frame(width: 131, height: 150)
+                                            .frame(width: 131, height: 139)
                                             .cornerRadius(12)
                                         
                                         Image(systemName: "person.fill")

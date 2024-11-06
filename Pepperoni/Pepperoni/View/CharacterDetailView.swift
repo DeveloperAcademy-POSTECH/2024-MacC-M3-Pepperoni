@@ -15,7 +15,8 @@ struct CharacterDetailView: View {
     
     @State private var selectedIndex: Int? = 0
     @State private var selectedImage: Data?
-    @State private var isCameraPickerPresented = false
+    @State private var showImagePicker = false
+    @State private var showActionSheet = false
     
     let itemHeight: CGFloat = 58.0
     let menuHeightMultiplier: CGFloat = 5
@@ -36,41 +37,51 @@ struct CharacterDetailView: View {
                 VStack {
                     // -MARK: 캐릭터 프로필
                     ZStack {
-                        if let selectedImage = character.image, let image = UIImage(data: selectedImage) {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 134, height: 134)
-                                .clipShape(Rectangle())
-                        } else {
-                            // 기본 이미지
-                            Rectangle()
-                                .foregroundStyle(.darkGray)
-                                .frame(width: 134, height: 134)
-                                .border(.white, width: 3)
-                            
-                            Image(systemName: "person.fill")
-                                .resizable()
-                                .frame(width: 82, height: 87)
-                                .foregroundStyle(.blueWhite)
-                        }
-                        
                         // 사진 추가 버튼
                         Button {
-                            isCameraPickerPresented = true
+                            showActionSheet = true
                         } label: {
-                            ZStack{
-                                Circle()
-                                    .frame(width: 40, height: 40)
-                                    .foregroundStyle(.lightGray1)
-                                
-                                Image(systemName: "plus")
-                                    .foregroundStyle(.darkGray)
+                            if let selectedImage = character.image, let image = UIImage(data: selectedImage) {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 134, height: 139)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                    .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white, lineWidth: 3))
+                            } else {
+                                ZStack{
+                                    // 기본 이미지
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .foregroundStyle(.darkGray)
+                                        .frame(width: 134, height: 139)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 16)
+                                                .stroke(Color.white, lineWidth: 3)
+                                        )
+                                    
+                                    Image(systemName: "person.fill")
+                                        .resizable()
+                                        .frame(width: 82, height: 87)
+                                        .foregroundStyle(.blueWhite)
+                                }
                             }
                         }
-                        .offset(x: 60, y: 56)
                     }
                     .padding(.bottom, 4)
+                    .actionSheet(isPresented: $showActionSheet) {
+                        ActionSheet(
+                            title: Text("캐릭터 이미지 설정"),
+                            buttons: [
+                                .default(Text("갤러리에서 사진 선택")) {
+                                    showImagePicker = true // 갤러리 열기
+                                },
+                                .default(Text("기본 이미지로 변경")) {
+                                    character.updateImage(nil) // 기본 이미지로 변경
+                                },
+                                .cancel()
+                            ]
+                        )
+                    }
                     
                     Text("\(character.name)")
                         .font(.title)
@@ -150,7 +161,7 @@ struct CharacterDetailView: View {
                     QuoteListView(character: character, selectedIndex: $selectedIndex)
                 }
             }
-            .sheet(isPresented: $isCameraPickerPresented) {
+            .sheet(isPresented: $showImagePicker) {
                 ImagePickerView(selectedImageData: $selectedImage,
                            mode: .photoLibrary)
             }
