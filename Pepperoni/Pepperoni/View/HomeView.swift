@@ -132,7 +132,33 @@ struct HomeView: View {
                                 
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 20)
-                                        .foregroundStyle(Color.blueWhite)
+                                        .foregroundStyle(Color.skyBlue1)
+                                    
+                                    ZStack(alignment: .bottom){
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .foregroundStyle(Color(hex: "EFFBFF"))
+                                            .padding(3)
+                                            .padding(.bottom, 14)
+                                        Rectangle()
+                                            .foregroundStyle(Color.skyBlue1)
+                                            .frame(height:30)
+                                            .padding(.bottom, 15)
+                                            .overlay{
+                                                HStack{
+                                                    Spacer()
+                                                    Text("란스 크라운")
+                                                        .font(.system(size: 22, weight: .heavy))
+                                                        .foregroundStyle(Color.pointBlue)
+                                                    Image(systemName:"chevron.right")
+                                                        .resizable()
+                                                        .frame(width:11, height:18)
+                                                        .foregroundStyle(Color.blue1)
+                                                }.padding(.trailing, 17)
+                                             
+                                            }
+                                    }
+                                    
+                                    
                                     
                                     VStack {
                                         HStack {
@@ -185,15 +211,10 @@ struct HomeView: View {
                                                 
                                                 CharacterRowInHome(character: character, ratio: ratio)
                                                     .frame(height:20)
-                                                    .padding(.bottom, 12)
+                                                    .padding(.bottom, 25)
+                                                Spacer()
                                                 
-                                                HStack{
-                                                    Spacer()
-                                                    
-                                                    Text(character.name)
-                                                        .foregroundStyle(.pointBlue)
-                                                        .font(.system(size: 22, weight: .black))
-                                                }
+                                                
                                             }
                                             .padding(20)
                                         }
@@ -266,6 +287,7 @@ struct CharacterRowInHome: View {
                 HStack {
                     Spacer()
                     Text("\(character.completedQuotes) / \(character.quotes.count)")
+                        .foregroundStyle(Color.pointBlue)
                 }
                 .padding()
             }
