@@ -16,9 +16,19 @@ struct AnimeListView: View {
         return allAnimes.filter { $0.favorite }
     }
     
-    // top: 일단 첫번째 애니메이션으로 설정
-    private var topAnime: Anime {
-        return allAnimes.first ?? Anime(title: " ", genre: " ")
+    // 각 Anime의 totalCompletedQuotes를 계산한 후, 그 값으로 정렬
+    private var sortedAnimesByCompletedQuotes: [Anime] {
+        return allAnimes.sorted { (anime1, anime2) -> Bool in
+            let totalCompletedQuotes1 = anime1.characters.reduce(0) { $0 + $1.completedQuotes }
+            let totalCompletedQuotes2 = anime2.characters.reduce(0) { $0 + $1.completedQuotes }
+            return totalCompletedQuotes1 < totalCompletedQuotes2
+        }
+    }
+    
+    // top 2 애니메이션을 선택
+    private var topAnimes: [Anime] {
+        let sorted = sortedAnimesByCompletedQuotes
+        return Array(sorted.prefix(2)) // 가장 낮은 completedQuotes 합계를 가진 2개의 애니메이션을 반환
     }
     
     // 선택된 장르에 따라 필터링된 애니메이션 리스트
