@@ -23,9 +23,10 @@ struct JSONUtils {
                 for jsonItem in jsonArray {
                     let animeTitle = jsonItem["anime"] as? String ?? ""
                     let charactersArray = jsonItem["characters"] as? [[String: Any]] ?? []
+                    let genre = jsonItem["genre"] as? String ?? ""
                     
                     // Anime 객체 생성
-                    let anime = Anime(title: animeTitle)
+                    let anime = Anime(title: animeTitle, genre: genre)
                     modelContext.insert(anime)
                     
                     for charItem in charactersArray {

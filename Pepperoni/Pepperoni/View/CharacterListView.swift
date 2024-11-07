@@ -139,5 +139,5 @@ struct CharacterRow: View {
 }
 
 #Preview {
-    CharacterListView(anime: Anime(title: "hihi"))
+    CharacterListView(anime: Anime(title: "hihi", genre:"asd"))
 }
