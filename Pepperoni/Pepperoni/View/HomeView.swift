@@ -132,19 +132,68 @@ struct HomeView: View {
                                 
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 20)
-                                        .foregroundStyle(Color.blueWhite)
+                                        .foregroundStyle(Color.skyBlue1)
+                                    
+                                    ZStack(alignment: .bottom){
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .foregroundStyle(Color(hex: "EFFBFF"))
+                                            .padding(3)
+                                            .padding(.bottom, 14)
+                                        Rectangle()
+                                            .foregroundStyle(Color.skyBlue1)
+                                            .frame(height:30)
+                                            .padding(.bottom, 15)
+                                            .overlay{
+                                                HStack{
+                                                    Spacer()
+                                                    Text("란스 크라운")
+                                                        .font(.system(size: 22, weight: .heavy))
+                                                        .foregroundStyle(Color.pointBlue)
+                                                    Image(systemName:"chevron.right")
+                                                        .resizable()
+                                                        .frame(width:11, height:18)
+                                                        .foregroundStyle(Color.blue1)
+                                                }.padding(.trailing, 17)
+                                             
+                                            }
+                                    }
+                                    
+                                    
                                     
                                     VStack {
                                         HStack {
                                             // 캐릭터 default image
                                             VStack{
                                                 ZStack {
-                                                    Rectangle()
-                                                        .foregroundStyle(Color(hex: "434343"))
-                                                        .frame(width: 136, height: 150)
-                                                        .cornerRadius(22)
+//                                                    Rectangle()
+//                                                        .foregroundStyle(Color(hex: "434343"))
+//                                                        .frame(width: 136, height: 150)
+//                                                        .cornerRadius(22)
                                                     
-                                                    Image("DefaultCharacter")
+                                                    if let selectedImage = character.image, let image = UIImage(data: selectedImage) {
+                                                        Image(uiImage: image)
+                                                            .resizable()
+                                                            .scaledToFill()
+                                                            .frame(width: 134, height: 139)
+                                                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                                                            .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white, lineWidth: 3))
+                                                    } else {
+                                                        ZStack{
+                                                            // 기본 이미지
+                                                            RoundedRectangle(cornerRadius: 16)
+                                                                .foregroundStyle(.darkGray)
+                                                                .frame(width: 134, height: 139)
+                                                                .overlay(
+                                                                    RoundedRectangle(cornerRadius: 16)
+                                                                        .stroke(Color.white, lineWidth: 3)
+                                                                )
+                                                            
+                                                            Image("DefaultCharacter")
+                                                                .resizable()
+                                                                .frame(width: 82, height: 87)
+                                                                .foregroundStyle(.blueWhite)
+                                                        }
+                                                    }
                                                 }
                                                 Spacer()
                                             }
@@ -185,15 +234,10 @@ struct HomeView: View {
                                                 
                                                 CharacterRowInHome(character: character, ratio: ratio)
                                                     .frame(height:20)
-                                                    .padding(.bottom, 12)
+                                                    .padding(.bottom, 25)
+                                                Spacer()
                                                 
-                                                HStack{
-                                                    Spacer()
-                                                    
-                                                    Text(character.name)
-                                                        .foregroundStyle(.pointBlue)
-                                                        .font(.system(size: 22, weight: .black))
-                                                }
+                                                
                                             }
                                             .padding(20)
                                         }
@@ -266,6 +310,7 @@ struct CharacterRowInHome: View {
                 HStack {
                     Spacer()
                     Text("\(character.completedQuotes) / \(character.quotes.count)")
+                        .foregroundStyle(Color.pointBlue)
                 }
                 .padding()
             }
