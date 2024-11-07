@@ -117,22 +117,20 @@ func calculateIntonation(referenceFileName: String, comparisonFileURL: URL) -> D
     // 점수화
     let score: Double
     switch similarity {
-    case 0.80...1.0:
-        score = 90 + (similarity - 0.80) / 0.20 * 10 // 80% 이상을 90~100점으로 매핑
-    case 0.60..<0.80:
-        score = 70 + (similarity - 0.60) / 0.20 * 20 // 60~80%를 70~90점으로 매핑
-    case 0.40..<0.60:
-        score = 40 + (similarity - 0.40) / 0.20 * 30 // 40~60%를 40~70점으로 매핑
-    case 0.0..<0.40:
-        score = similarity / 0.40 * 40 // 0~40%를 0~40점으로 매핑
+    case 0.60...1.0: // 60% ~ 70%를 95점 ~ 100점으로
+        score = Int(95 + (similarity - 0.60) / 0.10 * 5)
+    case 0.50..<0.60: // 50% ~ 60%를 80점 ~ 95점으로
+        score = Int(80 + (similarity - 0.50) / 0.10 * 15)
+    case 0.40..<0.50: // 40% ~ 50%를 40점 ~ 80점으로
+        score = Int(40 + (similarity - 0.40) / 0.10 * 40)
+    case 0.0..<0.40: // 0% ~ 40%를 0점 ~ 40점으로
+        score = Int(similarity / 0.40 * 40)
     default:
-        score = 0.0
+        score = 0
     }
     
     return min(100.0, score) // 점수는 최대 100으로 제한
 }
-
-
 
 /// m4a 파일에서 피치 데이터를 추출하는 함수
 func extractPitchData(from fileURL: URL) -> [CGFloat]? {
