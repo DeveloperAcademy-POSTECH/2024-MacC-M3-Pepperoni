@@ -14,9 +14,6 @@ enum Destination: Hashable {
     case animeSearch
     case characterList(anime: Anime)
     case characterDetail(character: Character)
-    case learningStart(quote: AnimeQuote)
-    case learning(quote: AnimeQuote)
-    case result(quote: AnimeQuote)
 }
 
 // MARK: - Router
