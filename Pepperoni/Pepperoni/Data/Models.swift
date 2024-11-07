@@ -13,12 +13,14 @@ class Anime {
     @Attribute(.unique) var id: UUID
     var title: String // 애니메이션 제목
     @Relationship(deleteRule: .cascade) var characters: [Character] // Character와 1:N 관계
+    var genre: String
     var favorite: Bool // 즐겨찾기(핀) 여부
 
-    init(id: UUID = UUID(), title: String, characters: [Character] = [], favorite: Bool = false) {
+    init(id: UUID = UUID(), title: String, characters: [Character] = [], genre: String, favorite: Bool = false) {
         self.id = id
         self.title = title
         self.characters = characters
+        self.genre = genre
         self.favorite = favorite
     }
 }
