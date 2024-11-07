@@ -17,6 +17,7 @@ struct CharacterDetailView: View {
     @State private var selectedImage: Data?
     @State private var showImagePicker = false
     @State private var showActionSheet = false
+    @State private var showLearningContent = false
     
     let itemHeight: CGFloat = 58.0
     let menuHeightMultiplier: CGFloat = 5
@@ -158,7 +159,7 @@ struct CharacterDetailView: View {
                     Spacer()
                     
                     // -MARK: 대사 리스트
-                    QuoteListView(character: character, selectedIndex: $selectedIndex)
+                    QuoteListView(character: character, selectedIndex: $selectedIndex, showLearningContent: $showLearningContent)
                 }
             }
             .sheet(isPresented: $showImagePicker) {
@@ -203,6 +204,11 @@ struct CharacterDetailView: View {
         .alert(isPresented: $showAlert) {
             Alert(title: Text("최애 자리가 다 찼어요"), message: Text("최애 캐릭터는 3개까지 설정 가능해요🥹"), dismissButton: .default(Text("확인")))
         }
+        .fullScreenCover(isPresented: $showLearningContent) {
+            if let selectedIndex = selectedIndex {
+                LearningStartView(quote: character.quotes[selectedIndex], showLearningContent: $showLearningContent)
+            }
+        }
     }
     
     /// 별, 총점수 계산 함수
@@ -239,6 +245,7 @@ struct CharacterDetailView: View {
 struct QuoteListView: View {
     let character: Character
     @Binding var selectedIndex: Int?
+    @Binding var showLearningContent: Bool
     
     let itemHeight: CGFloat = 58.0
     
@@ -300,7 +307,8 @@ struct QuoteListView: View {
                     .frame(height: itemHeight)
                     .padding(.vertical, index == selectedIndex ? 28 : 20)
                     .onTapGesture {
-                        Router.shared.navigate(to: .learningStart(quote: character.quotes[index]))
+                        showLearningContent = true
+                        
                         AVAudioApplication.requestRecordPermission { granted in
                             if granted {
                                 print("마이크 접근 권한이 허용되었습니다.")
