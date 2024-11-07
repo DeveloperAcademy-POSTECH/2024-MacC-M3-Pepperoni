@@ -27,8 +27,8 @@ struct AnimeListView: View {
     
     // top 2 애니메이션을 선택
     private var topAnimes: [Anime] {
-        let sorted = sortedAnimesByCompletedQuotes
-        return Array(sorted.prefix(2)) // 가장 낮은 completedQuotes 합계를 가진 2개의 애니메이션을 반환
+        let sortedAnimes = sortedAnimesByCompletedQuotes
+        return Array(sortedAnimes.prefix(2)) // 가장 낮은 completedQuotes 합계를 가진 2개의 애니메이션을 반환
     }
     
     // 선택된 장르에 따라 필터링된 애니메이션 리스트
@@ -85,53 +85,39 @@ struct AnimeListView: View {
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
             .padding(.vertical)
             
-            // -MARK: 핀한 애니
-            VStack(spacing: 0){
-                HStack(spacing: 4) {
-                    Text("핀한 애니")
-                        .foregroundStyle(.white)
-                    
-                    Text(Image(systemName: "pin.fill"))
-                        .foregroundStyle(.skyBlue1)
-                        .rotationEffect(.degrees(48))
-                    
-                    Spacer()
-                }
-                .padding(.leading, 20)
-                .fontWeight(.bold)
-                .frame(height: 38)
-                .background(.gray1)
-                
-                // 핀한 애니가 없을 때
-                if favoriteAnimes.isEmpty {
-                    HStack (spacing: 8){
-                        Image(systemName: "pin.slash.fill")
-                            .frame(width: 20)
+            if !favoriteAnimes.isEmpty {
+                // -MARK: 핀한 애니
+                VStack(spacing: 0){
+                    HStack(spacing: 4) {
+                        Text("핀한 애니")
+                            .foregroundStyle(.white)
                         
-                        Text("핀한 애니가 없습니다")
+                        Spacer()
                     }
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.lightGray2)
-                    .padding(26)
-                // 핀한 애니가 있을 때
-                } else {
+                    .padding(.leading, 20)
+                    .fontWeight(.bold)
+                    .frame(height: 38)
+                    .background(.gray1)
+                    
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach(favoriteAnimes, id: \.id) { anime in
                                 Button {
                                     Router.shared.navigate(to: .characterList(anime: anime))
                                 } label: {
-                                    HStack (spacing: 6){
-                                        ZStack{
+                                    HStack (spacing: 8){
+                                        ZStack {
                                             Rectangle()
                                                 .frame(width: 18, height: 18)
                                                 .foregroundStyle(.white)
                                                 .cornerRadius(10)
                                             
                                             Image(systemName: "pin.square.fill")
-                                                .foregroundStyle(.blue1)
-                                                .font(.title3)
+                                                .resizable()
+                                                .scaledToFit()
                                                 .frame(width: 24, height: 24)
+                                                .foregroundStyle(.blue1)
+                                               
                                         }
                                         
                                         Text(anime.title)
