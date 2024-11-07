@@ -146,7 +146,7 @@ struct HomeView: View {
                                             .overlay{
                                                 HStack{
                                                     Spacer()
-                                                    Text("란스 크라운")
+                                                    Text(character.name)
                                                         .font(.system(size: 22, weight: .heavy))
                                                         .foregroundStyle(Color.pointBlue)
                                                     Image(systemName:"chevron.right")
