@@ -15,6 +15,7 @@ struct LearningStartView: View {
     @State var beforeFirstPlaying: Bool = true
     @State private var navigateToLearning = false
     @Binding var showLearningContent: Bool
+    @State private var isRoniBouncing = false
     
     var body: some View {
         NavigationStack {
@@ -24,7 +25,7 @@ struct LearningStartView: View {
                 VStack {
                     SpeechBubble()
                         .fill(Color.skyBlue1)
-                        .frame(height: 340)
+                        .frame(height: 360)
                         .padding(.horizontal, 20)
                         .padding(.bottom, 20)
                         .overlay{
@@ -36,83 +37,38 @@ struct LearningStartView: View {
                                     VStack {
                                         if currentPage == 0 {
                                             VStack {
-                                                highlightedText(textArray: Array(quote.pronunciation.prefix(halfIndex)), indexOffset: 0, isPronunciation: true)
-                                                highlightedText(textArray: Array(quote.japanese.prefix(halfIndex)), indexOffset: 0)
+                                                highlightedText(textArray: Array(quote.pronunciation.prefix(halfIndex)), indexOffset: 0, halfIndex: halfIndex, isPronunciation: true)
+                                                highlightedText(textArray: Array(quote.japanese.prefix(halfIndex)), indexOffset: 0, halfIndex: halfIndex)
                                                     .padding(.vertical, 35)
-                                                highlightedText(textArray: Array(quote.korean.prefix(halfIndex)), indexOffset: 0)
+                                                highlightedText(textArray: Array(quote.korean.prefix(halfIndex)), indexOffset: 0, halfIndex: halfIndex)
                                             }
+                                            .padding(.bottom, 20)
                                         } else {
                                             VStack {
-                                                highlightedText(textArray: Array(quote.pronunciation.suffix(from: halfIndex)), indexOffset: halfIndex, isPronunciation: true)
-                                                highlightedText(textArray: Array(quote.japanese.suffix(from: halfIndex)), indexOffset: halfIndex)
+                                                highlightedText(textArray: Array(quote.pronunciation.suffix(from: halfIndex)), indexOffset: halfIndex, halfIndex: halfIndex, isPronunciation: true)
+                                                highlightedText(textArray: Array(quote.japanese.suffix(from: halfIndex)), indexOffset: halfIndex, halfIndex: halfIndex)
                                                     .padding(.vertical, 35)
-                                                highlightedText(textArray: Array(quote.korean.suffix(from: halfIndex)), indexOffset: halfIndex)
-                                                
+                                                highlightedText(textArray: Array(quote.korean.suffix(from: halfIndex)), indexOffset: halfIndex, halfIndex: halfIndex)
                                             }
+                                            .padding(.bottom, 20)
                                         }
-                                        
-                                        HStack {
-                                            // 이전 페이지 버튼
-                                            Button(action: {
-                                                if currentPage > 0 {
-                                                    currentPage -= 1
-                                                }
-                                            }, label:{
-                                                Circle()
-                                                    .fill(currentPage == 0 ? .lightGray1 : .lsButtonLightBlue)
-                                                    .frame(width: 35, height: 35)
-                                                    .overlay {
-                                                        Image(systemName: "play.fill")
-                                                            .foregroundStyle(currentPage == 0 ? .lightGray2 : .blue1)
-                                                            .frame(width: 23)
-                                                            .rotationEffect(.degrees(180))
-                                                    }
-                                            })
-                                            .disabled(currentPage == 0)  // 첫 페이지에서는 비활성화
-                                            
-                                            // 페이지 인디케이터
-                                            Text("\(currentPage + 1) / 2")
-                                                .font(.system(size: 26))
-                                                .bold()
-                                                .foregroundStyle(.white)
-                                                .background{
-                                                    RoundedRectangle(cornerRadius: 80)
-                                                        .frame(width:78, height: 40)
-                                                        .foregroundStyle(.lsButtonLightBlue)
-                                                }
-                                                .padding(.horizontal)
-                                            
-                                            // 다음 페이지 버튼
-                                            Button(action: {
-                                                if currentPage < 1 {
-                                                    currentPage += 1
-                                                }
-                                            }, label:{
-                                                Circle()
-                                                    .fill(currentPage == 1 ? .lightGray1 : .lsButtonLightBlue)
-                                                    .frame(width: 35, height: 35)
-                                                    .overlay {
-                                                        Image(systemName: "play.fill")
-                                                            .foregroundStyle(currentPage == 1 ? .lightGray2 : .blue1)
-                                                            .frame(width: 23)
-                                                    }
-                                            })
-                                            .disabled(currentPage == 1)  // 마지막 페이지에서는 비활성화
-                                        }
+                                        PageNavigationView(currentPage: $currentPage)
                                     }
                                     .frame(height: 340)
                                     .padding(.horizontal, 20)
+                                    .padding(.bottom, 30)
+                                    
                                 } else {
                                     // pronunciation 배열의 길이가 5 미만일 때 기존 방식으로 한 페이지에 표시
                                     VStack {
-                                        highlightedText(textArray: quote.pronunciation, indexOffset: 0, isPronunciation: true)
-                                        highlightedText(textArray: quote.japanese, indexOffset: 0)
+                                        highlightedText(textArray: quote.pronunciation, indexOffset: 0, halfIndex: nil, isPronunciation: true)
+                                        highlightedText(textArray: quote.japanese, indexOffset: 0, halfIndex: nil)
                                             .padding(.vertical, 35)
-                                        highlightedText(textArray: quote.korean, indexOffset: 0)
-                                        
+                                        highlightedText(textArray: quote.korean, indexOffset: 0, halfIndex: nil)
                                     }
                                     .frame(height: 300)
                                     .padding(.horizontal, 20)
+                                    .padding(.bottom, 40)
                                 }
                             }
                         }
@@ -120,11 +76,23 @@ struct LearningStartView: View {
                     Button(action: {
                         audioPlayerManager.playAudio(from: quote.audiofile)
                         beforeFirstPlaying = false
+                        
+                        withAnimation(.interpolatingSpring(stiffness: 100, damping: 5)) {
+                            isRoniBouncing = true
+                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation {
+                                isRoniBouncing = false
+                            }
+                        }
+                        
                     }, label:{
                         Image("Roni")
                             .resizable()
                             .scaledToFit()
                             .frame(width:103)
+                            .scaleEffect(isRoniBouncing ? 1.2 : 1.0)
                             .padding(.bottom, 20)
                     })
                     
@@ -172,11 +140,9 @@ struct LearningStartView: View {
                     Button(action: {
                         showLearningContent = false
                     }) {
-                        Image(systemName: "xmark")
-                            .scaledToFit()
-                            .frame(width: 25)
+                        Text("나가기")
                             .fontWeight(.semibold)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(.blue1)
                     }
                 }
             }
@@ -192,20 +158,25 @@ struct LearningStartView: View {
         }
     }
     
-    private func highlightedText(textArray: [String], indexOffset: Int, isPronunciation: Bool = false) -> some View {
+    private func highlightedText(textArray: [String], indexOffset: Int, halfIndex: Int?, isPronunciation: Bool = false) -> some View {
         HStack {
             ForEach(textArray.indices, id: \.self) { index in
                 Text(textArray[index])
                     .font(isPronunciation ? .system(size: 20, weight: .bold) : .system(size: 26, weight: .bold))
                     .foregroundStyle(
                         isPlayingWord(at: index + indexOffset)
-                        ? .pointBlue // 재생 중이면 pointBlue 강조
-                        : (isPronunciation
-                            ? .black // 발음일 경우 검은색
-                            : (textArray == quote.korean
-                                ? .gray // 한국어일 경우 회색
-                                : .black) // 그 외의 경우 검은색
-                        )
+                            ? .pointBlue
+                            : (
+                                isPronunciation
+                                    ? .black
+                                    : (
+                                        (textArray == quote.korean ||
+                                         (halfIndex != nil && textArray == Array(quote.korean.prefix(halfIndex!))) ||
+                                         (halfIndex != nil && textArray == Array(quote.korean.suffix(from: halfIndex!))))
+                                            ? .lsKoreanGray
+                                            : .black
+                                    )
+                            )
                     )
             }
         }
@@ -230,6 +201,61 @@ struct LearningStartView: View {
         return currentTime >= startTime && currentTime < endTime
     }
     
+}
+
+struct PageNavigationView: View {
+    @Binding var currentPage: Int
+
+    var body: some View {
+        HStack {
+            // 이전 페이지 버튼
+            Button(action: {
+                if currentPage > 0 {
+                    currentPage -= 1
+                }
+            }) {
+                Circle()
+                    .fill(currentPage == 0 ? .lightGray1 : .lsButtonLightBlue)
+                    .frame(width: 35, height: 35)
+                    .overlay {
+                        Image(systemName: "play.fill")
+                            .foregroundStyle(currentPage == 0 ? .lightGray2 : .blue1)
+                            .frame(width: 23)
+                            .rotationEffect(.degrees(180))
+                    }
+            }
+            .disabled(currentPage == 0)
+            
+            // 페이지 인디케이터
+            Text("\(currentPage + 1) / 2")
+                .font(.system(size: 26))
+                .bold()
+                .foregroundStyle(.white)
+                .background {
+                    RoundedRectangle(cornerRadius: 80)
+                        .frame(width:78, height: 40)
+                        .foregroundStyle(.lsButtonLightBlue)
+                }
+                .padding(.horizontal)
+            
+            // 다음 페이지 버튼
+            Button(action: {
+                if currentPage < 1 {
+                    currentPage += 1
+                }
+            }) {
+                Circle()
+                    .fill(currentPage == 1 ? .lightGray1 : .lsButtonLightBlue)
+                    .frame(width: 35, height: 35)
+                    .overlay {
+                        Image(systemName: "play.fill")
+                            .foregroundStyle(currentPage == 1 ? .lightGray2 : .blue1)
+                            .frame(width: 23)
+                    }
+            }
+            .disabled(currentPage == 1)
+        }
+    }
 }
 
 struct SpeechBubble: Shape {
