@@ -160,10 +160,15 @@ struct LearningStartView: View {
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("나가기") {
-                        showLearningContent = false  // 학습 과정 종료
+                    Button(action: {
+                        showLearningContent = false
+                    }) {
+                        Image(systemName: "xmark")
+                            .scaledToFit()
+                            .frame(width: 25)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.black)
                     }
-                    .foregroundStyle(.red)
                 }
             }
         }
