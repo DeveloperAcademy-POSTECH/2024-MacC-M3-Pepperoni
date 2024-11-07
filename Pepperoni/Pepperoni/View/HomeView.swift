@@ -18,51 +18,48 @@ struct HomeView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 20) {
-                HStack (spacing: 12){
-                    Text("anisentence")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.gray1)
-                    
-                    Spacer()
-                    
-                    Button {
-                    } label: {
-                        Image("Namecard")
-                    }
-                    
-                    Button {
-                    } label: {
-                        Text(Image(systemName: "info.circle"))
-                            .font(.title2)
-                            .foregroundStyle(.gray)
-                    }
-                }
-                .frame(height: 70)
-                
-                VStack{
-                    SpeechBubbleRight()
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 39)
-                        .padding(.top, 32)
-                        .overlay{
-                            Text("우리 잠 언제 자?")
-                                .foregroundStyle(.blue1)
+            VStack(spacing: 12) {
+                // MARK: - 말풍선, 캐릭터 영역
+                ZStack {
+                    VStack(spacing: 13) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 65)
+                                .foregroundStyle(.white)
+                            
+                            Text("오늘은 어떤 대사를\n함께 따라 말해볼까요 ?")
+                                .foregroundStyle(Color(hex: "353535"))
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
                         }
-                    HStack{
-                        Spacer()
-                        Image("Roni")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width:103)
-                            .padding(.trailing, 36)
+                        .frame(height: 141)
                         
+                        RoundedRectangle(cornerRadius: 16)
+                            .frame(width: 40, height: 18)
+                            .padding(.trailing, 27)
+                            .foregroundStyle(Color(hex: "D9D9D9"))
+                        
+                        RoundedRectangle(cornerRadius: 16)
+                            .frame(width: 27, height: 12)
+                            .foregroundStyle(Color(hex: "949494"))
+                        
+                        Spacer()
                     }
                     
+                    VStack{
+                        Spacer()
+                        
+                        HStack{
+                            Spacer()
+                            
+                            Image("Roni")
+                        }
+                    }
                 }
-                .frame(maxWidth: .infinity, maxHeight: 291)
-                .background(Color.gray1)
+                .frame(maxWidth: .infinity)
+                .frame(height: 300)
+                .padding(.vertical, 26)
+                .padding(.horizontal, 31)
+                .background(Color(hex: "353535"))
                 .cornerRadius(20)
                 
                 Button {
@@ -70,10 +67,24 @@ struct HomeView: View {
                 } label: {
                     HStack{
                         Text(Image(systemName: "list.bullet"))
+                            .font(.title2)
+                            .fontWeight(.medium)
+                            .frame(width: 40, height: 40)
+                            .background(Color(hex: "2E2E2E"))
+                            .clipShape(.circle)
+                        
+                        Spacer()
                         
                         Text("애니 목록")
+                            .fontWeight(.medium)
+                        
+                        Spacer()
+                            .frame(width: 130)
                     }
                     .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .foregroundStyle(.skyBlue2)
                 }
                 .frame(maxWidth: .infinity, maxHeight: 60)
                 .foregroundStyle(.white)
