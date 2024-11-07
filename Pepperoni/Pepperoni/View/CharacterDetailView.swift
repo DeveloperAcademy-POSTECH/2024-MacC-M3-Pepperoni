@@ -54,22 +54,18 @@ struct CharacterDetailView: View {
                                 ZStack{
                                     // 기본 이미지
                                     RoundedRectangle(cornerRadius: 16)
-                                        .foregroundStyle(.darkGray)
+                                        .foregroundStyle(Color(hex: "434343"))
                                         .frame(width: 134, height: 139)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 16)
                                                 .stroke(Color.white, lineWidth: 3)
                                         )
                                     
-                                    Image(systemName: "person.fill")
-                                        .resizable()
-                                        .frame(width: 82, height: 87)
-                                        .foregroundStyle(.blueWhite)
+                                    Image("DefaultCharacter")
                                 }
                             }
                         }
                     }
-                    .padding(.bottom, 4)
                     .actionSheet(isPresented: $showActionSheet) {
                         ActionSheet(
                             title: Text("캐릭터 이미지 설정"),
@@ -84,6 +80,7 @@ struct CharacterDetailView: View {
                             ]
                         )
                     }
+                    .padding(.bottom, 4)
                     
                     Text("\(character.name)")
                         .font(.title)
@@ -93,45 +90,59 @@ struct CharacterDetailView: View {
                     // -MARK: 총점수, 별, 달성률
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("총점수")
+                            Text("총점")
                                 .padding(.bottom, 2)
-                                .foregroundStyle(.gray1)
+                                .foregroundStyle(.lightGray2)
+                                .frame(width: 60, alignment: .leading)
                             
                             Spacer()
                             
                             Rectangle()
-                                .frame(width: 151, height: 1)
+                                .frame(width: 160, height: 1)
                                 .foregroundStyle(.lightGray2)
                             
                             Spacer()
                             
-                            Text("\(calculateScoresAndPasses(for: character).totalScore)")
+                            HStack(spacing: 0) {
+                                Text("\(calculateScoresAndPasses(for: character).totalScore)")
+                                    .foregroundStyle(.pointBlue)
+                                Text("점")
+                                    .foregroundStyle(.lightGray2)
+                            }
                                 .padding(.bottom, 2)
                                 .fontWeight(.medium)
-                                .foregroundStyle(.pointBlue)
+                                .frame(width: 60, alignment: .trailing)
                         }
                         
                         HStack {
                             Text("별")
                                 .padding(.bottom, 2)
-                                .foregroundStyle(.gray1)
+                                .foregroundStyle(.lightGray2)
+                                .frame(width: 60, alignment: .leading)
                             
                             Spacer()
                             
                             Rectangle()
-                                .frame(width: 151, height: 1)
+                                .frame(width: 160, height: 1)
                                 .foregroundStyle(.lightGray2)
                             
                             Spacer()
                             
-                            Text("\(calculateScoresAndPasses(for: character).totalPasses)")
+                            HStack(spacing: 0) {
+                                Text("\(calculateScoresAndPasses(for: character).totalPasses)")
+                                    .foregroundStyle(.pointBlue)
+                                Text("개")
+                                    .foregroundStyle(.lightGray2)
+                            }
                                 .padding(.bottom, 2)
                                 .fontWeight(.medium)
-                                .foregroundStyle(.pointBlue)
+                                .frame(width: 60, alignment: .trailing)
                         }
                         
                         HStack {
                             Text("달성률")
+                                .foregroundStyle(.lightGray2)
+                                .frame(width: 60, alignment: .leading)
                             
                             Spacer()
                             
@@ -143,19 +154,22 @@ struct CharacterDetailView: View {
                                 
                                 AchievementBar(ratio: ratio)
                             }
-                            .frame(width: 188, height: 20)
+                            .frame(width: 160, height: 16)
                             
                             Spacer()
                             
                             Text("\(character.completedQuotes)/\(character.quotes.count)")
                                 .fontWeight(.medium)
                                 .foregroundStyle(.pointBlue)
+                                .frame(width: 60, alignment: .trailing)
                         }
                     }
                     .padding()
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .padding()
+                    .background(.darkGray)
+                    .cornerRadius(16)
+                    .padding(.top, 0)
+                    .padding(.bottom)
+                    .padding(.horizontal)
                     
                     Spacer()
                     
@@ -169,7 +183,7 @@ struct CharacterDetailView: View {
             }
         }
         .padding()
-        .background(.darkGray)
+        .background(Color(hex: "2F2F2F"))
         .onChange(of: selectedImage) {
             // 이미지 등록 시, SwiftData에 이미지 저장
             if let newImageData = selectedImage {
@@ -261,52 +275,84 @@ struct QuoteListView: View {
                     let passCount = [evaluation.pronunciationPass, evaluation.intonationPass, evaluation.speedPass].filter { $0 }.count
                     
                     VStack(alignment: .leading, spacing: 4) {
-                        HStack {
-                            Text("#\(index + 1)")
-                                .foregroundStyle(.white)
-                                .font(.title3)
-                                .fontWeight(.bold)
-                            
-                            Spacer()
-                            
-                            // 별
-                            HStack(spacing: 4) {
-                                ForEach(0..<3) { i in
-                                    if i < passCount {
-                                        Text(Image(systemName: "star.fill"))
-                                            .foregroundStyle(.white)
-                                    } else {
-                                        Text(Image(systemName: "star"))
-                                            .foregroundStyle(.white)
+                        // selectedIndex일 때
+                        if index == selectedIndex {
+                            HStack {
+                                Text("#\(index + 1)")
+                                    .foregroundStyle(Color(hex: "92FFFD"))
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                
+                                Spacer()
+                                
+                                // 별 표시
+                                HStack(spacing: 4) {
+                                    ForEach(0..<3) { i in
+                                        if i < passCount {
+                                            Text(Image(systemName: "star.fill"))
+                                                .foregroundStyle(Color(hex: "92FFFD"))
+                                        } else {
+                                            Text(Image(systemName: "star"))
+                                                .foregroundStyle(Color(hex: "92FFFD"))
+                                        }
                                     }
                                 }
                             }
-                        }
-                        
-                        // 한국어
-                        Text(quote.korean.joined(separator: " "))
-                            .foregroundStyle(.white)
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .fixedSize(horizontal: false, vertical: true)
-                        
-                        // 일본어 - selectedIndex일 때만
-                        if index == selectedIndex {
+                            
+                            // 한국어
+                            Text(quote.korean.joined(separator: " "))
+                                .foregroundStyle(.white)
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .fixedSize(horizontal: false, vertical: true)
+                            
+                            // 일본어
                             Text(quote.japanese.joined(separator: " "))
                                 .foregroundStyle(.white)
                                 .font(.title3)
                                 .fontWeight(.bold)
                                 .fixedSize(horizontal: false, vertical: true)
+                            
+                        // selectedIndex가 아닐 때
+                        } else {
+                            HStack(spacing: 8) {
+                                Text("#\(index + 1)")
+                                    .foregroundStyle(Color(hex: "92FFFD"))
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                
+                                Text(quote.korean.joined(separator: " "))
+                                    .foregroundStyle(.white)
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                    .lineLimit(1) // 글자가 잘려도 되도록 설정
+                                
+                                Spacer()
+                                
+                                // 별 표시
+                                HStack(spacing: 4) {
+                                    ForEach(0..<3) { i in
+                                        if i < passCount {
+                                            Text(Image(systemName: "star.fill"))
+                                                .foregroundStyle(Color(hex: "92FFFD"))
+                                        } else {
+                                            Text(Image(systemName: "star"))
+                                                .foregroundStyle(Color(hex: "92FFFD"))
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                     .padding()
                     .background(
                         RoundedRectangle(cornerRadius: 8)
                             .fill(index == selectedIndex ? Color.pointBlue : Color.blue1)
+                            .stroke(Color(hex: "9EFFFD"), lineWidth: 4)
                     )
                     .id(index)
                     .frame(height: itemHeight)
-                    .padding(.vertical, index == selectedIndex ? 28 : 20)
+                    .padding(.vertical, index == selectedIndex ? 26 : 10)
                     .onTapGesture {
                         showLearningContent = true
                         
