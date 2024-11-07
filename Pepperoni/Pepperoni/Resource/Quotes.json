@@ -1,14 +1,349 @@
 [
     {
+        "anime": "나의 히어로 아카데미아",
+        "season": "2기",
+        "episode": 16,
+        "character": "미도리야 이즈쿠",
+        "japanese": [
+            "助けに",
+            "来たよ、",
+            "飯田君！"
+        ],
+        "pronunciation": [
+            "타스케니",
+            "키타요,",
+            "이이다쿤!"
+        ],
+        "korean": [
+            "구하러",
+            "왔어,",
+            "이이다군!"
+        ],
+        "timemark": [
+            0.37,
+            0.9,
+            1.94
+        ],
+        "voicingTime": 1.94,
+        "audiofile": "MYH001.m4a",
+        "youtubeid": "vG2pnM4Ts-I",
+        "start": 0,
+        "end": 93
+    },
+    {
+        "anime": "나의 히어로 아카데미아",
+        "season": "3기",
+        "episode": 23,
+        "character": "미도리야 이즈쿠",
+        "japanese": [
+            "僕を",
+            "選んでくれた",
+            "オールマイトに",
+            "答える",
+            "ために！"
+        ],
+        "pronunciation": [
+            "보쿠오",
+            "에란데쿠레타",
+            "오오루마이토니",
+            "코타에루",
+            "타메니!"
+        ],
+        "korean": [
+            "나를",
+            "골라준",
+            "올마이트에게",
+            "대답하기",
+            "위해서!"
+        ],
+        "timemark": [
+            0.3,
+            0.87,
+            1.79,
+            3.15,
+            3.7
+        ],
+        "voicingTime": 3.7,
+        "audiofile": "MYH002.m4a",
+        "youtubeid": "QKXApsuB4G4",
+        "start": 125,
+        "end": 165
+    },
+    {
+        "anime": "진격의 거인",
+        "season": "3기",
+        "episode": 17,
+        "character": "리바이 아커만",
+        "japanese": [
+            "さっきは",
+            "随分と",
+            "楽しそう",
+            "だったな"
+        ],
+        "pronunciation": [
+            "삿키와",
+            "즈이분토",
+            "타노시소오",
+            "닷타나"
+        ],
+        "korean": [
+            "아까는",
+            "꽤나",
+            "즐거워보이",
+            "던데"
+        ],
+        "timemark": [
+            0.28,
+            0.9,
+            1.51,
+            2.15
+        ],
+        "voicingTime": 2.15,
+        "audiofile": "JIN001.m4a",
+        "youtubeid": "1bdXZqfcFhk",
+        "start": 0,
+        "end": 88
+    },
+    {
+        "anime": "진격의 거인",
+        "season": "The FINAL",
+        "episode": 3,
+        "character": "리바이 아커만",
+        "japanese": [
+            "心臓を",
+            "捧げよ"
+        ],
+        "pronunciation": [
+            "신조오오",
+            "사사게요"
+        ],
+        "korean": [
+            "심장을",
+            "바쳐라"
+        ],
+        "timemark": [
+            0.2,
+            0.97
+        ],
+        "voicingTime": 0.97,
+        "audiofile": "JIN002.m4a",
+        "youtubeid": "7aZYL0LFl5g",
+        "start": 15,
+        "end": 115
+    },
+    {
+        "anime": "모브 사이코 100",
+        "season": "1기",
+        "episode": 11,
+        "character": "레이겐 아라타카",
+        "japanese": [
+            "嫌な",
+            "時はな、",
+            "逃げたって",
+            "いいんだよ！"
+        ],
+        "pronunciation": [
+            "이야나",
+            "토키와나,",
+            "니게탓테",
+            "이인다요!"
+        ],
+        "korean": [
+            "싫을",
+            "때는 말이야,",
+            "도망쳐도",
+            "된다고!"
+        ],
+        "timemark": [
+            0.38,
+            0.92,
+            2.27,
+            2.95
+        ],
+        "voicingTime": 2.95,
+        "audiofile": "MOB001.m4a",
+        "youtubeid": "xeGdfRGUF5M",
+        "start": 0,
+        "end": 91
+    },
+    {
+        "anime": "모브 사이코 100",
+        "season": "2기",
+        "episode": 7,
+        "character": "카게야마 시게오",
+        "japanese": [
+            "僕の",
+            "師匠の",
+            "正体は、",
+            "いい奴だ"
+        ],
+        "pronunciation": [
+            "보쿠노",
+            "시쇼오노",
+            "쇼오타이와",
+            "이이야츠다"
+        ],
+        "korean": [
+            "내",
+            "스승의",
+            "정체는",
+            "좋은 녀석이야."
+        ],
+        "timemark": [
+            0.58,
+            1.1,
+            2.11,
+            3
+        ],
+        "voicingTime": 3,
+        "audiofile": "MOB002.m4a",
+        "youtubeid": "8TC_jMSqDXY",
+        "start": 180,
+        "end": 248
+    },
+    {
+        "anime": "모브 사이코 100",
+        "season": "2기",
+        "episode": 7,
+        "character": "레이겐 아라타카",
+        "japanese": [
+            "力の",
+            "使い方を",
+            "教えてやる"
+        ],
+        "pronunciation": [
+            "치카라노",
+            "츠카이카타오",
+            "오시에테야루"
+        ],
+        "korean": [
+            "힘의",
+            "사용법을",
+            "가르쳐줄게"
+        ],
+        "timemark": [
+            0.36,
+            0.9,
+            2
+        ],
+        "voicingTime": 2,
+        "audiofile": "MOB003.m4a",
+        "youtubeid": "4tcPgxb_ulc",
+        "start": 99,
+        "end": 146
+    },
+    {
+        "anime": "모브 사이코 100",
+        "season": "2기",
+        "episode": 7,
+        "character": "레이겐 아라타카",
+        "japanese": [
+            "いい",
+            "奴に",
+            "なれ、",
+            "以上！"
+        ],
+        "pronunciation": [
+            "이이",
+            "야츠니",
+            "나레,",
+            "이죠오!"
+        ],
+        "korean": [
+            "좋은",
+            "녀석이",
+            "되라,",
+            "이상!"
+        ],
+        "timemark": [
+            0.6,
+            0.98,
+            1.4,
+            2.5
+        ],
+        "voicingTime": 2.5,
+        "audiofile": "MOB004.m4a",
+        "youtubeid": "4tcPgxb_ulc",
+        "start": 77,
+        "end": 118
+    },
+    {
+        "anime": "모브 사이코 100",
+        "season": "3기",
+        "episode": 12,
+        "character": "레이겐 아라타카",
+        "japanese": [
+            "俺は",
+            "俺にはな",
+            "霊能力も",
+            "超能力も",
+            "何の力も",
+            "ないんだ！"
+        ],
+        "pronunciation": [
+            "오레와",
+            "오레니와나",
+            "레-노-료쿠모",
+            "초-노-료쿠모",
+            "난노치카라모",
+            "나인다!"
+        ],
+        "korean": [
+            "나는",
+            "나에게는",
+            "영능력도",
+            "초능력도",
+            "아무런 힘도",
+            "없어!"
+        ],
+        "timemark": [
+            0.35,
+            1.46,
+            2.9,
+            4.2,
+            5.83,
+            6.8
+        ],
+        "voicingTime": 6.8,
+        "audiofile": "MOB005.m4a",
+        "youtubeid": "ZdS0tSkPNF0",
+        "start": 153,
+        "end": 209
+    },
+    {
         "anime": "주술회전",
         "season": "1기",
         "episode": 7,
         "character": "고죠 사토루",
-        "japanese": ["生きるという", "行為に", "無限回の", "作業を", "強制する"],
-        "pronunciation": ["이키루토유우", "코오이니", "무겐카이노", "사교오오", "쿄오세에스루"],
-        "korean": ["살아있다는", "행위에", "무한 번의", "작업을", "강제한다."],
-        "timemark": [0.01, 1.07, 1.87, 2.50, 3.37],
-        "voicingTime": 4.4,
+        "japanese": [
+            "生きるという",
+            "行為に",
+            "無限回の",
+            "作業を",
+            "強制する"
+        ],
+        "pronunciation": [
+            "이키루토유우",
+            "코오이니",
+            "무겐카이노",
+            "사교오오",
+            "쿄오세에스루"
+        ],
+        "korean": [
+            "살아있다는",
+            "행위에",
+            "무한 번의",
+            "작업을",
+            "강제한다"
+        ],
+        "timemark": [
+            0.15,
+            0.95,
+            1.68,
+            2.4,
+            3.48
+        ],
+        "voicingTime": 3.48,
         "audiofile": "JUJ001.m4a",
         "youtubeid": "MyNQPt9N2as",
         "start": 115,
@@ -16,14 +351,34 @@
     },
     {
         "anime": "주술회전",
-        "season": "극장판: 0",
+        "season": "극장판",
         "episode": 0,
         "character": "고죠 사토루",
-        "japanese": ["何か", "言い残す", "ことは", "あるか"],
-        "pronunciation": ["나니카", "이이노코스", "코토와", "아루카."],
-        "korean": ["뭐라도", "남길", "말은", "있나"],
-        "timemark": [0.01, 1.20, 2.05, 2.2],
-        "voicingTime": 2.7,
+        "japanese": [
+            "何か",
+            "言い残す",
+            "ことは",
+            "あるか"
+        ],
+        "pronunciation": [
+            "나니카",
+            "이이노코스",
+            "코토와",
+            "아루카"
+        ],
+        "korean": [
+            "뭐라도",
+            "남길",
+            "말은",
+            "있나"
+        ],
+        "timemark": [
+            0.35,
+            0.85,
+            1.6,
+            1.94
+        ],
+        "voicingTime": 1.94,
         "audiofile": "JUJ002.m4a",
         "youtubeid": "MyNQPt9N2as",
         "start": 310,
@@ -31,14 +386,38 @@
     },
     {
         "anime": "주술회전",
-        "season": "2기",
+        "season": "2기: 회옥·옥절 / 시부야 사변",
         "episode": 28,
         "character": "고죠 사토루",
-        "japanese": ["今は", "ただただ", "この", "世界が", "心地いい"],
-        "pronunciation": ["이마와", "타다타다", "코노", "세카이가", "코코치이이"],
-        "korean": ["지금은", "그저 한없이", "이", "세상이", "포근해."],
-        "timemark": [0.01, 0.68, 2.0, 2.5, 3.7],
-        "voicingTime": 4.4,
+        "japanese": [
+            "今は",
+            "ただただ",
+            "この",
+            "世界が",
+            "心地いい"
+        ],
+        "pronunciation": [
+            "이마와",
+            "타다타다",
+            "코노",
+            "세카이가",
+            "코코치이이"
+        ],
+        "korean": [
+            "지금은",
+            "그저 한 없이",
+            "이",
+            "세상이",
+            "포근해"
+        ],
+        "timemark": [
+            0.37,
+            1.05,
+            2.49,
+            2.82,
+            3.31
+        ],
+        "voicingTime": 3.31,
         "audiofile": "JUJ003.m4a",
         "youtubeid": "cJVeIwP_HoQ",
         "start": 72,
@@ -49,11 +428,27 @@
         "season": "1기",
         "episode": 20,
         "character": "고죠 사토루",
-        "japanese": ["少し", "乱暴", "しようか"],
-        "pronunciation": ["스코시", "란보오", "시요오카"],
-        "korean": ["조금", "난폭한 짓을", "해볼까?"],
-        "timemark": [0.01, 0.64, 1.57],
-        "voicingTime": 1.9,
+        "japanese": [
+            "少し",
+            "乱暴",
+            "しようか"
+        ],
+        "pronunciation": [
+            "스코시",
+            "란보오",
+            "시요오카"
+        ],
+        "korean": [
+            "조금",
+            "난폭한 짓을",
+            "해볼까?"
+        ],
+        "timemark": [
+            0.5,
+            1.35,
+            2
+        ],
+        "voicingTime": 2,
         "audiofile": "JUJ004.m4a",
         "youtubeid": "TJj_pmVPi54",
         "start": 23,
@@ -61,92 +456,878 @@
     },
     {
         "anime": "주술회전",
-        "season": "2기",
+        "season": "2기: 회옥·옥절 / 시부야 사변",
         "episode": 28,
         "character": "고죠 사토루",
-        "japanese": ["天上天下", "唯我独尊"],
-        "pronunciation": ["텐조오텐게", "유이가도쿠손"],
-        "korean": ["천상천하", "유아독존"],
-        "timemark": [0.01, 1.6],
-        "voicingTime": 2.0,
+        "japanese": [
+            "天上天下",
+            "唯我独尊"
+        ],
+        "pronunciation": [
+            "텐조오텐게",
+            "유이가도쿠손"
+        ],
+        "korean": [
+            "천상천하",
+            "유아독존"
+        ],
+        "timemark": [
+            0.57,
+            1.81
+        ],
+        "voicingTime": 1.81,
         "audiofile": "JUJ005.m4a",
         "youtubeid": "cJVeIwP_HoQ",
         "start": 90,
         "end": 115
     },
     {
+        "anime": "주술회전",
+        "season": "1기",
+        "episode": 1,
+        "character": "이타도리 유지",
+        "japanese": [
+            "こっちは",
+            "こっちで",
+            "めんどくせん",
+            "呪い",
+            "引っかかってんだわ"
+        ],
+        "pronunciation": [
+            "콧치와",
+            "콧치데",
+            "멘도쿠세",
+            "노로이",
+            "힛카캇텐다와"
+        ],
+        "korean": [
+            "이쪽은",
+            "\b이쪽대로",
+            "성가신",
+            "저주에",
+            "걸려있거든"
+        ],
+        "timemark": [
+            0.3,
+            0.8,
+            1.7,
+            2.45,
+            2.7
+        ],
+        "voicingTime": 2.7,
+        "audiofile": "JUJ006.m4a",
+        "youtubeid": "yKgAN7OzXtE",
+        "start": 70,
+        "end": 90
+    },
+    {
+        "anime": "주술회전",
+        "season": "1기",
+        "episode": 2,
+        "character": "이타도리 유지",
+        "japanese": [
+            "生き様で",
+            "後悔はした",
+            "したくない"
+        ],
+        "pronunciation": [
+            "이키자마데",
+            "코오카이와",
+            "시타쿠 나이"
+        ],
+        "korean": [
+            "살면서",
+            "후회는",
+            "하고싶지 않아요"
+        ],
+        "timemark": [
+            0.27,
+            0.99,
+            1.71
+        ],
+        "voicingTime": 1.71,
+        "audiofile": "JUJ007.m4a",
+        "youtubeid": "T0cQp-bUWd4",
+        "start": 125,
+        "end": 170
+    },
+    {
+        "anime": "주술회전",
+        "season": "1기",
+        "episode": 5,
+        "character": "후시구로 메구미",
+        "japanese": [
+            "だから",
+            "お前を",
+            "助けたことを",
+            "一度だって",
+            "後悔したことは ",
+            "ない"
+        ],
+        "pronunciation": [
+            "다카라",
+            "오마에오",
+            "타스케타 코토오",
+            "이치도닷테",
+            "코오카이시타 코토와",
+            "나이"
+        ],
+        "korean": [
+            "그래서",
+            "너를",
+            "구했던 걸",
+            "한 번도",
+            "후회한 적은",
+            "없었어"
+        ],
+        "timemark": [
+            0.39,
+            0.9,
+            1.29,
+            2.58,
+            3.52,
+            4.3
+        ],
+        "voicingTime": 4.3,
+        "audiofile": "JUJ008.m4a",
+        "youtubeid": "pZ6FwnnpC1s",
+        "start": 143,
+        "end": 180
+    },
+    {
+        "anime": "주술회전",
+        "season": "2기: 회옥·옥절 / 시부야 사변",
+        "episode": 17,
+        "character": "후시구로 메구미",
+        "japanese": [
+            "おい",
+            "クソ野郎",
+            "先に",
+            "行く"
+        ],
+        "pronunciation": [
+            "오이",
+            "쿠소야로오",
+            "사키니",
+            "이쿠"
+        ],
+        "korean": [
+            "어이",
+            "쓰레기자식아",
+            "먼저",
+            "간다"
+        ],
+        "timemark": [
+            0.3,
+            0.92,
+            2.41,
+            3.18
+        ],
+        "voicingTime": 3.18,
+        "audiofile": "JUJ009.m4a",
+        "youtubeid": "hje0Yo378FY",
+        "start": 0,
+        "end": 37
+    },
+    {
+        "anime": "주술회전",
+        "season": "극장판",
+        "episode": 0,
+        "character": "옷코츠 유타",
+        "japanese": [
+            "失礼だなあ",
+            "純愛だよ"
+        ],
+        "pronunciation": [
+            "시츠레에다나아",
+            "쥰아이다요"
+        ],
+        "korean": [
+            "무례하긴",
+            "순애야"
+        ],
+        "timemark": [
+            0.4,
+            1.75
+        ],
+        "voicingTime": 1.75,
+        "audiofile": "JUJ010.m4a",
+        "youtubeid": "zMhlqbGqeP4",
+        "start": 0,
+        "end": 5
+    },
+    {
+        "anime": "주술회전",
+        "season": "극장판",
+        "episode": 0,
+        "character": "옷코츠 유타",
+        "japanese": [
+            "蝶よりも",
+            "花よりも",
+            "丁重に",
+            "扱い"
+        ],
+        "pronunciation": [
+            "초오요리모",
+            "하나요리모",
+            "테에초오니",
+            "아츠카이"
+        ],
+        "korean": [
+            "나비보다",
+            "꽃보다",
+            "정중하게",
+            "대해줘"
+        ],
+        "timemark": [
+            0.3,
+            1.02,
+            2.35,
+            3.1
+        ],
+        "voicingTime": 3.1,
+        "audiofile": "JUJ011.m4a",
+        "youtubeid": "tfuBNmah5YY",
+        "start": 0,
+        "end": 5
+    },
+    {
+        "anime": "최애의 아이",
+        "season": "1기",
+        "episode": 1,
+        "character": "호시노 아이",
+        "japanese": [
+            "私は",
+            "嘘で",
+            "できてるし"
+        ],
+        "pronunciation": [
+            "와타시와",
+            "우소데",
+            "데키테루시"
+        ],
+        "korean": [
+            "난",
+            "거짓말로",
+            "이루어져 있으니까"
+        ],
+        "timemark": [
+            0.01,
+            1.1,
+            1.5
+        ],
+        "voicingTime": 1.5,
+        "audiofile": "OSH001.m4a",
+        "youtubeid": "KLHr7IicWcM",
+        "start": 75,
+        "end": 135
+    },
+    {
+        "anime": "최애의 아이",
+        "season": "1기",
+        "episode": 1,
+        "character": "호시노 아이",
+        "japanese": [
+            "今だって",
+            "君のこと",
+            "愛したいって",
+            "思ってる"
+        ],
+        "pronunciation": [
+            "이마닷테",
+            "키미노 코토",
+            "아이시타잇테",
+            "오못테루"
+        ],
+        "korean": [
+            "지금도",
+            "널",
+            "사랑하고싶다고",
+            "생각해"
+        ],
+        "timemark": [
+            0.01,
+            1.2,
+            2.2,
+            3
+        ],
+        "voicingTime": 3,
+        "audiofile": "OSH002.m4a",
+        "youtubeid": "P_NrEP-uDvA",
+        "start": 28,
+        "end": 70
+    },
+    {
+        "anime": "최애의 아이",
+        "season": "1기",
+        "episode": 1,
+        "character": "호시노 아이",
+        "japanese": [
+            "嘘は",
+            "とびきりの",
+            "愛なんだよ"
+        ],
+        "pronunciation": [
+            "우소와",
+            "토비키리노",
+            "아이난다요"
+        ],
+        "korean": [
+            "거짓말은",
+            "최고의",
+            "사랑이거든"
+        ],
+        "timemark": [
+            0.01,
+            0.5,
+            1.2
+        ],
+        "voicingTime": 1.2,
+        "audiofile": "OSH003.m4a",
+        "youtubeid": "Za-zMAsAaeU",
+        "start": 150,
+        "end": 206
+    },
+    {
+        "anime": "최애의 아이",
+        "season": "1기",
+        "episode": 1,
+        "character": "호시노 아이",
+        "japanese": [
+            "だから",
+            "私は",
+            "今日も",
+            "嘘を つく",
+            "嘘が",
+            "本当に",
+            "なることを",
+            "信じて"
+        ],
+        "pronunciation": [
+            "다카라",
+            "와타시와",
+            "쿄오모",
+            "우소오 츠쿠",
+            "우소가",
+            "혼토오니",
+            "나루 코토오",
+            "신지테"
+        ],
+        "korean": [
+            "그래서",
+            "나는",
+            "오늘도",
+            "거짓말을 한다.",
+            "거짓말이",
+            "진짜가",
+            "될 거라",
+            "믿고"
+        ],
+        "timemark": [
+            0.01,
+            0.05,
+            1.3,
+            1.7,
+            2.7,
+            3.3,
+            3.8,
+            4.4
+        ],
+        "voicingTime": 4.4,
+        "audiofile": "OSH004.m4a",
+        "youtubeid": "Za-zMAsAaeU",
+        "start": 990,
+        "end": 1055
+    },
+    {
+        "anime": "최애의 아이",
+        "season": "1기",
+        "episode": 1,
+        "character": "호시노 아이",
+        "japanese": [
+            "この",
+            "言葉は",
+            "絶対",
+            "嘘じゃ",
+            "ない"
+        ],
+        "pronunciation": [
+            "코노",
+            "코토바와",
+            "젯타이",
+            "우소쟈",
+            "나이"
+        ],
+        "korean": [
+            "이",
+            "말은",
+            "절대",
+            "거짓말이",
+            "아니야"
+        ],
+        "timemark": [
+            0.01,
+            0.05,
+            1.1,
+            1.9,
+            2.6
+        ],
+        "voicingTime": 2.6,
+        "audiofile": "OSH005.m4a",
+        "youtubeid": "P_NrEP-uDvA",
+        "start": 118,
+        "end": 150
+    },
+    {
+        "anime": "최애의 아이",
+        "season": "1기",
+        "episode": 3,
+        "character": "아리마 카나",
+        "japanese": [
+            "本当に",
+            "続けてきて",
+            "良かったって",
+            "思った"
+        ],
+        "pronunciation": [
+            "혼토오니",
+            "츠즈케테키테",
+            "요캇탓테",
+            "오못타"
+        ],
+        "korean": [
+            "정말로",
+            "계속 해오길",
+            "잘했다고",
+            "생각했어"
+        ],
+        "timemark": [
+            0.01,
+            0.9,
+            1.6,
+            2.4
+        ],
+        "voicingTime": 2.4,
+        "audiofile": "OSH006.m4a",
+        "youtubeid": "_W--OfyOU0Q",
+        "start": 118,
+        "end": 165
+    },
+    {
+        "anime": "최애의 아이",
+        "season": "1기",
+        "episode": 10,
+        "character": "아리마 카나",
+        "japanese": [
+            "いたんだ",
+            "今の",
+            "私に",
+            "ファン"
+        ],
+        "pronunciation": [
+            "잇탄다",
+            "이마노",
+            "와타시니",
+            "퐌"
+        ],
+        "korean": [
+            "있었군요?",
+            "지금의",
+            "저한테도",
+            "팬이"
+        ],
+        "timemark": [
+            0.01,
+            0.8,
+            1.4,
+            1.8
+        ],
+        "voicingTime": 1.8,
+        "audiofile": "OSH007.m4a",
+        "youtubeid": "Up0pgG3MQfE",
+        "start": 55,
+        "end": 93
+    },
+    {
+        "anime": "최애의 아이",
+        "season": "1기",
+        "episode": 11,
+        "character": "아리마 카나",
+        "japanese": [
+            "あんたの",
+            "推しの子に",
+            "なってやる"
+        ],
+        "pronunciation": [
+            "안타노",
+            "오시노코니",
+            "낫테야루"
+        ],
+        "korean": [
+            "너의",
+            "최애가",
+            "되고말거야"
+        ],
+        "timemark": [
+            0.01,
+            0.6,
+            1.4
+        ],
+        "voicingTime": 1.4,
+        "audiofile": "OSH008.m4a",
+        "youtubeid": "SXeQyIGaQaM",
+        "start": 70,
+        "end": 130
+    },
+    {
+        "anime": "최애의 아이",
+        "season": "2기",
+        "episode": 5,
+        "character": "아리마 카나",
+        "japanese": [
+            "私は",
+            "あの子に",
+            "演技で",
+            "負けてるなんて",
+            "一度も",
+            "思ったこと",
+            "ないから"
+        ],
+        "pronunciation": [
+            "와타시와",
+            "아노코니",
+            "엔기데",
+            "마케테루난테",
+            "이치도모",
+            "오못타코토",
+            "나이카라"
+        ],
+        "korean": [
+            "난",
+            "쟤한테",
+            "연기에서",
+            "밀린다고는",
+            "한 번도",
+            "생각해본 적이",
+            "없거든"
+        ],
+        "timemark": [
+            0.01,
+            0.6,
+            1.1,
+            1.6,
+            2.7,
+            3.5,
+            4.1
+        ],
+        "voicingTime": 4.1,
+        "audiofile": "OSH009.m4a",
+        "youtubeid": "Wru8bvDhHk8",
+        "start": 0,
+        "end": 37
+    },
+    {
         "anime": "봇치 더 록!",
-        "season": "1",
+        "season": "1기",
         "episode": 1,
         "character": "고토 히토리",
-        "japanese": ["でも", "これから", "楽しい", "ことが", "たくさん", "待っている", "気がする"],
-        "pronunciation": ["데모", "코레카라", "타노시이", "코토가", "타쿠산", "맛테이루", "키가스루"],
-        "korean": ["하지만", "앞으로", "즐거운", "일들이", "잔뜩", "기다리고", "있는 것 같아"],
-        "timemark": [0.4, 1.3, 1.7, 2.3, 2.7, 3.3, 3.8],
-        "voicingTime": 4.5,
-        "audiofile": "BTR001.m4a",
+        "japanese": [
+            "でも",
+            "これから",
+            "楽しい",
+            "ことが",
+            "たくさん",
+            "待っている",
+            "気がする"
+        ],
+        "pronunciation": [
+            "데모",
+            "코레카라",
+            "타노시이",
+            "코토가",
+            "타쿠산",
+            "맛테이루",
+            "키가스루"
+        ],
+        "korean": [
+            "하지만",
+            "앞으로",
+            "즐거운",
+            "일들이",
+            "잔뜩",
+            "기다리고",
+            "있는 것 같아"
+        ],
+        "timemark": [
+            0.2,
+            0.66,
+            1.6,
+            2,
+            2.06,
+            2.5,
+            2.9
+        ],
+        "voicingTime": 2.9,
+        "audiofile": "BOT001.m4a",
         "youtubeid": "zflEdeZDKi0",
         "start": 120,
         "end": 140
     },
     {
         "anime": "봇치 더 록!",
-        "season": "1",
+        "season": "1기",
         "episode": 4,
         "character": "고토 히토리",
-        "japanese": ["明るい", "人間に", "成りきるんだ"],
-        "pronunciation": ["아카루이", "닌겐니", "나리키룬다"],
-        "korean": ["밝은", "사람이", "되는 거야"],
-        "timemark": [0.1, 0.6, 1.1],
-        "voicingTime": 1.5,
-        "audiofile": "BTR002.m4a",
+        "japanese": [
+            "明るい",
+            "人間に",
+            "成りきるんだ"
+        ],
+        "pronunciation": [
+            "아카루이",
+            "닌겐니",
+            "나리키룬다"
+        ],
+        "korean": [
+            "밝은",
+            "사람이",
+            "되는거야"
+        ],
+        "timemark": [
+            0.2,
+            0.7,
+            1.3
+        ],
+        "voicingTime": 1.3,
+        "audiofile": "BOT002.m4a",
         "youtubeid": "8iHzI04HNf8",
         "start": 40,
         "end": 60
     },
     {
         "anime": "봇치 더 록!",
-        "season": "1",
+        "season": "1기",
         "episode": 5,
         "character": "고토 히토리",
-        "japanese": ["でも", "それは", "私だけ", "じゃない"],
-        "pronunciation": ["데모", "소레와", "와타시다케", "쟈나이"],
-        "korean": ["하지만", "그건", "나 혼자서가", "아니야"],
-        "timemark": [0.1, 0.4, 1.8, 2.4],
-        "voicingTime": 2.9,
-        "audiofile": "BTR003.m4a",
-        "youtubeid": "6gQGHGpoBm4",
+        "japanese": [
+            "でも",
+            "それは",
+            "私だけ",
+            "じゃない"
+        ],
+        "pronunciation": [
+            "데모",
+            "소레와",
+            "와타시다케",
+            "쟈나이"
+        ],
+        "korean": [
+            "하지만",
+            "그건",
+            "나 혼자서가",
+            "아니야"
+        ],
+        "timemark": [
+            0.1,
+            0.4,
+            1.5,
+            2.1
+        ],
+        "voicingTime": 2.1,
+        "audiofile": "BOT003.m4a",
+        "youtubeid": "gQGHGpoBm4",
         "start": 60,
         "end": 90
     },
     {
         "anime": "봇치 더 록!",
-        "season": "1",
+        "season": "1기",
         "episode": 5,
         "character": "고토 히토리",
-        "japanese": ["バンドを", "し続け", "たい"],
-        "pronunciation": ["반도오", "시츠즈케", "타이"],
-        "korean": ["밴드를", "계속하고", "싶어"],
-        "timemark": [0.3, 0.7, 1.3],
-        "voicingTime": 1.5,
-        "audiofile": "BTR004.m4a",
+        "japanese": [
+            "バンドを",
+            "し続け",
+            "たい"
+        ],
+        "pronunciation": [
+            "반도오",
+            "시츠즈케",
+            "타이"
+        ],
+        "korean": [
+            "밴드를",
+            "계속하고",
+            "싶어"
+        ],
+        "timemark": [
+            0.1,
+            0.5,
+            1
+        ],
+        "voicingTime": 1,
+        "audiofile": "BOT004.m4a",
         "youtubeid": "6gQGHGpoBm4",
         "start": 100,
         "end": 120
     },
     {
         "anime": "봇치 더 록!",
-        "season": "1",
+        "season": "1기",
         "episode": 5,
         "character": "고토 히토리",
-        "japanese": ["このまま", "バンドを", "終わらせ", "たく", "ない"],
-        "pronunciation": ["코노마마", "반도오", "오와라세", "타쿠", "나이"],
-        "korean": ["이대로", "밴드를", "끝내고", "싶지", "않아!"],
-        "timemark": [0.2, 1.4, 1.7, 2.3, 2.6],
-        "voicingTime": 2.7,
-        "audiofile": "BTR005.m4a",
+        "japanese": [
+            "このまま",
+            "バンドを",
+            "終わらせ",
+            "たく",
+            "ない"
+        ],
+        "pronunciation": [
+            "코노마마",
+            "반도오",
+            "오와라세",
+            "타쿠",
+            "나이"
+        ],
+        "korean": [
+            "이대로",
+            "밴드를",
+            "끝내고",
+            "싶지",
+            "않아"
+        ],
+        "timemark": [
+            0.1,
+            0.7,
+            1.2,
+            1.6,
+            1.8
+        ],
+        "voicingTime": 1.8,
+        "audiofile": "BOT005.m4a",
         "youtubeid": "6gQGHGpoBm4",
         "start": 120,
         "end": 140
+    },
+    {
+        "anime": "봇치 더 록!",
+        "season": "1기",
+        "episode": 5,
+        "character": "이지치 니지카",
+        "japanese": [
+            "本当の",
+            "夢は",
+            "その",
+            "先に",
+            "あるんだけど"
+        ],
+        "pronunciation": [
+            "혼토오노",
+            "유메와",
+            "소노",
+            "사키니",
+            "아룬다케도"
+        ],
+        "korean": [
+            "진짜",
+            "꿈은",
+            "그",
+            "뒤에",
+            "있어"
+        ],
+        "timemark": [
+            0.01,
+            0.5,
+            1.1,
+            1.3,
+            1.7
+        ],
+        "voicingTime": 1.7,
+        "audiofile": "BOT006.m4a",
+        "youtubeid": "6gQGHGpoBm4",
+        "start": 1,
+        "end": 26
+    },
+    {
+        "anime": "봇치 더 록!",
+        "season": "1기",
+        "episode": 5,
+        "character": "이지치 니지카",
+        "japanese": [
+            "もし",
+            "私に",
+            "付き合わせちゃったり",
+            "してたら",
+            "ごめんね"
+        ],
+        "pronunciation": [
+            "모시",
+            "와타시니",
+            "츠키아와세챳따리",
+            "시테타라",
+            "고멘네"
+        ],
+        "korean": [
+            "만약",
+            "나에게",
+            "휘둘리고",
+            "있는거라면",
+            "미안해"
+        ],
+        "timemark": [
+            0.01,
+            0.3,
+            0.8,
+            1.8,
+            2.35
+        ],
+        "voicingTime": 2.35,
+        "audiofile": "BOT007.m4a",
+        "youtubeid": "uUUUJEXO7UY",
+        "start": 29,
+        "end": 48
+    },
+    {
+        "anime": "봇치 더 록!",
+        "season": "1기",
+        "episode": 9,
+        "character": "이지치 니지카",
+        "japanese": [
+            "じゃあ",
+            "ワタシ達の",
+            "バンドの",
+            "今後の",
+            "活躍を",
+            "お願いしないと"
+        ],
+        "pronunciation": [
+            "쟈아",
+            "와타시타치노",
+            "반도노",
+            "콘고노",
+            "카츠야쿠오",
+            "오네가이시나이토"
+        ],
+        "korean": [
+            "그럼",
+            "우리",
+            "밴드의",
+            "앞으로의",
+            "활약도",
+            "기도해야겠네"
+        ],
+        "timemark": [
+            0.01,
+            0.4,
+            1.1,
+            1.8,
+            2.4,
+            3.1
+        ],
+        "voicingTime": 3.1,
+        "audiofile": "BOT008.m4a",
+        "youtubeid": "1rb79GHvPVA",
+        "start": 87,
+        "end": 115
     }
 ]
