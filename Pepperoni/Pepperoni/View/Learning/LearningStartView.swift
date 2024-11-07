@@ -13,93 +13,72 @@ struct LearningStartView: View {
     
     @State private var currentPage = 0  // 현재 페이지를 관리할 변수
     @State var beforeFirstPlaying: Bool = true
-    
     @State private var navigateToLearning = false
     @Binding var showLearningContent: Bool
     
     var body: some View {
-        ZStack {
-            Color.lsBgBlack
-                .ignoresSafeArea()
-            VStack {
-                SpeechBubble()
-                    .fill(Color.skyBlue1)
-                    .frame(height: 340)
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 20)
-                    .overlay{
-                        VStack {
-                            if quote.pronunciation.count >= 5 {
-                                let halfIndex = quote.pronunciation.count / 2
-                                                                
-                                // 페이지 내용
-                                VStack {
-                                    if currentPage == 0 {
-                                        VStack {
-                                            highlightedText(textArray: Array(quote.pronunciation.prefix(halfIndex)), indexOffset: 0, isPronunciation: true)
-                                            highlightedText(textArray: Array(quote.japanese.prefix(halfIndex)), indexOffset: 0)
-                                                .padding(.vertical, 35)
-                                            highlightedText(textArray: Array(quote.korean.prefix(halfIndex)), indexOffset: 0)
-                                        }
-                                    } else {
-                                        VStack {
-                                            highlightedText(textArray: Array(quote.pronunciation.suffix(from: halfIndex)), indexOffset: halfIndex, isPronunciation: true)
-                                            highlightedText(textArray: Array(quote.japanese.suffix(from: halfIndex)), indexOffset: halfIndex)
-                                                .padding(.vertical, 35)
-                                            highlightedText(textArray: Array(quote.korean.suffix(from: halfIndex)), indexOffset: halfIndex)
-                                            
-                                        }
-                                    }
+        NavigationStack {
+            ZStack {
+                Color.lsBgBlack
+                    .ignoresSafeArea()
+                VStack {
+                    SpeechBubble()
+                        .fill(Color.skyBlue1)
+                        .frame(height: 340)
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 20)
+                        .overlay{
+                            VStack {
+                                if quote.pronunciation.count >= 5 {
+                                    let halfIndex = quote.pronunciation.count / 2
                                     
                                     // 페이지 내용
                                     VStack {
                                         if currentPage == 0 {
                                             VStack {
-                                                highlightedText(textArray: Array(quote.korean.prefix(halfIndex)), indexOffset: 0)
+                                                highlightedText(textArray: Array(quote.pronunciation.prefix(halfIndex)), indexOffset: 0, isPronunciation: true)
                                                 highlightedText(textArray: Array(quote.japanese.prefix(halfIndex)), indexOffset: 0)
                                                     .padding(.vertical, 35)
-                                                highlightedText(textArray: Array(quote.pronunciation.prefix(halfIndex)), indexOffset: 0, isPronunciation: true)
+                                                highlightedText(textArray: Array(quote.korean.prefix(halfIndex)), indexOffset: 0)
                                             }
                                         } else {
                                             VStack {
-                                                highlightedText(textArray: Array(quote.korean.suffix(from: halfIndex)), indexOffset: halfIndex)
+                                                highlightedText(textArray: Array(quote.pronunciation.suffix(from: halfIndex)), indexOffset: halfIndex, isPronunciation: true)
                                                 highlightedText(textArray: Array(quote.japanese.suffix(from: halfIndex)), indexOffset: halfIndex)
                                                     .padding(.vertical, 35)
-                                                highlightedText(textArray: Array(quote.pronunciation.suffix(from: halfIndex)), indexOffset: halfIndex, isPronunciation: true)
+                                                highlightedText(textArray: Array(quote.korean.suffix(from: halfIndex)), indexOffset: halfIndex)
+                                                
                                             }
-                                        }, label:{
-                                            Circle()
-                                                .fill(currentPage == 0 ? .lightGray1 : .lsButtonLightBlue)
-                                                .frame(width: 35, height: 35)
-                                                .overlay {
-                                                    Image(systemName: "play.fill")
-                                                        .foregroundStyle(currentPage == 0 ? .lightGray2 : .blue1)
-                                                        .frame(width: 23)
-                                                        .rotationEffect(.degrees(180))
-                                                }
-                                        })
-                                        .disabled(currentPage == 0)  // 첫 페이지에서는 비활성화
+                                        }
                                         
-                                        // 페이지 인디케이터
-                                        Text("\(currentPage + 1) / 2")
-                                            .font(.system(size: 26))
-                                            .bold()
-                                            .foregroundStyle(.white)
-                                            .background{
-                                                RoundedRectangle(cornerRadius: 80)
-                                                    .frame(width:78, height: 40)
-                                                    .foregroundStyle(.lsButtonLightBlue)
-                                            }
+                                        HStack {
+                                            // 이전 페이지 버튼
+                                            Button(action: {
+                                                if currentPage > 0 {
+                                                    currentPage -= 1
+                                                }
+                                            }, label:{
+                                                Circle()
+                                                    .fill(currentPage == 0 ? .lightGray1 : .lsButtonLightBlue)
+                                                    .frame(width: 35, height: 35)
+                                                    .overlay {
+                                                        Image(systemName: "play.fill")
+                                                            .foregroundStyle(currentPage == 0 ? .lightGray2 : .blue1)
+                                                            .frame(width: 23)
+                                                            .rotationEffect(.degrees(180))
+                                                    }
+                                            })
                                             .disabled(currentPage == 0)  // 첫 페이지에서는 비활성화
                                             
                                             // 페이지 인디케이터
                                             Text("\(currentPage + 1) / 2")
                                                 .font(.system(size: 26))
                                                 .bold()
+                                                .foregroundStyle(.white)
                                                 .background{
-                                                    RoundedRectangle(cornerRadius: 15)
-                                                        .frame(width:78)
-                                                        .foregroundStyle(.white)
+                                                    RoundedRectangle(cornerRadius: 80)
+                                                        .frame(width:78, height: 40)
+                                                        .foregroundStyle(.lsButtonLightBlue)
                                                 }
                                                 .padding(.horizontal)
                                             
@@ -108,93 +87,98 @@ struct LearningStartView: View {
                                                 if currentPage < 1 {
                                                     currentPage += 1
                                                 }
-                                            }) {
-                                                Image(systemName: "arrow.right")
-                                                    .foregroundColor(currentPage == 1 ? .gray : .white)
-                                                    .padding()
-                                            }
-                                        }, label:{
-                                            Circle()
-                                                .fill(currentPage == 1 ? .lightGray1 : .lsButtonLightBlue)
-                                                .frame(width: 35, height: 35)
-                                                .overlay {
-                                                    Image(systemName: "play.fill")
-                                                        .foregroundStyle(currentPage == 1 ? .lightGray2 : .blue1)
-                                                        .frame(width: 23)
-                                                }
-                                        })
-                                        .disabled(currentPage == 1)  // 마지막 페이지에서는 비활성화
+                                            }, label:{
+                                                Circle()
+                                                    .fill(currentPage == 1 ? .lightGray1 : .lsButtonLightBlue)
+                                                    .frame(width: 35, height: 35)
+                                                    .overlay {
+                                                        Image(systemName: "play.fill")
+                                                            .foregroundStyle(currentPage == 1 ? .lightGray2 : .blue1)
+                                                            .frame(width: 23)
+                                                    }
+                                            })
+                                            .disabled(currentPage == 1)  // 마지막 페이지에서는 비활성화
+                                        }
                                     }
                                     .frame(height: 340)
                                     .padding(.horizontal, 20)
                                 } else {
                                     // pronunciation 배열의 길이가 5 미만일 때 기존 방식으로 한 페이지에 표시
                                     VStack {
-                                        highlightedText(textArray: quote.korean, indexOffset: 0)
+                                        highlightedText(textArray: quote.pronunciation, indexOffset: 0, isPronunciation: true)
                                         highlightedText(textArray: quote.japanese, indexOffset: 0)
                                             .padding(.vertical, 35)
-                                        highlightedText(textArray: quote.pronunciation, indexOffset: 0, isPronunciation: true)
+                                        highlightedText(textArray: quote.korean, indexOffset: 0)
+                                        
                                     }
                                     .frame(height: 300)
                                     .padding(.horizontal, 20)
                                 }
-                                .frame(height: 340)
-                                .padding(.horizontal, 20)
-                            } else {
-                                // pronunciation 배열의 길이가 5 미만일 때 기존 방식으로 한 페이지에 표시
-                                VStack {
-                                    highlightedText(textArray: quote.pronunciation, indexOffset: 0, isPronunciation: true)
-                                    highlightedText(textArray: quote.japanese, indexOffset: 0)
-                                        .padding(.vertical, 35)
-                                    highlightedText(textArray: quote.korean, indexOffset: 0)
-                                    
-                                }
-                                .frame(height: 300)
-                                .padding(.horizontal, 20)
                             }
                         }
+                    
+                    Button(action: {
+                        audioPlayerManager.playAudio(from: quote.audiofile)
+                        beforeFirstPlaying = false
+                    }, label:{
+                        Image("Roni")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width:103)
+                            .padding(.bottom, 20)
+                    })
+                    
+                    HStack {
+                        Image(systemName: "speaker.wave.2")
+                        Text("캐릭터를 눌러 명대사를 들어보세요")
+                            .bold()
                     }
-                
-                Button(action: {
-                    audioPlayerManager.playAudio(from: quote.audiofile)
-                    beforeFirstPlaying = false
-                }, label:{
-                    Image("Roni")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width:103)
-                        .padding(.bottom, 20)
-                })
-                
-                HStack {
-                    Image(systemName: "speaker.wave.2")
-                    Text("캐릭터를 눌러 명대사를 들어보세요")
-                        .bold()
-                }
-                .foregroundStyle(.lsSoundGray)
-                .padding(.bottom, 57)
-                
-                Button(action:{
-                    Router.shared.navigate(to: .learning(quote: quote))
-                }, label:{
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(beforeFirstPlaying || audioPlayerManager.isPlaying ? Color.lightGray2 : Color.pointBlue)
-                        .strokeBorder(beforeFirstPlaying || audioPlayerManager.isPlaying ? Color.lightGray2 : Color.innerStrokeBlue, lineWidth: 3)
-                        .frame(height:60)
+                    .foregroundStyle(.lsSoundGray)
+                    .padding(.bottom, 57)
+                    
+                    Button(action:{
+                        navigateToLearning = true
+                    }, label:{
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(beforeFirstPlaying || audioPlayerManager.isPlaying ? Color.lightGray2 : Color.pointBlue)
+                            .strokeBorder(beforeFirstPlaying || audioPlayerManager.isPlaying ? Color.lightGray2 : Color.innerStrokeBlue, lineWidth: 3)
+                            .frame(height:60)
                         
-                        .padding(.horizontal, 20)
-                        .overlay{
-                            HStack {
-                                Text("명대사 말하기")
-                                    .bold()
-                                Image(systemName: "play.fill")
+                            .padding(.horizontal, 20)
+                            .overlay{
+                                HStack {
+                                    Text("명대사 말하기")
+                                        .bold()
+                                    Image(systemName: "play.fill")
+                                }
+                                .foregroundStyle(beforeFirstPlaying || audioPlayerManager.isPlaying ? .lightGray1 : .white)
+                                .opacity(beforeFirstPlaying || audioPlayerManager.isPlaying ? 0.3 : 1)
+                                .font(.system(size: 20))
                             }
-                            .foregroundStyle(beforeFirstPlaying || audioPlayerManager.isPlaying ? .lightGray1 : .white)
-                            .opacity(beforeFirstPlaying || audioPlayerManager.isPlaying ? 0.3 : 1)
-                            .font(.system(size: 20))
-                        }
-                })
-                .disabled(beforeFirstPlaying || audioPlayerManager.isPlaying)
+                    })
+                    .disabled(beforeFirstPlaying || audioPlayerManager.isPlaying)
+                }
+            }
+            .onReceive(audioPlayerManager.$currentTime) { currentTime in
+                let halfIndex = quote.pronunciation.count / 2
+                updatePageBasedOnCurrentTime(currentTime: currentTime, halfIndex: halfIndex)
+            }
+            .navigationDestination(isPresented: $navigateToLearning) {
+                LearningView(quote: quote, showLearningContent: $showLearningContent)
+            }
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        showLearningContent = false
+                    }) {
+                        Image(systemName: "xmark")
+                            .scaledToFit()
+                            .frame(width: 25)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.black)
+                    }
+                }
             }
         }
     }
