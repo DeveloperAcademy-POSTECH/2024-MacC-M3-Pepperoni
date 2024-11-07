@@ -14,7 +14,7 @@ struct AchievementBar: View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 Rectangle()
-                    .fill(Color.darkGray)
+                    .fill(Color.gray1)
                 
                 Rectangle()
                     .fill(Color.blue1)
