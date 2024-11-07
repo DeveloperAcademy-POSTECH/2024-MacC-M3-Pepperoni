@@ -197,6 +197,7 @@ struct LearningView: View {
             }
         }
     }
+
     
     // 0에서 증가하는 타이머 시작 함수
     private func startTimer() {
@@ -238,6 +239,8 @@ struct LearningView: View {
             quote.evaluation.speedScore = 0.0
         }
         
+        quote.evaluation.intonationScore = calculateIntonation(referenceFileName: quote.audiofile, comparisonFileURL: sttManager.getFileURL())
+        
         print("원본 일본어: \(quote.japanese)")
         print("원본 속도: \(quote.voicingTime)")
         
@@ -248,15 +251,12 @@ struct LearningView: View {
         // TODO: 억양 채점이 추가되면 pass 조건 로직 수정 필요
         quote.evaluation.pronunciationPass = quote.evaluation.pronunciationScore >= 80
         quote.evaluation.speedPass = quote.evaluation.speedScore >= 80
-
-        // 발음과 속도 모두 pass일 때만 높낮이 pass
-        quote.evaluation.intonationPass = quote.evaluation.pronunciationPass && quote.evaluation.speedPass
+        quote.evaluation.intonationPass = quote.evaluation.intonationScore >= 80
         
         // 임시로 발음, 속도가 모두 80점이 넘었다면 높낮이도 pass
-        // 유튜브 영상 띄우기 위함
+        // 유튜브 영상 띄우기 위함e
         //TODO: 별 3개 채웠는데 다시 시도 했을때 0점이면 억양의 별은 채워져 있음 억양추가시 수정 필요
-        if quote.evaluation.pronunciationPass && quote.evaluation.speedPass {
-            quote.evaluation.intonationPass = true
+        if quote.evaluation.pronunciationPass && quote.evaluation.speedPass && quote.evaluation.intonationPass {
             
             // 대사가 이미 별 3개를 달성한 상태가 아니라면
             if !quote.isCompleted {

@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
+import AVFoundation
+import Accelerate
 
 /// 발음 정확도를 측정합니다.
 func calculatePronunciation(original: [String], sttText: String) -> Double {
@@ -51,7 +54,7 @@ func calculateVoiceSpeed(originalLength: Double, sttVoicingTime: Double) -> Doub
 private func levenshteinDistance(_ source: String, _ target: String) -> Int {
     // target이 비어있거나 길이가 0인 경우 처리
     if target.isEmpty {
-        return source.count 
+        return source.count
     }
     
     let (sourceCount, targetCount) = (source.count, target.count)
@@ -72,4 +75,168 @@ private func levenshteinDistance(_ source: String, _ target: String) -> Int {
     }
     
     return distanceMatrix[sourceCount][targetCount]
+}
+
+// 억양 점수
+func calculateIntonation(referenceFileName: String, comparisonFileURL: URL) -> Double {
+    // 번들에서 참조 파일의 URL을 가져옴
+    guard let referenceURL = Bundle.main.url(forResource: String(referenceFileName.dropLast(4)), withExtension: "m4a") else {
+        print("참조 파일을 찾을 수 없습니다.")
+        return 0.0
+    }
+    
+    // 각 파일의 피치 데이터를 추출
+    guard let referencePitchData = extractPitchData(from: referenceURL),
+          let comparisonPitchData = extractPitchData(from: comparisonFileURL) else {
+        print("피치 데이터를 추출할 수 없습니다.")
+        return 0.0
+    }
+    
+    // 두 피치 데이터의 길이를 최소 길이로 맞추기
+    let minLength = min(referencePitchData.count, comparisonPitchData.count)
+    let truncatedReferenceData = Array(referencePitchData.prefix(minLength))
+    let truncatedComparisonData = Array(comparisonPitchData.prefix(minLength))
+    
+    // 피치 패턴의 상승/하강/유지 상태 비교
+    var matchingStates = 0
+    for i in 1..<minLength {
+        let referenceDiff = truncatedReferenceData[i] - truncatedReferenceData[i - 1]
+        let comparisonDiff = truncatedComparisonData[i] - truncatedComparisonData[i - 1]
+        
+        let referenceState = referenceDiff > 0 ? 1 : (referenceDiff < 0 ? -1 : 0)
+        let comparisonState = comparisonDiff > 0 ? 1 : (comparisonDiff < 0 ? -1 : 0)
+        
+        if referenceState == comparisonState {
+            matchingStates += 1
+        }
+    }
+    
+    // 유사도를 0~1 사이 값으로 계산
+    let similarity = Double(matchingStates) / Double(minLength - 1)
+    
+    // 점수화
+    let score: Double
+    switch similarity {
+    case 0.80...1.0:
+        score = 90 + (similarity - 0.80) / 0.20 * 10 // 80% 이상을 90~100점으로 매핑
+    case 0.60..<0.80:
+        score = 70 + (similarity - 0.60) / 0.20 * 20 // 60~80%를 70~90점으로 매핑
+    case 0.40..<0.60:
+        score = 40 + (similarity - 0.40) / 0.20 * 30 // 40~60%를 40~70점으로 매핑
+    case 0.0..<0.40:
+        score = similarity / 0.40 * 40 // 0~40%를 0~40점으로 매핑
+    default:
+        score = 0.0
+    }
+    
+    return min(100.0, score) // 점수는 최대 100으로 제한
+}
+
+
+
+/// m4a 파일에서 피치 데이터를 추출하는 함수
+func extractPitchData(from fileURL: URL) -> [CGFloat]? {
+    do {
+        let audioFile = try AVAudioFile(forReading: fileURL)
+        let format = audioFile.processingFormat
+        let frameCount = AVAudioFrameCount(audioFile.length)
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else {
+            print("PCM 버퍼 생성 실패")
+            return nil
+        }
+        
+        try audioFile.read(into: buffer)
+        
+        // `AudioManager2`에서 참조한 calculateRelativePitch 함수의 기능을 구현
+        return calculateRelativePitch(buffer: buffer)
+    } catch {
+        print("오디오 파일을 읽는 데 실패했습니다: \(error)")
+        return nil
+    }
+}
+
+/// `calculateRelativePitch` 함수 구현
+func calculateRelativePitch(buffer: AVAudioPCMBuffer) -> [CGFloat] {
+    let frameLength = buffer.frameLength
+    guard let channelData = buffer.floatChannelData else { return [] }
+
+    var pitchData: [CGFloat] = []
+    let frameDuration: Double = 0.05
+    let sampleRate = buffer.format.sampleRate
+    let frameSize = Int(Double(sampleRate) * frameDuration)
+    
+    var frameStart = 0
+    let volumeThreshold: Float = 0.03
+    let minVoiceFrequency: CGFloat = 85.0
+    let maxVoiceFrequency: CGFloat = 300.0
+    
+    while frameStart + frameSize <= frameLength {
+        let frameData = Array(UnsafeBufferPointer(start: channelData[0] + frameStart, count: frameSize))
+        let rms = calculateRMS(data: frameData)
+        var pitch: CGFloat
+        
+        if rms > volumeThreshold {
+            pitch = calculatePitch(data: frameData, sampleRate: Float(sampleRate))
+            
+            if pitch < minVoiceFrequency || pitch > maxVoiceFrequency {
+                pitch = pitchData.last ?? 0
+            }
+        } else {
+            pitch = pitchData.last ?? 0
+        }
+        
+        if pitchData.isEmpty {
+            pitchData.append(0)
+        } else {
+            pitchData.append(pitch - pitchData.first!)
+        }
+        
+        frameStart += frameSize
+    }
+    
+    return pitchData
+}
+
+/// RMS 계산 함수
+func calculateRMS(data: [Float]) -> Float {
+    let squareSum = data.reduce(0) { $0 + $1 * $1 }
+    return sqrt(squareSum / Float(data.count))
+}
+
+/// 피치 계산 함수
+func calculatePitch(data: [Float], sampleRate: Float) -> CGFloat {
+    let originalCount = data.count
+    let log2n = vDSP_Length(log2(Float(8192)).rounded(.up))
+    let fftSize = Int(1 << log2n)
+    
+    var paddedData = data
+    if originalCount < fftSize {
+        paddedData.append(contentsOf: [Float](repeating: 0, count: fftSize - originalCount))
+    }
+    
+    guard let fftSetup = vDSP_create_fftsetup(log2n, FFTRadix(kFFTRadix2)) else {
+        return 0.0
+    }
+    
+    var frequency: CGFloat = 0.0
+    var realParts = paddedData
+    var imaginaryParts = [Float](repeating: 0.0, count: fftSize)
+    
+    realParts.withUnsafeMutableBufferPointer { realPointer in
+        imaginaryParts.withUnsafeMutableBufferPointer { imaginaryPointer in
+            var splitComplex = DSPSplitComplex(realp: realPointer.baseAddress!, imagp: imaginaryPointer.baseAddress!)
+            vDSP_fft_zip(fftSetup, &splitComplex, 1, log2n, FFTDirection(FFT_FORWARD))
+            
+            var magnitudes = [Float](repeating: 0.0, count: fftSize / 2)
+            vDSP_zvmags(&splitComplex, 1, &magnitudes, 1, vDSP_Length(fftSize / 2))
+            
+            if let maxMagnitude = magnitudes.max(), maxMagnitude > 0 {
+                let maxIndex = magnitudes.firstIndex(of: maxMagnitude) ?? 0
+                frequency = CGFloat(Float(maxIndex) * sampleRate / Float(fftSize))
+            }
+        }
+    }
+    
+    vDSP_destroy_fftsetup(fftSetup)
+    return frequency
 }
