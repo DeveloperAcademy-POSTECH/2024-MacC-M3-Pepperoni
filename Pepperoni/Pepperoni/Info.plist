@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>이 앱은 음성 인식을 위해 마이크에 접근합니다.</string>
+	<string>이 앱은 정확한 음성 비교를 위해 음성 인식 기능을 사용합니다.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>이 앱은 음성 인식을 위해 마이크에 접근합니다.</string>
+	<string>이 앱은 음성 녹음을 위해 마이크에 접근합니다.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>이 앱은 사진 등록을 위해 앨범에 접근합니다.</string>
 </dict>

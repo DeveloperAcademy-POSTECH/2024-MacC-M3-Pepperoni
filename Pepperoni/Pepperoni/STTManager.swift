@@ -34,11 +34,6 @@ class STTManager: ObservableObject {
         guard let recognitionRequest = recognitionRequest else { return }
         recognitionRequest.shouldReportPartialResults = true
         
-        // iOS13 이상에서 On-Device Speech Recognition을 강제합니다.
-        if #available(iOS 13, *) {
-            recognitionRequest.requiresOnDeviceRecognition = true
-        }
-        
         let inputNode = audioEngine.inputNode
         let recordingFormat = inputNode.outputFormat(forBus: 0)
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, _) in
