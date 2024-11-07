@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "topAnimeCard.png",
+      "filename" : "TopAnime2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "topAnimeCard@2x.png",
+      "filename" : "TopAnime2@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "topAnimeCard@3x.png",
+      "filename" : "TopAnime2@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
