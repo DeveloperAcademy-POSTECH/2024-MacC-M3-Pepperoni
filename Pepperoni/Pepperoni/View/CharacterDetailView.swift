@@ -8,7 +8,6 @@
 import SwiftUI
 import SwiftData
 import AVFoundation
-import SwiftData
 import Speech
 
 struct CharacterDetailView: View {
@@ -363,8 +362,9 @@ struct QuoteListView: View {
                     .frame(height: itemHeight)
                     .padding(.vertical, index == selectedIndex ? 26 : 10)
                     .onTapGesture {
-                        showLearningContent = true
                         selectedIndex = index
+                        showLearningContent = true
+                        
                         // 마이크 권한 요청
                         AVAudioSession.sharedInstance().requestRecordPermission { granted in
                             if granted {
