@@ -222,7 +222,6 @@ struct CharacterRowInHome: View {
                     .fill(Color.blue1)
                     .frame(width: geometry.size.width * ratio, height: 68)
                     .cornerRadius(20)
-                    .padding(.bottom, 0)
                 
                 HStack {
                     Text("\(character.completedQuotes) / \(character.quotes.count)")

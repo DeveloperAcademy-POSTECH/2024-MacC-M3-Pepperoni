@@ -12,14 +12,14 @@ struct AnimeListView: View {
     @Query var allAnimes: [Anime]
     
     private var favoriteAnimes: [Anime] {
-          // favorite이 true인 애니메이션만 필터링
-          return allAnimes.filter { $0.favorite }
-      }
+        // favorite이 true인 애니메이션만 필터링
+        return allAnimes.filter { $0.favorite }
+    }
     
     // top: 일단 첫번째 애니메이션으로 설정
     private var topAnime: Anime {
         return allAnimes.first ?? Anime(title: " ")
-      }
+    }
     
     @State private var text = ""
     @State private var isSearchViewActive: Bool = false
