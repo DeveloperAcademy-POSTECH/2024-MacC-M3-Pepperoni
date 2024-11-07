@@ -9,6 +9,15 @@ import SwiftUI
 
 struct CharacterListView: View {
     let anime: Anime
+    
+    var sortedCharacters: [Character] {
+        anime.characters.sorted {
+            if $0.favorite == $1.favorite {
+                return $0.name < $1.name
+            }
+            return $0.favorite && !$1.favorite
+        }
+    }
 
     var body: some View {
         VStack {
@@ -27,7 +36,7 @@ struct CharacterListView: View {
             .background(Color.gray2)
             
             // -MARK: 캐릭터 리스트
-            List(anime.characters, id: \.id) { character in
+            List(sortedCharacters, id: \.id) { character in
                 Button {
                     Router.shared.navigate(to: .characterDetail(character: character))
                 } label: {

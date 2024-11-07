@@ -55,6 +55,8 @@ class Character {
 @Model
 class AnimeQuote {
     @Attribute(.unique) var id: UUID
+    var season: String
+    var episode: Int
     var japanese: [String] // 대사 일본어 배열
     var pronunciation: [String] // 대사 발음 배열
     var korean: [String] // 대사 한국어 번역 배열
@@ -70,8 +72,10 @@ class AnimeQuote {
     // AnimeQuote가 속한 Character를 나타내기 위한 관계
     @Relationship(deleteRule: .nullify, inverse: \Character.quotes) var character: Character?
 
-    init(id: UUID = UUID(), japanese: [String], pronunciation: [String], korean: [String], evaluation: Evaluation, timemark: [Double], voicingTime: Double, audiofile: String, character: Character? = nil, isCompleted: Bool = false, youtubeID: String, youtubeStartTime: Int, youtubeEndTime: Int) {
+    init(id: UUID = UUID(), season: String, episode: Int, japanese: [String], pronunciation: [String], korean: [String], evaluation: Evaluation, timemark: [Double], voicingTime: Double, audiofile: String, character: Character? = nil, isCompleted: Bool = false, youtubeID: String, youtubeStartTime: Int, youtubeEndTime: Int) {
         self.id = id
+        self.season = season
+        self.episode = episode
         self.japanese = japanese
         self.pronunciation = pronunciation
         self.korean = korean

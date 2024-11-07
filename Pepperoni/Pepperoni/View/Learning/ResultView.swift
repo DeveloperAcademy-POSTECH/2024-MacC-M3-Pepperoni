@@ -153,29 +153,6 @@ struct ResultView: View {
     }
 }
 
-#Preview{
-    ResultView(quote: AnimeQuote(
-        japanese: ["このまま", "バンドを", "終わらせ", "たく", "ない"],
-        pronunciation: ["코노마마", "반도오", "오와라세", "타쿠", "나이"],
-        korean: ["이대로", "밴드를", "끝내고", "싶지", "않아!"],
-        evaluation: Evaluation(
-            pronunciationScore: 85.0,
-            pronunciationPass: true,
-            intonationScore: 90.0,
-            intonationPass: true,
-            speedScore: 80.0,
-            speedPass: true),
-        timemark: [0.2, 1.4, 1.7, 2.3, 2.6],
-        voicingTime: 2.7,
-        audiofile: "BTR005.m4a",
-        character: nil, // 특정 캐릭터 객체를 설정하려면 Character 인스턴스를 여기 추가
-        isCompleted: true,
-        youtubeID: "6gQGHGpoBm4",
-        youtubeStartTime: 120,
-        youtubeEndTime: 140
-    ), showLearningContent: .constant(true))
-}
-
 // MARK: - 민무늬 스타뷰
 // 추가적인 애니메이션 배제할 시에는 해당 코드로 다시 진행함.
 //struct StarView: View {
