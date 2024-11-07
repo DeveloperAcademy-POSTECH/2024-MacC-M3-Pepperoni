@@ -90,11 +90,11 @@ struct HomeView: View {
                 .foregroundStyle(.white)
                 .background(Color.darkGray)
                 .cornerRadius(16)
-            
+                
                 ZStack{
                     Rectangle()
                         .cornerRadius(16)
-                        .foregroundStyle(Color.skyBlue1)
+                        .foregroundStyle(Color(hex: "BAE2FF"))
                     
                     // 최애 캐릭터가 없을 때
                     if favoriteCharacters.isEmpty {
@@ -122,7 +122,7 @@ struct HomeView: View {
                         }
                         .padding(.bottom, 24)
                         
-                    //최애 캐릭터가 존재할 때
+                        //최애 캐릭터가 존재할 때
                     } else {
                         TabView{
                             ForEach(favoriteCharacters) { character in
@@ -130,55 +130,76 @@ struct HomeView: View {
                                 let completedQuotes = character.completedQuotes
                                 let ratio = totalQuotes > 0 ? CGFloat(completedQuotes) / CGFloat(totalQuotes) : 0
                                 
-                                ZStack{
+                                ZStack {
                                     RoundedRectangle(cornerRadius: 20)
                                         .foregroundStyle(Color.blueWhite)
                                     
-                                    HStack(spacing:26){
-                                        ZStack {
-                                            Rectangle()
-                                                .foregroundStyle(.lightGray2)
-                                                .frame(width: 131, height: 139)
-                                                .cornerRadius(12)
-                                            
-                                            Image(systemName: "person.fill")
-                                                .resizable()
-                                                .frame(width: 82, height: 87)
-                                                .foregroundStyle(.white)
-                                        }
-                                        
-                                        VStack{
-                                            RoundedRectangle(cornerRadius: 16)
-                                                .foregroundStyle(Color.lightGray1)
-                                                .frame(height:52)
-                                                .overlay{
-                                                    Text(character.anime?.title ?? "")
-                                                        .font(.system(size: 20, weight: .bold))
-                                                        .foregroundStyle(Color.darkGray)
+                                    VStack {
+                                        HStack {
+                                            // 캐릭터 default image
+                                            VStack{
+                                                ZStack {
+                                                    Rectangle()
+                                                        .foregroundStyle(Color(hex: "434343"))
+                                                        .frame(width: 136, height: 150)
+                                                        .cornerRadius(22)
+                                                    
+                                                    Image("DefaultCharacter")
                                                 }
+                                                Spacer()
+                                            }
                                             
-                                            Spacer()
-                                            
-                                            HStack{
-                                                Text(character.name)
-                                                    .foregroundStyle(Color.blue1)
-                                                    .font(.system(size: 20, weight: .bold))
+                                            VStack{
+                                                // 애니 이름 + 하트
+                                                HStack{
+                                                    RoundedRectangle(cornerRadius: 20)
+                                                        .foregroundStyle(.skyBlue2)
+                                                        .frame(width: 80, height:26)
+                                                        .overlay{
+                                                            Text(character.anime?.title ?? "")
+                                                                .font(.system(size: 14, weight: .medium))
+                                                                .foregroundStyle(.blue1)
+                                                        }
+                                                    
+                                                    Spacer()
+                                                    
+                                                    Image(systemName: "heart.fill")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 26)
+                                                        .foregroundColor(.blue1)
+                                                }
+                                                
+                                                Spacer()
+                                                    .frame(height: 28)
+                                                
+                                                HStack{
+                                                    Spacer()
+                                                    
+                                                    Text("캐릭터 달성률")
+                                                        .font(.system(size: 14))
+                                                    
+                                                }
                                                 
                                                 Spacer()
                                                 
-                                                Text("달성률")
-                                                    .foregroundStyle(Color.lightGray2)
-                                                    .font(.system(size: 14, weight: .bold))
+                                                CharacterRowInHome(character: character, ratio: ratio)
+                                                    .frame(height:20)
+                                                    .padding(.bottom, 12)
+                                                
+                                                HStack{
+                                                    Spacer()
+                                                    
+                                                    Text(character.name)
+                                                        .foregroundStyle(.pointBlue)
+                                                        .font(.system(size: 22, weight: .black))
+                                                }
                                             }
-                                            
-                                            CharacterRowInHome(character: character, ratio: ratio)
-                                                .frame(height:26)
-                                                .padding(.bottom, 12)
-                                            
+                                            .padding(20)
                                         }
+                                        
+                                        Spacer()
                                     }
-                                    .padding(.horizontal, 13)
-                                    .padding(.vertical, 14.5)
                                 }
                                 .frame(height: 179)
                                 .padding(.horizontal, 11.5)
@@ -243,8 +264,8 @@ struct CharacterRowInHome: View {
                     .cornerRadius(20)
                 
                 HStack {
-                    Text("\(character.completedQuotes) / \(character.quotes.count)")
                     Spacer()
+                    Text("\(character.completedQuotes) / \(character.quotes.count)")
                 }
                 .padding()
             }
