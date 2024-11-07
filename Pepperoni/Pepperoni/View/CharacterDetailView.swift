@@ -230,7 +230,7 @@ struct CharacterDetailView: View {
         }
         .fullScreenCover(isPresented: $showLearningContent) {
             if let selectedIndex = selectedIndex {
-                LearningStartView(quote: character.quotes[selectedIndex], showLearningContent: $showLearningContent)
+                LearningStartView(quote: sortedQuotes[selectedIndex], showLearningContent: $showLearningContent)
             }
         }
     }
@@ -364,7 +364,7 @@ struct QuoteListView: View {
                     .padding(.vertical, index == selectedIndex ? 26 : 10)
                     .onTapGesture {
                         showLearningContent = true
-                        
+                        selectedIndex = index
                         // 마이크 권한 요청
                         AVAudioSession.sharedInstance().requestRecordPermission { granted in
                             if granted {
