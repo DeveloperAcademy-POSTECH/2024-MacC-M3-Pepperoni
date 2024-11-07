@@ -21,13 +21,22 @@ struct AnimeListView: View {
         return allAnimes.first ?? Anime(title: " ", genre: " ")
       }
     
+    // 선택된 장르에 따라 필터링된 애니메이션 리스트
+    private var filteredAnimes: [Anime] {
+        if selectedGenre == "전체" {
+            return allAnimes
+        } else {
+            return allAnimes.filter { $0.genre == selectedGenre }
+        }
+    }
+    
     @State private var text = ""
     @State private var isSearchViewActive: Bool = false
     // 선택된 장르를 저장할 상태 변수
     @State private var selectedGenre: String? = "전체"
     // 장르 배열
-    let genres = ["전체", "로맨스", "액션", "힐링", "드라마", "코미디"]
-    
+    let genres = ["전체", "판타지/액션", "일상", "추리/스릴러", "이세계/판타지", "스포츠", "드라마", "액션/SF", "로맨스"]
+
     var body: some View {
         
         VStack(spacing: 0) {
@@ -150,7 +159,7 @@ struct AnimeListView: View {
                     .padding(.vertical, 6)
                 }
                 
-                List(allAnimes, id: \.id) { anime in
+                List(filteredAnimes, id: \.id) { anime in
                     Button {
                         Router.shared.navigate(to: .characterList(anime: anime))
                     } label: {
