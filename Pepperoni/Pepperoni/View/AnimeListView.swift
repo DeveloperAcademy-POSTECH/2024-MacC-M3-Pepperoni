@@ -54,6 +54,7 @@ struct AnimeListView: View {
             HStack{
                 BackButton(color: .black)
                     .frame(height: 40)
+                    .padding(.trailing, 12)
                 
                 SearchBar(searchText: $text)
                     .disabled(true)
@@ -63,25 +64,26 @@ struct AnimeListView: View {
             }
             .padding(.horizontal)
             
-            // -MARK: Top Anime 카드
-            ZStack(alignment: .bottomTrailing){
-                Image("topAnimeCard")
-                
-                HStack {
-                    Spacer()
-                    
-                    Text("\(topAnime.title)")
-                        .font(.title)
-                        .fontWeight(.black)
-                        .foregroundStyle(.white)
-                        .padding(.bottom, 20)
-                        .padding(.trailing, 28)
+            TabView {
+                ForEach(Array(topAnimes.enumerated()), id: \.element.id) { index, anime in
+                    Image("TopAnime\(index + 1)")
+                        .overlay(
+                            Text(anime.title)
+                                .font(.title)
+                                .fontWeight(.black)
+                                .foregroundStyle(.white)
+                                .padding(.bottom, 32)
+                                .padding(.trailing, 28),
+                            alignment: .bottomTrailing
+                        )
+                        .onTapGesture {
+                            Router.shared.navigate(to: .characterList(anime: anime))
+                        }
                 }
             }
-            .padding()
-            .onTapGesture{
-                Router.shared.navigate(to: .characterList(anime: topAnime))
-            }
+            .frame(height: 240)
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+            .padding(.vertical)
             
             // -MARK: 핀한 애니
             VStack(spacing: 0){
