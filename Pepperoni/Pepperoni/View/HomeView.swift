@@ -104,22 +104,23 @@ struct HomeView: View {
                             .padding(.top, 20)
                             .padding(.bottom, 46)
                         
-                        VStack(spacing: 10) {
+                        VStack(spacing: 8) {
                             Image(systemName: "person.slash.fill")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 40)
                                 .foregroundColor(.lightGray2)
+                                .padding(.bottom, 9)
                             
-                            Text("설정한 최애가 없습니다")
+                            Text("[최애]에게 하트를 눌러주세요")
                                 .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(.lightGray2)
                             
-                            Text("하트를 눌러 최애를 설정해 주세요")
-                                .font(.system(size: 14))
+                            Text("하트를 누르면 캐릭터 카드가 생성됩니다")
+                                .font(.system(size: 14, weight: .bold))
                                 .foregroundColor(.lightGray2)
                         }
-                        .padding()
+                        .padding(.bottom, 24)
                         
                     //최애 캐릭터가 존재할 때
                     } else {
@@ -190,9 +191,16 @@ struct HomeView: View {
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: 245)
+                .frame(maxWidth: .infinity, minHeight: 245)
             }
             .padding()
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Text("anisentence")
+                    .fontWeight(.bold)
+                    .foregroundStyle(.gray1)
+            }
         }
         .onAppear {
             if isFirstLaunch() {
@@ -243,22 +251,5 @@ struct CharacterRowInHome: View {
             .frame(height: 26)
             .cornerRadius(20)
         }
-    }
-}
-
-struct SpeechBubbleRight: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        
-        // 말풍선 본체
-        path.addRoundedRect(in: CGRect(x: 0, y: 0, width: rect.width, height: rect.height * 0.93), cornerSize: CGSize(width: 16, height: 16))
-        
-        // 꼬리 부분
-        path.move(to: CGPoint(x: rect.width * 0.75, y: rect.height * 0.93))
-        path.addLine(to: CGPoint(x: rect.width * 0.8, y: rect.height))
-        path.addLine(to: CGPoint(x: rect.width * 0.85, y: rect.height * 0.93))
-        path.closeSubpath()
-        
-        return path
     }
 }
