@@ -56,6 +56,7 @@ struct JSONUtils {
                 for jsonItem in jsonArray {
                     let animeTitle = jsonItem["anime"] as? String ?? ""
                     let season = jsonItem["season"] as? String ?? ""
+                    let episode = jsonItem["episode"] as? Int ?? 0
                     let characterName = jsonItem["character"] as? String ?? ""
                     let japanese = jsonItem["japanese"] as? [String] ?? []
                     let pronunciation = jsonItem["pronunciation"] as? [String] ?? []
@@ -85,7 +86,7 @@ struct JSONUtils {
                     if let anime = try? modelContext.fetch(animeFetchDescriptor).first,
                        let character = anime.characters.first(where: { $0.name == characterName }) {
                         
-                        let newQuote = AnimeQuote(japanese: japanese, pronunciation: pronunciation, korean: korean, evaluation: evaluation, timemark: timemark, voicingTime: voicingTime, audiofile: audiofile, youtubeID: youtubeId, youtubeStartTime: youtubeStartTime, youtubeEndTime: youtubeEndTime)
+                        let newQuote = AnimeQuote(season: season, episode: episode, japanese: japanese, pronunciation: pronunciation, korean: korean, evaluation: evaluation, timemark: timemark, voicingTime: voicingTime, audiofile: audiofile, youtubeID: youtubeId, youtubeStartTime: youtubeStartTime, youtubeEndTime: youtubeEndTime)
                         
                         modelContext.insert(newQuote)
                         character.quotes.append(newQuote)

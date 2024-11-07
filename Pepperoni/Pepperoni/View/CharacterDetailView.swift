@@ -28,6 +28,15 @@ struct CharacterDetailView: View {
     
     @State private var showAlert: Bool = false
     
+    var sortedQuotes: [AnimeQuote] {
+        character.quotes.sorted {
+            if $0.season == $1.season {
+                return $0.episode < $1.episode
+            }
+            return $0.season < $1.season
+        }
+    }
+    
     var body: some View {
         VStack {
             ZStack {
@@ -174,7 +183,7 @@ struct CharacterDetailView: View {
                     Spacer()
                     
                     // -MARK: 대사 리스트
-                    QuoteListView(character: character, selectedIndex: $selectedIndex, showLearningContent: $showLearningContent)
+                    QuoteListView(quotes: sortedQuotes, selectedIndex: $selectedIndex, showLearningContent: $showLearningContent)
                 }
             }
             .sheet(isPresented: $showImagePicker) {
@@ -221,7 +230,7 @@ struct CharacterDetailView: View {
         }
         .fullScreenCover(isPresented: $showLearningContent) {
             if let selectedIndex = selectedIndex {
-                LearningStartView(quote: character.quotes[selectedIndex], showLearningContent: $showLearningContent)
+                LearningStartView(quote: sortedQuotes[selectedIndex], showLearningContent: $showLearningContent)
             }
         }
     }
@@ -258,7 +267,7 @@ struct CharacterDetailView: View {
 
 /// 대사 리스트 뷰
 struct QuoteListView: View {
-    let character: Character
+    let quotes: [AnimeQuote]
     @Binding var selectedIndex: Int?
     @Binding var showLearningContent: Bool
     
@@ -269,8 +278,8 @@ struct QuoteListView: View {
             LazyVStack(spacing: 0) {
                 Spacer().frame(height: itemHeight * 2.5) // 스크롤 여유 공간
                 
-                ForEach(0..<character.quotes.count, id: \.self) { index in
-                    let quote = character.quotes[index]
+                ForEach(0..<quotes.count, id: \.self) { index in
+                    let quote = quotes[index]
                     let evaluation = quote.evaluation
                     let passCount = [evaluation.pronunciationPass, evaluation.intonationPass, evaluation.speedPass].filter { $0 }.count
                     
@@ -355,7 +364,7 @@ struct QuoteListView: View {
                     .padding(.vertical, index == selectedIndex ? 26 : 10)
                     .onTapGesture {
                         showLearningContent = true
-                        
+                        selectedIndex = index
                         // 마이크 권한 요청
                         AVAudioSession.sharedInstance().requestRecordPermission { granted in
                             if granted {
