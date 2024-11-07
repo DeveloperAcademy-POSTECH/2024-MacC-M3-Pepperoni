@@ -9,26 +9,25 @@ import SwiftUI
 
 struct LearningStartView: View {
     let quote: AnimeQuote
-    
-    @State private var currentPage = 0  // 현재 페이지를 관리할 변수
-    
     @StateObject private var audioPlayerManager = AudioPlayerManager()
     
+    @State private var currentPage = 0  // 현재 페이지를 관리할 변수
     @State var beforeFirstPlaying: Bool = true
-    
     @State private var navigateToLearning = false
     @Binding var showLearningContent: Bool
+    @State private var isRoniBouncing = false
     
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.gray
+                Color.lsBgBlack
                     .ignoresSafeArea()
                 VStack {
                     SpeechBubble()
                         .fill(Color.skyBlue1)
-                        .frame(height: 340)
+                        .frame(height: 360)
                         .padding(.horizontal, 20)
+                        .padding(.bottom, 20)
                         .overlay{
                             VStack {
                                 if quote.pronunciation.count >= 5 {
@@ -38,113 +37,91 @@ struct LearningStartView: View {
                                     VStack {
                                         if currentPage == 0 {
                                             VStack {
-                                                highlightedText(textArray: Array(quote.korean.prefix(halfIndex)), indexOffset: 0)
-                                                highlightedText(textArray: Array(quote.japanese.prefix(halfIndex)), indexOffset: 0)
+                                                highlightedText(textArray: Array(quote.pronunciation.prefix(halfIndex)), indexOffset: 0, halfIndex: halfIndex, isPronunciation: true)
+                                                highlightedText(textArray: Array(quote.japanese.prefix(halfIndex)), indexOffset: 0, halfIndex: halfIndex)
                                                     .padding(.vertical, 35)
-                                                highlightedText(textArray: Array(quote.pronunciation.prefix(halfIndex)), indexOffset: 0, isPronunciation: true)
+                                                highlightedText(textArray: Array(quote.korean.prefix(halfIndex)), indexOffset: 0, halfIndex: halfIndex)
                                             }
+                                            .padding(.bottom, 20)
                                         } else {
                                             VStack {
-                                                highlightedText(textArray: Array(quote.korean.suffix(from: halfIndex)), indexOffset: halfIndex)
-                                                highlightedText(textArray: Array(quote.japanese.suffix(from: halfIndex)), indexOffset: halfIndex)
+                                                highlightedText(textArray: Array(quote.pronunciation.suffix(from: halfIndex)), indexOffset: halfIndex, halfIndex: halfIndex, isPronunciation: true)
+                                                highlightedText(textArray: Array(quote.japanese.suffix(from: halfIndex)), indexOffset: halfIndex, halfIndex: halfIndex)
                                                     .padding(.vertical, 35)
-                                                highlightedText(textArray: Array(quote.pronunciation.suffix(from: halfIndex)), indexOffset: halfIndex, isPronunciation: true)
+                                                highlightedText(textArray: Array(quote.korean.suffix(from: halfIndex)), indexOffset: halfIndex, halfIndex: halfIndex)
                                             }
-                                            
+                                            .padding(.bottom, 20)
                                         }
-                                        
-                                        HStack {
-                                            // 이전 페이지 버튼
-                                            Button(action: {
-                                                if currentPage > 0 {
-                                                    currentPage -= 1
-                                                }
-                                            }) {
-                                                Image(systemName: "arrow.left")
-                                                    .foregroundColor(currentPage == 0 ? .gray : .white)
-                                                    .padding()
-                                                
-                                            }
-                                            .disabled(currentPage == 0)  // 첫 페이지에서는 비활성화
-                                            
-                                            // 페이지 인디케이터
-                                            Text("\(currentPage + 1) / 2")
-                                                .font(.system(size: 26))
-                                                .bold()
-                                                .background{
-                                                    RoundedRectangle(cornerRadius: 15)
-                                                        .frame(width:78)
-                                                        .foregroundStyle(.white)
-                                                }
-                                                .padding(.horizontal)
-                                            
-                                            // 다음 페이지 버튼
-                                            Button(action: {
-                                                if currentPage < 1 {
-                                                    currentPage += 1
-                                                }
-                                            }) {
-                                                Image(systemName: "arrow.right")
-                                                    .foregroundColor(currentPage == 1 ? .gray : .white)
-                                                    .padding()
-                                            }
-                                            .disabled(currentPage == 1)  // 마지막 페이지에서는 비활성화
-                                        }
+                                        PageNavigationView(currentPage: $currentPage)
                                     }
                                     .frame(height: 340)
                                     .padding(.horizontal, 20)
+                                    .padding(.bottom, 30)
+                                    
                                 } else {
                                     // pronunciation 배열의 길이가 5 미만일 때 기존 방식으로 한 페이지에 표시
                                     VStack {
-                                        highlightedText(textArray: quote.korean, indexOffset: 0)
-                                        highlightedText(textArray: quote.japanese, indexOffset: 0)
+                                        highlightedText(textArray: quote.pronunciation, indexOffset: 0, halfIndex: nil, isPronunciation: true)
+                                        highlightedText(textArray: quote.japanese, indexOffset: 0, halfIndex: nil)
                                             .padding(.vertical, 35)
-                                        highlightedText(textArray: quote.pronunciation, indexOffset: 0, isPronunciation: true)
+                                        highlightedText(textArray: quote.korean, indexOffset: 0, halfIndex: nil)
                                     }
                                     .frame(height: 300)
                                     .padding(.horizontal, 20)
+                                    .padding(.bottom, 40)
                                 }
                             }
                         }
                     
-                    Image("Roni")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width:103)
-                        .padding()
-                    
-                    Button(action:{
-                        // 오디오파일 재생이 들어감
+                    Button(action: {
                         audioPlayerManager.playAudio(from: quote.audiofile)
                         beforeFirstPlaying = false
-                    }, label:{
-                        RoundedRectangle(cornerRadius: 6)
-                            .frame(height:50)
-                            .padding(.horizontal, 20)
-                            .foregroundStyle(.blue1)
-                            .overlay{
-                                HStack{
-                                    Text("명대사 듣기")
-                                    Image(systemName: "speaker.wave.2")
-                                }
-                                .foregroundStyle(.white)
+                        
+                        withAnimation(.interpolatingSpring(stiffness: 100, damping: 5)) {
+                            isRoniBouncing = true
+                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation {
+                                isRoniBouncing = false
                             }
+                        }
+                        
+                    }, label:{
+                        Image("Roni")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width:103)
+                            .scaleEffect(isRoniBouncing ? 1.2 : 1.0)
+                            .padding(.bottom, 20)
                     })
-                    .disabled(audioPlayerManager.isPlaying)
+                    
+                    HStack {
+                        Image(systemName: "speaker.wave.2")
+                        Text("캐릭터를 눌러 명대사를 들어보세요")
+                            .bold()
+                    }
+                    .foregroundStyle(.lsSoundGray)
+                    .padding(.bottom, 57)
                     
                     Button(action:{
                         navigateToLearning = true
                     }, label:{
                         RoundedRectangle(cornerRadius: 6)
+                            .fill(beforeFirstPlaying || audioPlayerManager.isPlaying ? Color.lightGray2 : Color.pointBlue)
+                            .strokeBorder(beforeFirstPlaying || audioPlayerManager.isPlaying ? Color.lightGray2 : Color.innerStrokeBlue, lineWidth: 3)
                             .frame(height:60)
-                            .foregroundStyle(beforeFirstPlaying || audioPlayerManager.isPlaying ? .gray1 : .white)
+                        
                             .padding(.horizontal, 20)
                             .overlay{
-                                Text("명대사 따라하기 시작")
-                                    .bold()
-                                    .foregroundStyle(beforeFirstPlaying || audioPlayerManager.isPlaying ? .white : .blue1)
-                                    .opacity(beforeFirstPlaying || audioPlayerManager.isPlaying ? 0.3 : 1)
-                                    .font(.system(size: 20))
+                                HStack {
+                                    Text("명대사 말하기")
+                                        .bold()
+                                    Image(systemName: "play.fill")
+                                }
+                                .foregroundStyle(beforeFirstPlaying || audioPlayerManager.isPlaying ? .lightGray1 : .white)
+                                .opacity(beforeFirstPlaying || audioPlayerManager.isPlaying ? 0.3 : 1)
+                                .font(.system(size: 20))
                             }
                     })
                     .disabled(beforeFirstPlaying || audioPlayerManager.isPlaying)
@@ -163,11 +140,9 @@ struct LearningStartView: View {
                     Button(action: {
                         showLearningContent = false
                     }) {
-                        Image(systemName: "xmark")
-                            .scaledToFit()
-                            .frame(width: 25)
+                        Text("나가기")
                             .fontWeight(.semibold)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(.blue1)
                     }
                 }
             }
@@ -183,15 +158,30 @@ struct LearningStartView: View {
         }
     }
     
-    private func highlightedText(textArray: [String], indexOffset: Int, isPronunciation: Bool = false) -> some View {
+    private func highlightedText(textArray: [String], indexOffset: Int, halfIndex: Int?, isPronunciation: Bool = false) -> some View {
         HStack {
             ForEach(textArray.indices, id: \.self) { index in
                 Text(textArray[index])
                     .font(isPronunciation ? .system(size: 20, weight: .bold) : .system(size: 26, weight: .bold))
-                    .foregroundColor(isPlayingWord(at: index + indexOffset) ? .pointBlue : .black) // 재생 중이면 빨간색으로 강조 표시
+                    .foregroundStyle(
+                        isPlayingWord(at: index + indexOffset)
+                            ? .pointBlue
+                            : (
+                                isPronunciation
+                                    ? .black
+                                    : (
+                                        (textArray == quote.korean ||
+                                         (halfIndex != nil && textArray == Array(quote.korean.prefix(halfIndex!))) ||
+                                         (halfIndex != nil && textArray == Array(quote.korean.suffix(from: halfIndex!))))
+                                            ? .lsKoreanGray
+                                            : .black
+                                    )
+                            )
+                    )
             }
         }
     }
+
     
     // 현재 재생 중인 단어인지 확인하는 함수 추가
     private func isPlayingWord(at index: Int) -> Bool {
@@ -213,19 +203,79 @@ struct LearningStartView: View {
     
 }
 
+struct PageNavigationView: View {
+    @Binding var currentPage: Int
+
+    var body: some View {
+        HStack {
+            // 이전 페이지 버튼
+            Button(action: {
+                if currentPage > 0 {
+                    currentPage -= 1
+                }
+            }) {
+                Circle()
+                    .fill(currentPage == 0 ? .lightGray1 : .lsButtonLightBlue)
+                    .frame(width: 35, height: 35)
+                    .overlay {
+                        Image(systemName: "play.fill")
+                            .foregroundStyle(currentPage == 0 ? .lightGray2 : .blue1)
+                            .frame(width: 23)
+                            .rotationEffect(.degrees(180))
+                    }
+            }
+            .disabled(currentPage == 0)
+            
+            // 페이지 인디케이터
+            Text("\(currentPage + 1) / 2")
+                .font(.system(size: 26))
+                .bold()
+                .foregroundStyle(.white)
+                .background {
+                    RoundedRectangle(cornerRadius: 80)
+                        .frame(width:78, height: 40)
+                        .foregroundStyle(.lsButtonLightBlue)
+                }
+                .padding(.horizontal)
+            
+            // 다음 페이지 버튼
+            Button(action: {
+                if currentPage < 1 {
+                    currentPage += 1
+                }
+            }) {
+                Circle()
+                    .fill(currentPage == 1 ? .lightGray1 : .lsButtonLightBlue)
+                    .frame(width: 35, height: 35)
+                    .overlay {
+                        Image(systemName: "play.fill")
+                            .foregroundStyle(currentPage == 1 ? .lightGray2 : .blue1)
+                            .frame(width: 23)
+                    }
+            }
+            .disabled(currentPage == 1)
+        }
+    }
+}
+
 struct SpeechBubble: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
         // 말풍선 본체
-        path.addRoundedRect(in: CGRect(x: 0, y: 0, width: rect.width, height: rect.height * 0.93), cornerSize: CGSize(width: 16, height: 16))
+        path.addRoundedRect(in: CGRect(x: 0, y: 0, width: rect.width, height: rect.height * 0.93), cornerSize: CGSize(width: 26, height: 26))
         
         // 꼬리 부분
-        path.move(to: CGPoint(x: rect.width * 0.45, y: rect.height * 0.93))
-        path.addLine(to: CGPoint(x: rect.width * 0.5, y: rect.height))
-        path.addLine(to: CGPoint(x: rect.width * 0.55, y: rect.height * 0.93))
-        path.closeSubpath()
+        let tailWidth: CGFloat = 34
+        let tailHeight: CGFloat = 35
+        let tailXOffset = (rect.width - tailWidth) / 2 // 꼬리 중심 정렬
+        let tailYOffset = rect.height * 0.93 // 말풍선 본체와 겹치는 지점
         
+        path.move(to: CGPoint(x: tailXOffset, y: tailYOffset))
+        path.addLine(to: CGPoint(x: tailXOffset + tailWidth, y: tailYOffset))
+        path.addLine(to: CGPoint(x: rect.midX, y: tailYOffset + tailHeight))
+        path.closeSubpath()
+                
         return path
     }
 }
