@@ -63,7 +63,8 @@ struct CharacterListView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 25, height: 25)
-                        .foregroundColor(anime.favorite ? .blue1 : .white)
+
+                        .foregroundColor(anime.favorite ? Color.blue1 : .white)
                 }
             }
         }
@@ -84,10 +85,10 @@ struct CharacterRow: View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 Rectangle()
-                    .fill(Color.lightGray2)
+                    .fill(Color.lightGray1)
                 
                 Rectangle()
-                    .fill(Color.skyBlue1)
+                    .fill(Color(hex: "A9DBFF"))
                     .frame(width: geometry.size.width * ratio, height: 68)
                     .cornerRadius(20)
                     .padding(.bottom, 0)
@@ -109,6 +110,21 @@ struct CharacterRow: View {
                                 .resizable()
                                 .frame(width: 40, height: 40)
                                 .foregroundStyle(.gray2)
+                                .overlay{
+                                    if character.favorite{
+                                        ZStack{
+                                            Image(systemName: "heart.fill")
+                                                .resizable()
+                                                .frame(width:18, height:17)
+                                                .foregroundStyle(.blue1)
+                                            Image(systemName: "heart.fill")
+                                                .resizable()
+                                                .frame(width:16, height:15)
+                                                .foregroundStyle(.pointBlue)
+                                        }
+                                        .offset(x:-14, y:-14)
+                                    }
+                                }
                         }
                     }
                     
@@ -120,17 +136,6 @@ struct CharacterRow: View {
                         .foregroundStyle(Color.gray2)
                 }
                 .padding()
-                .overlay(
-                    character.favorite ?
-                    Image(systemName: "heart.fill")
-                        .foregroundStyle(.blue1)
-                        .shadow(color: .black, radius: 0)
-                        .font(.title3)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 12)
-                        .offset(x: -10, y: 0) : nil,
-                    alignment: .topLeading
-                )
             }
             .frame(height: 68)
             .cornerRadius(20)
