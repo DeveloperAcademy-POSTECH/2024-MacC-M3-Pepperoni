@@ -29,13 +29,6 @@ struct ContentView: View {
                     case .characterDetail(let character):
                         CharacterDetailView(character: character)
                             .navigationBarBackButtonHidden(true)
-                    case .learningStart(let quote):
-                        LearningStartView(quote: quote)
-                    case .learning(let quote):
-                        LearningView(quote: quote)
-                    case .result(let quote):
-                        ResultView(quote: quote)
-                            .navigationBarBackButtonHidden(true)
                     }
                 }
         }

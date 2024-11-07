@@ -14,6 +14,9 @@ struct LearningStartView: View {
     @State private var currentPage = 0  // 현재 페이지를 관리할 변수
     @State var beforeFirstPlaying: Bool = true
     
+    @State private var navigateToLearning = false
+    @Binding var showLearningContent: Bool
+    
     var body: some View {
         ZStack {
             Color.lsBgBlack
@@ -48,11 +51,21 @@ struct LearningStartView: View {
                                         }
                                     }
                                     
-                                    HStack {
-                                        // 이전 페이지 버튼
-                                        Button(action: {
-                                            if currentPage > 0 {
-                                                currentPage -= 1
+                                    // 페이지 내용
+                                    VStack {
+                                        if currentPage == 0 {
+                                            VStack {
+                                                highlightedText(textArray: Array(quote.korean.prefix(halfIndex)), indexOffset: 0)
+                                                highlightedText(textArray: Array(quote.japanese.prefix(halfIndex)), indexOffset: 0)
+                                                    .padding(.vertical, 35)
+                                                highlightedText(textArray: Array(quote.pronunciation.prefix(halfIndex)), indexOffset: 0, isPronunciation: true)
+                                            }
+                                        } else {
+                                            VStack {
+                                                highlightedText(textArray: Array(quote.korean.suffix(from: halfIndex)), indexOffset: halfIndex)
+                                                highlightedText(textArray: Array(quote.japanese.suffix(from: halfIndex)), indexOffset: halfIndex)
+                                                    .padding(.vertical, 35)
+                                                highlightedText(textArray: Array(quote.pronunciation.suffix(from: halfIndex)), indexOffset: halfIndex, isPronunciation: true)
                                             }
                                         }, label:{
                                             Circle()
@@ -77,12 +90,28 @@ struct LearningStartView: View {
                                                     .frame(width:78, height: 40)
                                                     .foregroundStyle(.lsButtonLightBlue)
                                             }
-                                            .padding(.horizontal)
-                                        
-                                        // 다음 페이지 버튼
-                                        Button(action: {
-                                            if currentPage < 1 {
-                                                currentPage += 1
+                                            .disabled(currentPage == 0)  // 첫 페이지에서는 비활성화
+                                            
+                                            // 페이지 인디케이터
+                                            Text("\(currentPage + 1) / 2")
+                                                .font(.system(size: 26))
+                                                .bold()
+                                                .background{
+                                                    RoundedRectangle(cornerRadius: 15)
+                                                        .frame(width:78)
+                                                        .foregroundStyle(.white)
+                                                }
+                                                .padding(.horizontal)
+                                            
+                                            // 다음 페이지 버튼
+                                            Button(action: {
+                                                if currentPage < 1 {
+                                                    currentPage += 1
+                                                }
+                                            }) {
+                                                Image(systemName: "arrow.right")
+                                                    .foregroundColor(currentPage == 1 ? .gray : .white)
+                                                    .padding()
                                             }
                                         }, label:{
                                             Circle()
@@ -96,6 +125,18 @@ struct LearningStartView: View {
                                         })
                                         .disabled(currentPage == 1)  // 마지막 페이지에서는 비활성화
                                     }
+                                    .frame(height: 340)
+                                    .padding(.horizontal, 20)
+                                } else {
+                                    // pronunciation 배열의 길이가 5 미만일 때 기존 방식으로 한 페이지에 표시
+                                    VStack {
+                                        highlightedText(textArray: quote.korean, indexOffset: 0)
+                                        highlightedText(textArray: quote.japanese, indexOffset: 0)
+                                            .padding(.vertical, 35)
+                                        highlightedText(textArray: quote.pronunciation, indexOffset: 0, isPronunciation: true)
+                                    }
+                                    .frame(height: 300)
+                                    .padding(.horizontal, 20)
                                 }
                                 .frame(height: 340)
                                 .padding(.horizontal, 20)
@@ -155,10 +196,6 @@ struct LearningStartView: View {
                 })
                 .disabled(beforeFirstPlaying || audioPlayerManager.isPlaying)
             }
-        }
-        .onReceive(audioPlayerManager.$currentTime) { currentTime in
-            let halfIndex = quote.pronunciation.count / 2
-            updatePageBasedOnCurrentTime(currentTime: currentTime, halfIndex: halfIndex)
         }
     }
     

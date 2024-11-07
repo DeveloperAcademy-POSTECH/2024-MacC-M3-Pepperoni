@@ -34,7 +34,6 @@
 		BDE03C502CCF2634000DACB8 /* PepperoniApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE03C4D2CCF2634000DACB8 /* PepperoniApp.swift */; };
 		BDE03C512CCF2634000DACB8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDE03C482CCF2634000DACB8 /* Preview Assets.xcassets */; };
 		BDF007312CD24DD500A386A1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF0072F2CD24DD500A386A1 /* Models.swift */; };
-		BDF007362CD24E2900A386A1 /* DataLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF007352CD24E2900A386A1 /* DataLoadingView.swift */; };
 		BDF007372CD24E2900A386A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF007342CD24E2900A386A1 /* ContentView.swift */; };
 		BDF007382CD24E2900A386A1 /* AnimeSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF007332CD24E2900A386A1 /* AnimeSearchView.swift */; };
 		BDF007392CD24E2900A386A1 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF007322CD24E2900A386A1 /* CharacterListView.swift */; };
@@ -79,7 +78,6 @@
 		BDF007322CD24E2900A386A1 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
 		BDF007332CD24E2900A386A1 /* AnimeSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeSearchView.swift; sourceTree = "<group>"; };
 		BDF007342CD24E2900A386A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		BDF007352CD24E2900A386A1 /* DataLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingView.swift; sourceTree = "<group>"; };
 		BDF0073A2CD24E3100A386A1 /* LearningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningView.swift; sourceTree = "<group>"; };
 		BDF0073B2CD24E3100A386A1 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		BDF0073F2CD24E4C00A386A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -165,7 +163,6 @@
 				BDF007332CD24E2900A386A1 /* AnimeSearchView.swift */,
 				BDF007322CD24E2900A386A1 /* CharacterListView.swift */,
 				BD7D58A62CD2679200EAD175 /* CharacterDetailView.swift */,
-				BDF007352CD24E2900A386A1 /* DataLoadingView.swift */,
 				BDF0073C2CD24E3100A386A1 /* Learning */,
 			);
 			path = View;
@@ -331,7 +328,6 @@
 				BD54BC3C2CD122A300366076 /* YouTubePlayerView.swift in Sources */,
 				BD8695212CD768CA00FDE710 /* ImagePickerView.swift in Sources */,
 				BDF007312CD24DD500A386A1 /* Models.swift in Sources */,
-				BDF007362CD24E2900A386A1 /* DataLoadingView.swift in Sources */,
 				BDF007492CD24E7100A386A1 /* JSONUtils.swift in Sources */,
 				BDF007372CD24E2900A386A1 /* ContentView.swift in Sources */,
 				51ECA4F82CD26C21001AB4E0 /* SpeechGrader.swift in Sources */,
@@ -517,7 +513,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Pepperoni/Preview Content\"";
-				DEVELOPMENT_TEAM = 5Z2TRCRXZZ;
+				DEVELOPMENT_TEAM = PK4L7H6D6F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pepperoni/Info.plist;
