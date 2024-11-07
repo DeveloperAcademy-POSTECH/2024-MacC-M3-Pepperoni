@@ -18,51 +18,48 @@ struct HomeView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 20) {
-                HStack (spacing: 12){
-                    Text("anisentence")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.gray1)
-                    
-                    Spacer()
-                    
-                    Button {
-                    } label: {
-                        Image("Namecard")
-                    }
-                    
-                    Button {
-                    } label: {
-                        Text(Image(systemName: "info.circle"))
-                            .font(.title2)
-                            .foregroundStyle(.gray)
-                    }
-                }
-                .frame(height: 70)
-                
-                VStack{
-                    SpeechBubbleRight()
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 39)
-                        .padding(.top, 32)
-                        .overlay{
-                            Text("우리 잠 언제 자?")
-                                .foregroundStyle(.blue1)
+            VStack(spacing: 12) {
+                // MARK: - 말풍선, 캐릭터 영역
+                ZStack {
+                    VStack(spacing: 13) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 65)
+                                .foregroundStyle(.white)
+                            
+                            Text("오늘은 어떤 대사를\n함께 따라 말해볼까요 ?")
+                                .foregroundStyle(Color(hex: "353535"))
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
                         }
-                    HStack{
-                        Spacer()
-                        Image("Roni")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width:103)
-                            .padding(.trailing, 36)
+                        .frame(height: 141)
                         
+                        RoundedRectangle(cornerRadius: 16)
+                            .frame(width: 40, height: 18)
+                            .padding(.trailing, 27)
+                            .foregroundStyle(Color(hex: "D9D9D9"))
+                        
+                        RoundedRectangle(cornerRadius: 16)
+                            .frame(width: 27, height: 12)
+                            .foregroundStyle(Color(hex: "949494"))
+                        
+                        Spacer()
                     }
                     
+                    VStack{
+                        Spacer()
+                        
+                        HStack{
+                            Spacer()
+                            
+                            Image("Roni")
+                        }
+                    }
                 }
-                .frame(maxWidth: .infinity, maxHeight: 291)
-                .background(Color.gray1)
+                .frame(maxWidth: .infinity)
+                .frame(height: 300)
+                .padding(.vertical, 26)
+                .padding(.horizontal, 31)
+                .background(Color(hex: "353535"))
                 .cornerRadius(20)
                 
                 Button {
@@ -70,20 +67,34 @@ struct HomeView: View {
                 } label: {
                     HStack{
                         Text(Image(systemName: "list.bullet"))
+                            .font(.title2)
+                            .fontWeight(.medium)
+                            .frame(width: 40, height: 40)
+                            .background(Color(hex: "2E2E2E"))
+                            .clipShape(.circle)
+                        
+                        Spacer()
                         
                         Text("애니 목록")
+                            .fontWeight(.medium)
+                        
+                        Spacer()
+                            .frame(width: 130)
                     }
                     .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .foregroundStyle(.skyBlue2)
                 }
                 .frame(maxWidth: .infinity, maxHeight: 60)
                 .foregroundStyle(.white)
                 .background(Color.darkGray)
                 .cornerRadius(16)
-            
+                
                 ZStack{
                     Rectangle()
                         .cornerRadius(16)
-                        .foregroundStyle(Color.skyBlue1)
+                        .foregroundStyle(Color(hex: "BAE2FF"))
                     
                     // 최애 캐릭터가 없을 때
                     if favoriteCharacters.isEmpty {
@@ -93,24 +104,25 @@ struct HomeView: View {
                             .padding(.top, 20)
                             .padding(.bottom, 46)
                         
-                        VStack(spacing: 10) {
+                        VStack(spacing: 8) {
                             Image(systemName: "person.slash.fill")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 40)
                                 .foregroundColor(.lightGray2)
+                                .padding(.bottom, 9)
                             
-                            Text("설정한 최애가 없습니다")
+                            Text("[최애]에게 하트를 눌러주세요")
                                 .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(.lightGray2)
                             
-                            Text("하트를 눌러 최애를 설정해 주세요")
-                                .font(.system(size: 14))
+                            Text("하트를 누르면 캐릭터 카드가 생성됩니다")
+                                .font(.system(size: 14, weight: .bold))
                                 .foregroundColor(.lightGray2)
                         }
-                        .padding()
+                        .padding(.bottom, 24)
                         
-                    //최애 캐릭터가 존재할 때
+                        //최애 캐릭터가 존재할 때
                     } else {
                         TabView{
                             ForEach(favoriteCharacters) { character in
@@ -118,55 +130,76 @@ struct HomeView: View {
                                 let completedQuotes = character.completedQuotes
                                 let ratio = totalQuotes > 0 ? CGFloat(completedQuotes) / CGFloat(totalQuotes) : 0
                                 
-                                ZStack{
+                                ZStack {
                                     RoundedRectangle(cornerRadius: 20)
                                         .foregroundStyle(Color.blueWhite)
                                     
-                                    HStack(spacing:26){
-                                        ZStack {
-                                            Rectangle()
-                                                .foregroundStyle(.lightGray2)
-                                                .frame(width: 131, height: 139)
-                                                .cornerRadius(12)
-                                            
-                                            Image(systemName: "person.fill")
-                                                .resizable()
-                                                .frame(width: 82, height: 87)
-                                                .foregroundStyle(.white)
-                                        }
-                                        
-                                        VStack{
-                                            RoundedRectangle(cornerRadius: 16)
-                                                .foregroundStyle(Color.lightGray1)
-                                                .frame(height:52)
-                                                .overlay{
-                                                    Text(character.anime?.title ?? "")
-                                                        .font(.system(size: 20, weight: .bold))
-                                                        .foregroundStyle(Color.darkGray)
+                                    VStack {
+                                        HStack {
+                                            // 캐릭터 default image
+                                            VStack{
+                                                ZStack {
+                                                    Rectangle()
+                                                        .foregroundStyle(Color(hex: "434343"))
+                                                        .frame(width: 136, height: 150)
+                                                        .cornerRadius(22)
+                                                    
+                                                    Image("DefaultCharacter")
                                                 }
+                                                Spacer()
+                                            }
                                             
-                                            Spacer()
-                                            
-                                            HStack{
-                                                Text(character.name)
-                                                    .foregroundStyle(Color.blue1)
-                                                    .font(.system(size: 20, weight: .bold))
+                                            VStack{
+                                                // 애니 이름 + 하트
+                                                HStack{
+                                                    RoundedRectangle(cornerRadius: 20)
+                                                        .foregroundStyle(.skyBlue2)
+                                                        .frame(width: 80, height:26)
+                                                        .overlay{
+                                                            Text(character.anime?.title ?? "")
+                                                                .font(.system(size: 14, weight: .medium))
+                                                                .foregroundStyle(.blue1)
+                                                        }
+                                                    
+                                                    Spacer()
+                                                    
+                                                    Image(systemName: "heart.fill")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 26)
+                                                        .foregroundColor(.blue1)
+                                                }
+                                                
+                                                Spacer()
+                                                    .frame(height: 28)
+                                                
+                                                HStack{
+                                                    Spacer()
+                                                    
+                                                    Text("캐릭터 달성률")
+                                                        .font(.system(size: 14))
+                                                    
+                                                }
                                                 
                                                 Spacer()
                                                 
-                                                Text("달성률")
-                                                    .foregroundStyle(Color.lightGray2)
-                                                    .font(.system(size: 14, weight: .bold))
+                                                CharacterRowInHome(character: character, ratio: ratio)
+                                                    .frame(height:20)
+                                                    .padding(.bottom, 12)
+                                                
+                                                HStack{
+                                                    Spacer()
+                                                    
+                                                    Text(character.name)
+                                                        .foregroundStyle(.pointBlue)
+                                                        .font(.system(size: 22, weight: .black))
+                                                }
                                             }
-                                            
-                                            CharacterRowInHome(character: character, ratio: ratio)
-                                                .frame(height:26)
-                                                .padding(.bottom, 12)
-                                            
+                                            .padding(20)
                                         }
+                                        
+                                        Spacer()
                                     }
-                                    .padding(.horizontal, 13)
-                                    .padding(.vertical, 14.5)
                                 }
                                 .frame(height: 179)
                                 .padding(.horizontal, 11.5)
@@ -179,9 +212,16 @@ struct HomeView: View {
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: 245)
+                .frame(maxWidth: .infinity, minHeight: 245)
             }
             .padding()
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Text("anisentence")
+                    .fontWeight(.bold)
+                    .foregroundStyle(.gray1)
+            }
         }
         .onAppear {
             if isFirstLaunch() {
@@ -224,30 +264,13 @@ struct CharacterRowInHome: View {
                     .cornerRadius(20)
                 
                 HStack {
-                    Text("\(character.completedQuotes) / \(character.quotes.count)")
                     Spacer()
+                    Text("\(character.completedQuotes) / \(character.quotes.count)")
                 }
                 .padding()
             }
             .frame(height: 26)
             .cornerRadius(20)
         }
-    }
-}
-
-struct SpeechBubbleRight: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        
-        // 말풍선 본체
-        path.addRoundedRect(in: CGRect(x: 0, y: 0, width: rect.width, height: rect.height * 0.93), cornerSize: CGSize(width: 16, height: 16))
-        
-        // 꼬리 부분
-        path.move(to: CGPoint(x: rect.width * 0.75, y: rect.height * 0.93))
-        path.addLine(to: CGPoint(x: rect.width * 0.8, y: rect.height))
-        path.addLine(to: CGPoint(x: rect.width * 0.85, y: rect.height * 0.93))
-        path.closeSubpath()
-        
-        return path
     }
 }
