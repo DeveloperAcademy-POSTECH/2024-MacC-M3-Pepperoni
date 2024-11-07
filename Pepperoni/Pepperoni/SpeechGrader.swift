@@ -117,13 +117,13 @@ func calculateIntonation(referenceFileName: String, comparisonFileURL: URL) -> D
     let score: Double
     switch similarity {
     case 0.60...1.0: // 60% ~ 70%를 95점 ~ 100점으로
-        score = Int(95 + (similarity - 0.60) / 0.10 * 5)
+        score = Double(95 + (similarity - 0.60) / 0.10 * 5)
     case 0.50..<0.60: // 50% ~ 60%를 80점 ~ 95점으로
-        score = Int(80 + (similarity - 0.50) / 0.10 * 15)
+        score = Double(80 + (similarity - 0.50) / 0.10 * 15)
     case 0.40..<0.50: // 40% ~ 50%를 40점 ~ 80점으로
-        score = Int(40 + (similarity - 0.40) / 0.10 * 40)
+        score = Double(40 + (similarity - 0.40) / 0.10 * 40)
     case 0.0..<0.40: // 0% ~ 40%를 0점 ~ 40점으로
-        score = Int(similarity / 0.40 * 40)
+        score = Double(similarity / 0.40 * 40)
     default:
         score = 0
     }
