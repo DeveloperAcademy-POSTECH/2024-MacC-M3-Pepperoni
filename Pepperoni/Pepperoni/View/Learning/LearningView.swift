@@ -211,7 +211,6 @@ struct LearningView: View {
             }
         }
     }
-
     
     // 0에서 증가하는 타이머 시작 함수
     private func startTimer() {
