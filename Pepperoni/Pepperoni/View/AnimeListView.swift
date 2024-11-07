@@ -18,7 +18,7 @@ struct AnimeListView: View {
     
     // top: 일단 첫번째 애니메이션으로 설정
     private var topAnime: Anime {
-        return allAnimes.first ?? Anime(title: " ")
+        return allAnimes.first ?? Anime(title: " ", genre: " ")
       }
     
     @State private var text = ""
