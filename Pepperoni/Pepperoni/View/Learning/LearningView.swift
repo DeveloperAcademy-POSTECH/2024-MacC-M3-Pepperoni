@@ -22,6 +22,9 @@ struct LearningView: View {
     
     @StateObject private var sttManager = STTManager()
     
+    @State private var navigateToResult = false
+    @Binding var showLearningContent: Bool
+    
     // 점수 측정 시 초기화를 위한 변수
     // TODO: MVVM의 필요성을 느낍니다
 //    @State private var tempPronunciationScore: Double = 0.0
@@ -140,7 +143,7 @@ struct LearningView: View {
                         print("디벅 속도 점수: \(quote.evaluation.speedScore)")
                         print("결과뷰로")
                         
-                        Router.shared.navigate(to: .result(quote: quote))
+                        navigateToResult = true
                     }
                     
                 }, label:{
@@ -155,7 +158,6 @@ struct LearningView: View {
                 })
                 .padding(.top, 90)
                 Spacer()
-                
             }
             
             if isCounting {
@@ -178,6 +180,18 @@ struct LearningView: View {
         .onChange(of: isCounting) {
             if isCounting == false {
                 startTimer()
+            }
+        }
+        .navigationDestination(isPresented: $navigateToResult) {
+            ResultView(quote: quote, showLearningContent: $showLearningContent)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("나가기") {
+                    showLearningContent = false  // 학습 과정 종료
+                }
+                .foregroundStyle(.red)
             }
         }
     }

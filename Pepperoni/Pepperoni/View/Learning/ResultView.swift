@@ -14,6 +14,10 @@ struct ResultView: View {
     @State private var isStarAnimated: Bool = false // Star 애니메이션 완료 여부
     @State private var showCongratulation: Bool = false // 축하 메시지
     
+    @State private var navigateToLearningStart = false
+    @State private var navigateToLearning = false
+    @Binding var showLearningContent: Bool
+    
     private var totalScore: Int {
         Int(quote.evaluation.pronunciationScore + quote.evaluation.intonationScore + quote.evaluation.speedScore)
     }
@@ -72,10 +76,8 @@ struct ResultView: View {
                     //TODO: Router에 하나씩 뷰를 쌓아주는 방식은 비효율적인 방식으로 보임, Router 혹은 방식 개선 필요
                     HStack(alignment: .center) {
                         Button(action: {
-                            // .learningStart로
-                            Router.shared.navPath = NavigationPath()
-                            Router.shared.navigate(to: .characterDetail(character: quote.character!))
-                            Router.shared.navigate(to: .learningStart(quote: quote))
+                            // LearningStart로
+                            navigateToLearningStart = true
                         }) {
                             ZStack {
                                 Rectangle()
@@ -91,11 +93,7 @@ struct ResultView: View {
                         
                         Button(action: {
                             // .learning으로
-                            print("뱅글뱅글 누름")
-                            Router.shared.navPath = NavigationPath()
-                            Router.shared.navigate(to: .characterDetail(character: quote.character!))
-                            Router.shared.navigate(to: .learningStart(quote: quote))
-                            Router.shared.navigate(to: .learning(quote: quote))
+                            navigateToLearning = true
                         } ) {
                             Image(systemName: "arrow.counterclockwise.circle.fill")
                                 .symbolRenderingMode(.palette)
@@ -123,18 +121,21 @@ struct ResultView: View {
                 }
             }
         }
+        .navigationDestination(isPresented: $navigateToLearningStart) {
+            LearningStartView(quote: quote, showLearningContent: $showLearningContent)
+        }
+        .navigationDestination(isPresented: $navigateToLearning) {
+            LearningView(quote: quote, showLearningContent: $showLearningContent)
+        }
+        .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    Router.shared.navigateToRoot()
-                }) {
-                    Image(systemName: "xmark")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.gray1)
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("나가기") {
+                    showLearningContent = false  // 학습 과정 종료
                 }
+                .foregroundStyle(.red)
             }
         }
-        .navigationBarBackButtonHidden()
     }
 }
 
@@ -158,7 +159,7 @@ struct ResultView: View {
         youtubeID: "6gQGHGpoBm4",
         youtubeStartTime: 120,
         youtubeEndTime: 140
-    ))
+    ), showLearningContent: .constant(true))
 }
 
 // MARK: - 민무늬 스타뷰
