@@ -35,7 +35,7 @@ struct AnimeListView: View {
     // 선택된 장르를 저장할 상태 변수
     @State private var selectedGenre: String? = "전체"
     // 장르 배열
-    let genres = ["전체", "판타지/액션", "일상", "추리/스릴러", "이세계/판타지", "스포츠", "드라마", "액션/SF", "로맨스"]
+    let genres = ["전체", "일상", "판타지/액션", "추리/스릴러", "이세계/판타지", "스포츠", "드라마", "액션/SF", "로맨스"]
 
     var body: some View {
         
