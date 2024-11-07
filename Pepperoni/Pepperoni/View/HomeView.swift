@@ -165,12 +165,35 @@ struct HomeView: View {
                                             // 캐릭터 default image
                                             VStack{
                                                 ZStack {
-                                                    Rectangle()
-                                                        .foregroundStyle(Color(hex: "434343"))
-                                                        .frame(width: 136, height: 150)
-                                                        .cornerRadius(22)
+//                                                    Rectangle()
+//                                                        .foregroundStyle(Color(hex: "434343"))
+//                                                        .frame(width: 136, height: 150)
+//                                                        .cornerRadius(22)
                                                     
-                                                    Image("DefaultCharacter")
+                                                    if let selectedImage = character.image, let image = UIImage(data: selectedImage) {
+                                                        Image(uiImage: image)
+                                                            .resizable()
+                                                            .scaledToFill()
+                                                            .frame(width: 134, height: 139)
+                                                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                                                            .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white, lineWidth: 3))
+                                                    } else {
+                                                        ZStack{
+                                                            // 기본 이미지
+                                                            RoundedRectangle(cornerRadius: 16)
+                                                                .foregroundStyle(.darkGray)
+                                                                .frame(width: 134, height: 139)
+                                                                .overlay(
+                                                                    RoundedRectangle(cornerRadius: 16)
+                                                                        .stroke(Color.white, lineWidth: 3)
+                                                                )
+                                                            
+                                                            Image("DefaultCharacter")
+                                                                .resizable()
+                                                                .frame(width: 82, height: 87)
+                                                                .foregroundStyle(.blueWhite)
+                                                        }
+                                                    }
                                                 }
                                                 Spacer()
                                             }
