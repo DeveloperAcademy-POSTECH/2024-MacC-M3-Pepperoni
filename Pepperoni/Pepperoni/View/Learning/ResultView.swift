@@ -212,7 +212,7 @@ struct ScoreBar: View {
             ZStack(alignment: .bottom) {
                 RoundedRectangle(cornerRadius: 16)
                     .foregroundStyle(.white)
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 12)
                     .frame(width: 56, height: 272 * animatedScore / 100)
                     .foregroundStyle(score == 100.0 ? .blue1 : .lightGray2)
                     .padding(.bottom, 4)

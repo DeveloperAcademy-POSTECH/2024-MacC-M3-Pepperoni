@@ -178,6 +178,7 @@ struct LearningStartView: View {
                                     )
                             )
                     )
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
