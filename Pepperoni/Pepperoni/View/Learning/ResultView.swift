@@ -18,8 +18,12 @@ struct ResultView: View {
     @State private var navigateToLearning = false
     @Binding var showLearningContent: Bool
     
+    let temporaryPronunciationScore: Double
+    let temporarySpeedScore: Double
+    let temporaryIntonationScore: Double
+    
     private var totalScore: Int {
-        Int(quote.evaluation.pronunciationScore + quote.evaluation.intonationScore + quote.evaluation.speedScore)
+        Int(temporaryPronunciationScore + temporarySpeedScore + temporaryIntonationScore)
     }
     
     private var totalPass: Bool {
@@ -89,10 +93,10 @@ struct ResultView: View {
                     VStack {
                         //MARK: - 별 3개
                         HStack(spacing: -50) {
-                            StarView(isPassed: quote.evaluation.pronunciationPass, size: 128.68, rotate: -7)
-                            StarView(isPassed: quote.evaluation.intonationPass, size: 150, rotate: 0)
+                            StarView(isPassed: temporaryPronunciationScore >= 80, size: 128.68, rotate: -7)
+                            StarView(isPassed: temporaryIntonationScore >= 80, size: 150, rotate: 0)
                                 .offset(y: -30)
-                            StarView(isPassed: quote.evaluation.speedPass, size: 126, rotate: 7)
+                            StarView(isPassed: temporarySpeedScore >= 80, size: 126, rotate: 7)
                         }
                         .padding(.top)
                         .padding(.bottom, -30)
@@ -104,9 +108,9 @@ struct ResultView: View {
                         
                         //MARK: - 막대바 및 점수
                         HStack(spacing: 12) {
-                            ScoreBar(title: "발음", score: quote.evaluation.pronunciationScore)
-                            ScoreBar(title: "높낮이", score: quote.evaluation.intonationScore)
-                            ScoreBar(title: "스피드", score: quote.evaluation.speedScore)
+                            ScoreBar(title: "발음", score: temporaryPronunciationScore)
+                            ScoreBar(title: "높낮이", score: temporaryIntonationScore)
+                            ScoreBar(title: "스피드", score: temporarySpeedScore)
                         }
                         Spacer()
                     }
@@ -152,37 +156,6 @@ struct ResultView: View {
         }
     }
 }
-
-// MARK: - 민무늬 스타뷰
-// 추가적인 애니메이션 배제할 시에는 해당 코드로 다시 진행함.
-//struct StarView: View {
-//    
-//    @State private var filled: Bool = false // 애니메이션용 상태 변수
-//    
-//    var isPassed: Bool
-//    var size: CGFloat
-//    
-//    var body: some View {
-//        Image("Star.empty")
-//            .resizable()
-//            .scaledToFit()
-//            .frame(width: size, height: size)
-//            .overlay(
-//                Image("Star.fill")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: size, height: size)
-//                    .opacity(filled && isPassed ? 1 : 0) // 초기에는 투명, 이후 애니메이션으로 채워짐
-//            )
-//            .onAppear {
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // ScoreBar 애니메이션 이후 지연
-//                    withAnimation(.easeIn(duration: 0.5)) {
-//                        filled = true // 애니메이션이 시작되며 Star.fill이 채워짐
-//                    }
-//                }
-//            }
-//    }
-//}
 
 // MARK: - 커졌다가 빛나기
 struct StarView: View {
