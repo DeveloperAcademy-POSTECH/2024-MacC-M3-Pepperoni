@@ -25,6 +25,10 @@ struct LearningView: View {
     @State private var navigateToResult = false
     @Binding var showLearningContent: Bool
     
+    @State private var temporaryPronunciationScore: Double = 0.0
+    @State private var temporarySpeedScore: Double = 0.0
+    @State private var temporaryIntonationScore: Double = 0.0
+    
     // 점수 측정 시 초기화를 위한 변수
     // TODO: MVVM의 필요성을 느낍니다
 //    @State private var tempPronunciationScore: Double = 0.0
@@ -183,7 +187,7 @@ struct LearningView: View {
             }
         }
         .navigationDestination(isPresented: $navigateToResult) {
-            ResultView(quote: quote, showLearningContent: $showLearningContent)
+            ResultView(quote: quote, showLearningContent: $showLearningContent, temporaryPronunciationScore: temporaryPronunciationScore, temporarySpeedScore: temporarySpeedScore, temporaryIntonationScore: temporaryIntonationScore)
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -248,34 +252,38 @@ struct LearningView: View {
     private func grading() {
         // 발음과 속도를 채점합니다.
         print("채점시작) 사용자 일본어: \(sttManager.recognizedText)")
-        quote.evaluation.pronunciationScore = calculatePronunciation(original: quote.japanese, sttText: sttManager.recognizedText)
-        //TODO: 억양 채점 여기에 넣어주세요!
+        
+        self.temporaryPronunciationScore = calculatePronunciation(original: quote.japanese, sttText: sttManager.recognizedText)
+        if quote.evaluation.pronunciationScore < self.temporaryPronunciationScore {
+            quote.evaluation.pronunciationScore = self.temporaryPronunciationScore
+            if quote.evaluation.pronunciationPass == false{
+                quote.evaluation.pronunciationPass = quote.evaluation.pronunciationScore >= 80
+            }
+        }
+        
+        self.temporaryIntonationScore = calculateIntonation(referenceFileName: quote.audiofile, comparisonFileURL: sttManager.getFileURL())
+        if quote.evaluation.intonationScore < self.temporaryIntonationScore {
+            quote.evaluation.intonationScore = self.temporaryIntonationScore
+            if quote.evaluation.intonationPass == false {
+                quote.evaluation.intonationPass = quote.evaluation.intonationScore >= 80
+            }
+        }
+        
         if let sttVoicingTime = sttManager.voicingTime {
-            quote.evaluation.speedScore = calculateVoiceSpeed(originalLength: quote.voicingTime, sttVoicingTime: sttVoicingTime)
+            self.temporarySpeedScore = calculateVoiceSpeed(originalLength: quote.voicingTime, sttVoicingTime: sttVoicingTime)
+            if quote.evaluation.speedScore < self.temporarySpeedScore{
+                quote.evaluation.speedScore = self.temporarySpeedScore
+                if quote.evaluation.speedPass == false {
+                    quote.evaluation.speedPass = quote.evaluation.speedScore >= 80
+                }
+            }
             print("사용자 STT 음성 속도: \(sttVoicingTime)")
         } else {
             print("Error: sttManager.voicingTime is nil.")
-            quote.evaluation.speedScore = 0.0
         }
         
-        quote.evaluation.intonationScore = calculateIntonation(referenceFileName: quote.audiofile, comparisonFileURL: sttManager.getFileURL())
-        
-        print("원본 일본어: \(quote.japanese)")
-        print("원본 속도: \(quote.voicingTime)")
-        
-        print("현재 발음 점수: \(quote.evaluation.pronunciationScore)")
-        print("현재 속도 점수: \(quote.evaluation.speedScore)")
-        
-        // 80점이 넘으면 pass
-        // TODO: 억양 채점이 추가되면 pass 조건 로직 수정 필요
-        quote.evaluation.pronunciationPass = quote.evaluation.pronunciationScore >= 80
-        quote.evaluation.speedPass = quote.evaluation.speedScore >= 80
-        quote.evaluation.intonationPass = quote.evaluation.intonationScore >= 80
-        
-        // 임시로 발음, 속도가 모두 80점이 넘었다면 높낮이도 pass
         //TODO: 별 3개 채웠는데 다시 시도 했을때 0점이면 억양의 별은 채워져 있음 억양추가시 수정 필요
         if quote.evaluation.pronunciationPass && quote.evaluation.speedPass && quote.evaluation.intonationPass {
-            
             // 대사가 이미 별 3개를 달성한 상태가 아니라면
             if !quote.isCompleted {
                 // 별 3개 달성 표시 및 캐릭터의 completedQuotes 증가
