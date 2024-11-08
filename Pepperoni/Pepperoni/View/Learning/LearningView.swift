@@ -11,8 +11,6 @@ struct LearningView: View {
     
     let quote: AnimeQuote
     
-//    var dummieQuote: AnimeQuote = AnimeQuote(japanese: ["天上天下", "唯我独尊"], pronunciation: ["텐조오텐게", "유이가도쿠손"], korean: ["천상천하", "유아독존"], evaluation: Evaluation(pronunciationScore: 0.0, pronunciationPass: false, intonationScore: 0.0, intonationPass: false, speedScore: 0.0, speedPass: false), timemark: [0.01, 1.6], voicingTime: 1.9, audiofile: "JUJ005.m4a", youtubeID: "cJVeIwP_HoQ", youtubeStartTime: 90, youtubeEndTime: 115)
-    
     @State var isCounting: Bool = true
     @State var countdown = 3 // 초기 카운트 설정
     
@@ -29,14 +27,6 @@ struct LearningView: View {
     @State private var temporarySpeedScore: Double = 0.0
     @State private var temporaryIntonationScore: Double = 0.0
     
-    // 점수 측정 시 초기화를 위한 변수
-    // TODO: MVVM의 필요성을 느낍니다
-//    @State private var tempPronunciationScore: Double = 0.0
-//    @State private var tempSpeedScore: Double = 0.0
-//    @State private var tempPronunciationPass: Bool = false
-//    @State private var tempSpeedPass: Bool = false
-//    @State private var tempIntonationPass: Bool = false
-    
     var body: some View {
         ZStack {
             VStack {
@@ -50,6 +40,8 @@ struct LearningView: View {
                 }
                 .padding(.bottom, 48)
                 
+                Spacer()
+                
                 if quote.japanese.count >= 5 {
                     let halfIndex = quote.japanese.count / 2
                     
@@ -58,55 +50,49 @@ struct LearningView: View {
                         HStack {
                             ForEach(0..<halfIndex, id: \.self) { index in
                                 VStack(spacing:13) {
-                                    Text(quote.korean[index])
-                                        .font(.system(size:18))
-                                    Text(quote.japanese[index])
-                                        .font(.system(size:18))
                                     Text(quote.pronunciation[index])
-                                        .font(.system(size:14))
+                                        .font(.subheadline)
+                                        .foregroundColor(.pointBlue)
+                                    Text(quote.japanese[index])
+                                        .font(.headline)
+                                        .foregroundColor(.black)
+                                    Text(quote.korean[index])
+                                        .font(.subheadline)
+                                        .foregroundColor(.lightGray2)
                                 }
                                 .bold()
                                 .padding(5)
-//                                .background{
-//                                    ZStack{
-//                                        RoundedRectangle(cornerRadius: 10)
-//                                            .stroke(isHighlighted(wordIndex: index, timeByWord: timeByWord) ? Color.red : Color.clear, lineWidth: 2.0)
-//                                    }
-//                                }
                                 Divider().frame(height: 80)
                             }
                         }
                         .padding()
                         .background{
                             RoundedRectangle(cornerRadius: 15)
-                                .foregroundStyle(.ppBlue)
+                                .foregroundStyle(Color.skyBlue1)
                         }
                         
                         HStack {
                             ForEach(halfIndex..<quote.japanese.count, id: \.self) { index in
                                 VStack(spacing:13) {
-                                    Text(quote.korean[index])
-                                        .font(.system(size:18))
-                                    Text(quote.japanese[index])
-                                        .font(.system(size:18))
                                     Text(quote.pronunciation[index])
-                                        .font(.system(size:14))
+                                        .font(.subheadline)
+                                        .foregroundColor(.pointBlue)
+                                    Text(quote.japanese[index])
+                                        .font(.headline)
+                                        .foregroundColor(.black)
+                                    Text(quote.korean[index])
+                                        .font(.subheadline)
+                                        .foregroundColor(.lightGray2)
                                 }
                                 .bold()
                                 .padding(5)
-//                                .background{
-//                                    ZStack{
-//                                        RoundedRectangle(cornerRadius: 10)
-//                                            .stroke(isHighlighted(wordIndex: index, timeByWord: timeByWord) ? Color.red : Color.clear, lineWidth: 2.0)
-//                                    }
-//                                }
                                 Divider().frame(height: 80)
                             }
                         }
                         .padding()
                         .background{
                             RoundedRectangle(cornerRadius: 15)
-                                .foregroundStyle(.ppBlue)
+                                .foregroundStyle(Color.skyBlue1)
                         }
                     }
                     
@@ -115,52 +101,60 @@ struct LearningView: View {
                     HStack {
                         ForEach(quote.japanese.indices, id: \.self) { index in
                             VStack {
+                                Text(quote.pronunciation[index])
+                                    .font(.subheadline)
+                                    .foregroundColor(.pointBlue)
                                 Text(quote.japanese[index])
                                     .font(.headline)
                                     .foregroundColor(.black)
                                 Text(quote.korean[index])
                                     .font(.subheadline)
-                                    .foregroundColor(.gray)
-                                Text(quote.pronunciation[index])
-                                    .font(.subheadline)
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(.lightGray2)
                             }
-                            .padding(5)
-//                            .background{
-//                                ZStack{
-//                                    RoundedRectangle(cornerRadius: 10)
-//                                        .stroke(isHighlighted(wordIndex: index, timeByWord: timeByWord) ? Color.red : Color.clear, lineWidth: 2.0)
-//                                }
-//                            }
                             Divider().frame(height: 30)
                         }
                     }
+                    .padding()
+                    .background{
+                        RoundedRectangle(cornerRadius: 15)
+                            .foregroundStyle(Color.skyBlue1)
+                    }
+                }
+                Spacer()
+                VStack{
+                    Button(action:{
+                        Task {
+                            await sttManager.stopRecording()  // stopRecoding() 동기 처리
+                            stopTimer()
+                            grading()
+                            
+                            print("디벅 발음 점수: \(quote.evaluation.pronunciationScore)")
+                            print("디벅 속도 점수: \(quote.evaluation.speedScore)")
+                            print("결과뷰로")
+                            
+                            navigateToResult = true
+                        }
+                    }, label:{
+                        Circle()
+                            .fill(Color.pointBlue) // 내부 색상
+                            .frame(width: 100, height: 100) // Circle의 크기 지정
+                            .overlay(
+                                Circle().stroke(Color(hex:"9EFFFD"), lineWidth: 3) // 외곽선
+                                    .overlay{
+                                        Text("STOP")
+                                            .foregroundStyle(Color.skyBlue1)
+                                            .bold()
+                                    }
+                            )
+                    })
+                    .padding(.top, 90)
+                    
+                    Text("음성 인식중 ...")
+                        .foregroundStyle(Color(hex:"9EFFFD"))
+                        .bold()
+                        .padding(.top, 12)
                 }
                 
-                Button(action:{
-                    Task {
-                        await sttManager.stopRecording()  // stopRecoding() 동기 처리
-                        stopTimer()
-                        grading()
-                        
-                        print("디벅 발음 점수: \(quote.evaluation.pronunciationScore)")
-                        print("디벅 속도 점수: \(quote.evaluation.speedScore)")
-                        print("결과뷰로")
-                        
-                        navigateToResult = true
-                    }
-                    
-                }, label:{
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 220, height:60)
-                        .foregroundStyle(.pointBlue)
-                        .overlay {
-                            Text("완료")
-                                .foregroundStyle(.white)
-                                .bold()
-                        }
-                })
-                .padding(.top, 90)
                 Spacer()
             }
             
@@ -171,7 +165,7 @@ struct LearningView: View {
                 Text(countdown > 0 ? "\(countdown)" : "Start!")
                     .font(.system(size: 100, weight: .bold))
                     .foregroundColor(.white)
-
+                
             }
         }
         .onAppear {
@@ -220,7 +214,7 @@ struct LearningView: View {
             }
         }
     }
-
+    
     
     // 0에서 증가하는 타이머 시작 함수
     private func startTimer() {
