@@ -104,11 +104,28 @@ struct CharacterRow: View {
                 
                 HStack {
                     if let imageData = character.image, let uiImage = UIImage(data: imageData) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 40, height: 40)
-                            .clipShape(Circle())
+                        ZStack{
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 40, height: 40)
+                                .clipShape(Circle())
+                                .overlay{
+                                    if character.favorite{
+                                        ZStack{
+                                            Image(systemName: "heart.fill")
+                                                .resizable()
+                                                .frame(width:18, height:17)
+                                                .foregroundStyle(.blue1)
+                                            Image(systemName: "heart.fill")
+                                                .resizable()
+                                                .frame(width:16, height:15)
+                                                .foregroundStyle(.pointBlue)
+                                        }
+                                        .offset(x:-14, y:-14)
+                                    }
+                                }
+                        }
                     } else {
                         ZStack{
                             Circle()
