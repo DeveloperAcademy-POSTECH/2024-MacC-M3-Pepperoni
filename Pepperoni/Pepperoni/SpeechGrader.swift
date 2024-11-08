@@ -116,17 +116,18 @@ func calculateIntonation(referenceFileName: String, comparisonFileURL: URL) -> D
     // 점수화
     let score: Double
     switch similarity {
-    case 0.60...1.0: // 60% ~ 70%를 95점 ~ 100점으로
-        score = Double(95 + (similarity - 0.60) / 0.10 * 5)
-    case 0.50..<0.60: // 50% ~ 60%를 80점 ~ 95점으로
-        score = Double(80 + (similarity - 0.50) / 0.10 * 15)
-    case 0.40..<0.50: // 40% ~ 50%를 40점 ~ 80점으로
-        score = Double(40 + (similarity - 0.40) / 0.10 * 40)
-    case 0.0..<0.40: // 0% ~ 40%를 0점 ~ 40점으로
-        score = Double(similarity / 0.40 * 40)
+    case 0.55...1.0: // 55% ~ 70%를 90점 ~ 100점으로
+        score = Double(90 + (similarity - 0.55) / 0.15 * 10)
+    case 0.45..<0.55: // 45% ~ 55%를 75점 ~ 90점으로
+        score = Double(75 + (similarity - 0.45) / 0.10 * 15)
+    case 0.30..<0.45: // 30% ~ 45%를 50점 ~ 75점으로
+        score = Double(50 + (similarity - 0.30) / 0.15 * 25)
+    case 0.0..<0.30: // 0% ~ 30%를 0점 ~ 50점으로
+        score = Double(similarity / 0.30 * 50)
     default:
         score = 0
     }
+    
     
     return min(100.0, score) // 점수는 최대 100으로 제한
 }
@@ -156,7 +157,7 @@ func extractPitchData(from fileURL: URL) -> [CGFloat]? {
 func calculateRelativePitch(buffer: AVAudioPCMBuffer) -> [CGFloat] {
     let frameLength = buffer.frameLength
     guard let channelData = buffer.floatChannelData else { return [] }
-
+    
     var pitchData: [CGFloat] = []
     let frameDuration: Double = 0.05
     let sampleRate = buffer.format.sampleRate
