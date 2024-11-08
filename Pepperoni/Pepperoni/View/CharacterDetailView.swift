@@ -232,6 +232,9 @@ struct CharacterDetailView: View {
                 LearningStartView(quote: sortedQuotes[selectedIndex], showLearningContent: $showLearningContent)
             }
         }
+        .onChange(of: selectedIndex) {
+            // selectedIndex의 변화를 더 잘 감지하기 위해 넣음
+        }
     }
     
     /// 별, 총점수 계산 함수
